@@ -24,3 +24,21 @@ body {
 	background: var(--background);
 	color: var(--foreground);
 }
+
+.grid-lines {
+	--s: 80px; /* control the size of the grid */
+	--n: 4; /* control the granularity */
+	--t: 2px; /* the thickness */
+	--g: 12px; /* the gap between dashes */
+
+	/* --c: #556270 25%, #0000 0; */
+	--c: #6a74807b 25%, #0000 0;
+	background:
+		conic-gradient(at var(--g) var(--t), var(--c)) calc((var(--s) / var(--n) - var(--g) + var(--t)) / 2) 0 /
+			calc(var(--s) / var(--n)) var(--s),
+		conic-gradient(from 180deg at var(--t) var(--g), var(--c)) 0 calc((var(--s) / var(--n) - var(--g) + var(--t)) / 2) /
+			var(--s) calc(var(--s) / var(--n));
+
+	width: calc(round(down, 100%, var(--s)) + var(--t));
+	height: calc(4 * var(--s) + var(--t));
+}

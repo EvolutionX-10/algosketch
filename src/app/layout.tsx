@@ -31,7 +31,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<html lang="en">
-			<body className={`${heading.variable} ${body.variable} ${fancy.variable} font-body antialiased`}>{children}</body>
+			<body className={`${heading.variable} ${body.variable} ${fancy.variable} font-body antialiased`}>
+				<main className="grid-lines flex min-h-screen flex-col items-center justify-center p-24">{children}</main>
+			</body>
 		</html>
 	);
 }
