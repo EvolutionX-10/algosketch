@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Patrick_Hand_SC, Short_Stack, Gloria_Hallelujah } from "next/font/google";
 import "./globals.css";
+import Hydrate from "@/components/hydrate";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const heading = Patrick_Hand_SC({
 	subsets: ["latin"],
@@ -46,7 +48,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 	return (
 		<html lang="en">
 			<body className={`${heading.variable} ${body.variable} ${fancy.variable} font-body antialiased`}>
-				<main className="grid-lines flex min-h-screen flex-col items-center justify-center p-24">{children}</main>
+				<Hydrate>
+					<ThemeProvider attribute={"class"} defaultTheme={"system"} enableSystem>
+						<main className="grid-lines flex min-h-screen flex-col items-center justify-center">{children}</main>
+					</ThemeProvider>
+				</Hydrate>
 			</body>
 		</html>
 	);
