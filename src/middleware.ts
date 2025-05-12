@@ -27,12 +27,12 @@ export function middleware(request: NextRequest) {
 
 	const isAdmin = request.cookies.get("admin")?.value === "true";
 
-	if (request.nextUrl.pathname === "/") {
+	if (request.nextUrl.pathname === "/soon") {
 		return NextResponse.next();
 	}
 
 	if (!isAdmin) {
-		return NextResponse.redirect(new URL("/", request.url));
+		return NextResponse.redirect(new URL("/soon", request.url));
 	}
 
 	return NextResponse.next();
