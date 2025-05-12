@@ -43,7 +43,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			</SidebarHeader>
 			<SidebarContent className="gap-0">
 				{navData.map((root) => (
-					<Collapsible key={root.title} title={root.title} className="group/collapsible">
+					<Collapsible key={root.title} title={root.title} defaultOpen className="group/collapsible">
 						<SidebarGroup>
 							<SidebarGroupLabel
 								asChild
