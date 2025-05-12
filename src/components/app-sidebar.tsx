@@ -1,8 +1,5 @@
 import * as React from "react";
 import { ChevronRight } from "lucide-react";
-
-import { SearchForm } from "@/components/search-form";
-import { VersionSwitcher } from "@/components/version-switcher";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import {
 	Sidebar,
@@ -16,160 +13,43 @@ import {
 	SidebarMenuItem,
 	SidebarRail,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
+import ThemedImage from "./themed-image";
 
-// This is sample data.
-const data = {
-	versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
-	navMain: [
-		{
-			title: "Getting Started",
-			url: "#",
-			items: [
-				{
-					title: "Installation",
-					url: "#",
-				},
-				{
-					title: "Project Structure",
-					url: "#",
-				},
-			],
-		},
-		{
-			title: "Building Your Application",
-			url: "#",
-			items: [
-				{
-					title: "Routing",
-					url: "#",
-				},
-				{
-					title: "Data Fetching",
-					url: "#",
-					isActive: true,
-				},
-				{
-					title: "Rendering",
-					url: "#",
-				},
-				{
-					title: "Caching",
-					url: "#",
-				},
-				{
-					title: "Styling",
-					url: "#",
-				},
-				{
-					title: "Optimizing",
-					url: "#",
-				},
-				{
-					title: "Configuring",
-					url: "#",
-				},
-				{
-					title: "Testing",
-					url: "#",
-				},
-				{
-					title: "Authentication",
-					url: "#",
-				},
-				{
-					title: "Deploying",
-					url: "#",
-				},
-				{
-					title: "Upgrading",
-					url: "#",
-				},
-				{
-					title: "Examples",
-					url: "#",
-				},
-			],
-		},
-		{
-			title: "API Reference",
-			url: "#",
-			items: [
-				{
-					title: "Components",
-					url: "#",
-				},
-				{
-					title: "File Conventions",
-					url: "#",
-				},
-				{
-					title: "Functions",
-					url: "#",
-				},
-				{
-					title: "next.config.js Options",
-					url: "#",
-				},
-				{
-					title: "CLI",
-					url: "#",
-				},
-				{
-					title: "Edge Runtime",
-					url: "#",
-				},
-			],
-		},
-		{
-			title: "Architecture",
-			url: "#",
-			items: [
-				{
-					title: "Accessibility",
-					url: "#",
-				},
-				{
-					title: "Fast Refresh",
-					url: "#",
-				},
-				{
-					title: "Next.js Compiler",
-					url: "#",
-				},
-				{
-					title: "Supported Browsers",
-					url: "#",
-				},
-				{
-					title: "Turbopack",
-					url: "#",
-				},
-			],
-		},
-		{
-			title: "Community",
-			url: "#",
-			items: [
-				{
-					title: "Contribution Guide",
-					url: "#",
-				},
-			],
-		},
-	],
-};
+const navData = [
+	{
+		title: "Sorting Algorithms",
+		url: "/sorting",
+		items: [
+			{
+				title: "Bubble Sort",
+				url: "/sorting/bubble",
+			},
+			{
+				title: "Selection Sort",
+				url: "#",
+			},
+		],
+	},
+] as NavItem[];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	return (
 		<Sidebar {...props}>
-			<SidebarHeader>
-				<VersionSwitcher versions={data.versions} defaultVersion={data.versions[0]} />
-				<SearchForm />
+			<SidebarHeader className="font-heading flex flex-row items-center gap-0 text-2xl">
+				<ThemedImage
+					srcLight="/images/icon-light.png"
+					srcDark="/images/icon-dark.png"
+					alt="AlgoSketch Logo"
+					width={64}
+					height={64}
+					className="h-6 w-6"
+				/>
+				<span className="ml-0.5 tracking-wide">lgoSketch</span>
 			</SidebarHeader>
 			<SidebarContent className="gap-0">
-				{/* We create a collapsible SidebarGroup for each parent. */}
-				{data.navMain.map((item) => (
-					<Collapsible key={item.title} title={item.title} defaultOpen className="group/collapsible">
+				{navData.map((item) => (
+					<Collapsible key={item.title} title={item.title} className="group/collapsible">
 						<SidebarGroup>
 							<SidebarGroupLabel
 								asChild
@@ -183,13 +63,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 							<CollapsibleContent>
 								<SidebarGroupContent>
 									<SidebarMenu>
-										{item.items.map((item) => (
-											<SidebarMenuItem key={item.title}>
-												<SidebarMenuButton asChild isActive={item.isActive}>
-													<a href={item.url}>{item.title}</a>
-												</SidebarMenuButton>
-											</SidebarMenuItem>
-										))}
+										{item.items &&
+											item.items.map((item) => (
+												<SidebarMenuItem key={item.title}>
+													<SidebarMenuButton asChild isActive={item.isActive} className="ml-2">
+														<Link href={item.url}>{item.title}</Link>
+													</SidebarMenuButton>
+												</SidebarMenuItem>
+											))}
 									</SidebarMenu>
 								</SidebarGroupContent>
 							</CollapsibleContent>
@@ -200,4 +81,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			<SidebarRail />
 		</Sidebar>
 	);
+}
+
+interface NavItem {
+	title: string;
+	url: string;
+	items?: Omit<NavItem, "items">[];
+	isActive?: boolean;
 }
