@@ -50,9 +50,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 			<body className={`${heading.variable} ${body.variable} ${fancy.variable} font-body antialiased`}>
 				<Hydrate>
 					<ThemeProvider attribute={"class"} defaultTheme={"system"} enableSystem>
-						<main className="flex min-h-screen min-w-screen flex-col items-center justify-center">
-							{children}
-						</main>
+						<main className="flex min-h-screen min-w-screen flex-col items-center justify-center">{children}</main>
 					</ThemeProvider>
 				</Hydrate>
 			</body>
