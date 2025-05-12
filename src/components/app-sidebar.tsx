@@ -19,6 +19,7 @@ import Link from "next/link";
 import ThemedImage from "./themed-image";
 import { navData } from "@/lib/constants";
 import { usePathname } from "next/navigation";
+import { getLink } from "@/lib/utils";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const pathname = usePathname();
@@ -62,7 +63,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 													return (
 														<SidebarMenuItem key={node.title}>
 															<SidebarMenuButton asChild isActive={matchActive(active, node.title)} className="ml-2">
-																<Link href={root.url + node.url}>{node.title}</Link>
+																<Link href={getLink(node.url)}>{node.title}</Link>
 															</SidebarMenuButton>
 														</SidebarMenuItem>
 													);
@@ -89,7 +90,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 																						isActive={matchActive(active, subNode.title)}
 																						className="ml-2"
 																					>
-																						<Link href={root.url + node.url + subNode.url}>{subNode.title}</Link>
+																						<Link href={getLink(subNode.url)}>{subNode.title}</Link>
 																					</SidebarMenuButton>
 																				</SidebarMenuItem>
 																			))}

@@ -1,19 +1,19 @@
 export const navData = [
 	{
 		title: "Algorithms",
-		url: "/dashboard/algorithms",
+		url: "algorithms",
 		items: [
 			{
 				title: "Sorting Algorithms",
-				url: "/sorting",
+				url: "sorting",
 				items: [
 					{
 						title: "Bubble Sort",
-						url: "/bubble",
+						url: "bubble",
 					},
 					{
 						title: "Insertion Sort",
-						url: "/insertion",
+						url: "insertion",
 					},
 				],
 			},
@@ -25,7 +25,7 @@ export const navData = [
 	},
 	{
 		title: "Data Structures",
-		url: "/dashboard/structures",
+		url: "structures",
 	},
 ] as NavItem[];
 
