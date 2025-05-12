@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { ChevronRight } from "lucide-react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -15,25 +17,16 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import ThemedImage from "./themed-image";
-
-const navData = [
-	{
-		title: "Sorting Algorithms",
-		url: "/sorting",
-		items: [
-			{
-				title: "Bubble Sort",
-				url: "/sorting/bubble",
-			},
-			{
-				title: "Selection Sort",
-				url: "#",
-			},
-		],
-	},
-] as NavItem[];
+import { navData } from "@/lib/constants";
+import { usePathname } from "next/navigation";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+	const pathname = usePathname();
+	const active = pathname
+		.split("/")
+		.filter((crumb) => crumb !== "")
+		.pop()!;
+
 	return (
 		<Sidebar {...props}>
 			<SidebarHeader className="font-heading flex flex-row items-center gap-0 text-2xl">
@@ -48,29 +41,66 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 				<span className="ml-0.5 tracking-wide">lgoSketch</span>
 			</SidebarHeader>
 			<SidebarContent className="gap-0">
-				{navData.map((item) => (
-					<Collapsible key={item.title} title={item.title} className="group/collapsible">
+				{navData.map((root) => (
+					<Collapsible key={root.title} title={root.title} className="group/collapsible">
 						<SidebarGroup>
 							<SidebarGroupLabel
 								asChild
 								className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm"
 							>
 								<CollapsibleTrigger>
-									{item.title}{" "}
+									{root.title}{" "}
 									<ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
 								</CollapsibleTrigger>
 							</SidebarGroupLabel>
-							<CollapsibleContent>
+							<CollapsibleContent className="border-l-sidebar-ring border-l-2">
 								<SidebarGroupContent>
 									<SidebarMenu>
-										{item.items &&
-											item.items.map((item) => (
-												<SidebarMenuItem key={item.title}>
-													<SidebarMenuButton asChild isActive={item.isActive} className="ml-2">
-														<Link href={item.url}>{item.title}</Link>
-													</SidebarMenuButton>
-												</SidebarMenuItem>
-											))}
+										{root.items &&
+											root.items.map((node) => {
+												if (!node.items) {
+													return (
+														<SidebarMenuItem key={node.title}>
+															<SidebarMenuButton asChild isActive={matchActive(active, node.title)} className="ml-2">
+																<Link href={root.url + node.url}>{node.title}</Link>
+															</SidebarMenuButton>
+														</SidebarMenuItem>
+													);
+												} else {
+													return (
+														<Collapsible key={node.title} title={node.title} className="group/sub-collapsible">
+															<SidebarGroup>
+																<SidebarGroupLabel
+																	asChild
+																	className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm"
+																>
+																	<CollapsibleTrigger>
+																		{node.title}{" "}
+																		<ChevronRight className="ml-auto transition-transform group-data-[state=open]/sub-collapsible:rotate-90" />
+																	</CollapsibleTrigger>
+																</SidebarGroupLabel>
+																<CollapsibleContent className="border-l-2">
+																	<SidebarGroupContent>
+																		<SidebarMenu>
+																			{node.items.map((subNode) => (
+																				<SidebarMenuItem key={subNode.title}>
+																					<SidebarMenuButton
+																						asChild
+																						isActive={matchActive(active, subNode.title)}
+																						className="ml-2"
+																					>
+																						<Link href={root.url + node.url + subNode.url}>{subNode.title}</Link>
+																					</SidebarMenuButton>
+																				</SidebarMenuItem>
+																			))}
+																		</SidebarMenu>
+																	</SidebarGroupContent>
+																</CollapsibleContent>
+															</SidebarGroup>
+														</Collapsible>
+													);
+												}
+											})}
 									</SidebarMenu>
 								</SidebarGroupContent>
 							</CollapsibleContent>
@@ -83,9 +113,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	);
 }
 
-interface NavItem {
-	title: string;
-	url: string;
-	items?: Omit<NavItem, "items">[];
-	isActive?: boolean;
+function matchActive(active: string, title: string) {
+	return active === title.toLowerCase().split(" ")[0];
 }
