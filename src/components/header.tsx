@@ -13,8 +13,10 @@ import { SidebarTrigger } from "./ui/sidebar";
 import { usePathname } from "next/navigation";
 
 export function Header() {
-    const pathname = usePathname();
-    console.log(pathname);
+	const pathname = usePathname();
+	const crumbs = pathname.split("/").filter((crumb) => crumb !== "");
+	const lastCrumb = crumbs[crumbs.length - 1];
+
 	return (
 		<header className="bg-background sticky top-0 flex h-16 shrink-0 items-center gap-2 border-b px-4">
 			<SidebarTrigger className="-ml-1" />
