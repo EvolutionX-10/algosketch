@@ -27,14 +27,14 @@ export function Header() {
 	const NormalCrumbs = crumbs.slice(0, -1).map((crumb, i) => {
 		return (
 			<Fragment key={crumb}>
-				<BreadcrumbItem key={crumb} className="hidden md:block">
+				<BreadcrumbItem key={crumb}>
 					<BreadcrumbLink asChild>
 						<Link href={getLink(crumb)} className="flex items-center gap-1.5">
 							{getName(crumb)}
 						</Link>
 					</BreadcrumbLink>
 				</BreadcrumbItem>
-				<BreadcrumbSeparator className="hidden md:block" />
+				<BreadcrumbSeparator />
 			</Fragment>
 		);
 	});
