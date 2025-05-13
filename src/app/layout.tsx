@@ -3,6 +3,7 @@ import { Patrick_Hand_SC, Short_Stack, Gloria_Hallelujah } from "next/font/googl
 import "./globals.css";
 import Hydrate from "@/components/hydrate";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const heading = Patrick_Hand_SC({
 	subsets: ["latin"],
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 				<Hydrate>
 					<ThemeProvider attribute={"class"} defaultTheme={"system"} enableSystem>
 						<main className="flex min-h-screen min-w-screen flex-col items-center justify-center">{children}</main>
+						<Toaster />
 					</ThemeProvider>
 				</Hydrate>
 			</body>

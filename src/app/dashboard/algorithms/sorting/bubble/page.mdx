@@ -50,7 +50,8 @@ Final sorted array: `[2, 3, 4, 5, 8]`
 
 - **Worst-case time complexity**: O(n²) - when the array is sorted in reverse order
 - **Average-case time complexity**: O(n²)
-- **Best-case time complexity**: O(n) - when the array is already sorted (with optimized implementation)
+- **Best-case time complexity**: O(n) - when the array is already sorted (with optimizations)
+- **Stability**: Stable - equal elements maintain their relative order
 
 ## Space Complexity
 
@@ -85,7 +86,7 @@ function bubbleSort(arr) {
 
 // Example usage
 const array = [5, 3, 8, 4, 2];
-console.log(bubbleSort([...array])); // [2, 3, 4, 5, 8]
+console.log(bubbleSort(array)); // [2, 3, 4, 5, 8]
 ```
 
 ## Advantages and Disadvantages
