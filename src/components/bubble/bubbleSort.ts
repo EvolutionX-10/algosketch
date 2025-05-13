@@ -16,7 +16,7 @@ export interface SortingStep {
 }
 
 // Generate a random array of numbers
-export function generateRandomArray(length: number, max: number = 100): BarItem[] {
+export function generateRandomArray(length: number, max: number = 94): BarItem[] {
 	return Array.from({ length }, (_, i) => ({
 		value: Math.floor(Math.random() * max) + 5, // Min value of 5 to ensure visibility
 		state: "default",
