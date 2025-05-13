@@ -23,21 +23,25 @@ Bubble sort gets its name because smaller elements "bubble" to the top of the li
 Consider this unsorted array: `[5, 3, 8, 4, 2]`
 
 **First Pass:**
+
 - Compare 5 and 3: Swap → `[3, 5, 8, 4, 2]`
 - Compare 5 and 8: No swap → `[3, 5, 8, 4, 2]`
 - Compare 8 and 4: Swap → `[3, 5, 4, 8, 2]`
 - Compare 8 and 2: Swap → `[3, 5, 4, 2, 8]`
 
 **Second Pass:**
+
 - Compare 3 and 5: No swap → `[3, 5, 4, 2, 8]`
 - Compare 5 and 4: Swap → `[3, 4, 5, 2, 8]`
 - Compare 5 and 2: Swap → `[3, 4, 2, 5, 8]`
 
 **Third Pass:**
+
 - Compare 3 and 4: No swap → `[3, 4, 2, 5, 8]`
 - Compare 4 and 2: Swap → `[3, 2, 4, 5, 8]`
 
 **Fourth Pass:**
+
 - Compare 3 and 2: Swap → `[2, 3, 4, 5, 8]`
 
 Final sorted array: `[2, 3, 4, 5, 8]`
@@ -56,27 +60,27 @@ Bubble sort has a space complexity of O(1) because it only requires a single add
 
 ```js
 function bubbleSort(arr) {
-  const n = arr.length;
-  let swapped;
-  
-  for (let i = 0; i < n; i++) {
-    swapped = false;
-    
-    // Last i elements are already in place
-    for (let j = 0; j < n - i - 1; j++) {
-      // Compare adjacent elements
-      if (arr[j] > arr[j + 1]) {
-        // Swap them if they are in wrong order
-        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
-        swapped = true;
-      }
-    }
-    
-    // If no swapping occurred in this pass, array is sorted
-    if (!swapped) break;
-  }
-  
-  return arr;
+	const n = arr.length;
+	let swapped;
+
+	for (let i = 0; i < n; i++) {
+		swapped = false;
+
+		// Last i elements are already in place
+		for (let j = 0; j < n - i - 1; j++) {
+			// Compare adjacent elements
+			if (arr[j] > arr[j + 1]) {
+				// Swap them if they are in wrong order
+				[arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+				swapped = true;
+			}
+		}
+
+		// If no swapping occurred in this pass, array is sorted
+		if (!swapped) break;
+	}
+
+	return arr;
 }
 
 // Example usage
@@ -87,11 +91,13 @@ console.log(bubbleSort([...array])); // [2, 3, 4, 5, 8]
 ## Advantages and Disadvantages
 
 ### Advantages
+
 - Simple to understand and implement
 - Requires no additional memory space
 - Works well with small datasets
 
 ### Disadvantages
+
 - Inefficient for large datasets
 - O(n²) time complexity makes it impractical for production use
 - Performs poorly compared to more advanced algorithms like Quick Sort, Merge Sort, or Heap Sort
@@ -99,6 +105,7 @@ console.log(bubbleSort([...array])); // [2, 3, 4, 5, 8]
 ## When to Use Bubble Sort
 
 Bubble sort is primarily used for:
+
 - Educational purposes to introduce sorting algorithms
 - Very small datasets where simplicity is more important than efficiency
 - Cases where a stable sort is needed and code simplicity is a priority
@@ -106,28 +113,29 @@ Bubble sort is primarily used for:
 ## Optimizations
 
 ### Early Termination
+
 The algorithm can be optimized by stopping if the inner loop didn't cause any swap, indicating the array is already sorted:
 
 ```js
 function optimizedBubbleSort(arr) {
-  let n = arr.length;
-  let swapped;
-  
-  do {
-    swapped = false;
-    
-    for (let i = 0; i < n - 1; i++) {
-      if (arr[i] > arr[i + 1]) {
-        [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
-        swapped = true;
-      }
-    }
-    
-    // Decrease n because the last element is in place
-    n--;
-  } while (swapped);
-  
-  return arr;
+	let n = arr.length;
+	let swapped;
+
+	do {
+		swapped = false;
+
+		for (let i = 0; i < n - 1; i++) {
+			if (arr[i] > arr[i + 1]) {
+				[arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+				swapped = true;
+			}
+		}
+
+		// Decrease n because the last element is in place
+		n--;
+	} while (swapped);
+
+	return arr;
 }
 ```
 
