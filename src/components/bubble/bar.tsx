@@ -20,9 +20,9 @@ export default function Bar({ item, maxValue, index }: BarProps) {
 	};
 
 	return (
-		<div className="flex h-full flex-col items-center justify-end-safe">
+		<div className="flex h-full flex-col items-center justify-end-safe w-full">
 			<div
-				className={cn("w-[min(2rem,5vw)] rounded-t-md transition-all duration-300 ease-in-out", stateStyles[item.state])}
+				className={cn("w-full rounded-t-md transition-all duration-300 ease-in-out", stateStyles[item.state])}
 				style={{
 					height: `${Math.max(heightPercentage, 5)}%`,
 				}}

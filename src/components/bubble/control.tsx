@@ -39,10 +39,10 @@ export default function Control({
 
 	const handleArraySizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = Number(e.target.value);
-		if (value >= 5 && value <= 10) {
+		if (value >= 0 && value <= 15) {
 			setArraySize(value);
 		} else {
-			toast.error("Array size must be between 5 and 10");
+			toast.error("Array size must be between 5 and 15");
 		}
 	};
 
@@ -56,7 +56,7 @@ export default function Control({
 							id="array-size"
 							type="number"
 							min={5}
-							max={10}
+							max={15}
 							value={arraySize}
 							onChange={handleArraySizeChange}
 							disabled={isPlaying}
@@ -81,7 +81,7 @@ export default function Control({
 			</div>
 
 			<div className="flex flex-wrap items-center justify-between">
-				<div className="flex gap-2">
+				<div className="flex w-full justify-center gap-2 md:w-auto">
 					<Button variant="outline" onClick={onPrevAction} disabled={!canGoPrev || isPlaying}>
 						Previous
 					</Button>
