@@ -15,12 +15,14 @@ import { SidebarTrigger } from "./ui/sidebar";
 import { usePathname } from "next/navigation";
 import { Fragment } from "react";
 import Link from "next/link";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 export function Header() {
 	const pathname = usePathname();
 	const crumbs = pathname.split("/").filter((crumb) => crumb !== "");
 	const lastCrumb = crumbs[crumbs.length - 1];
+	const isMobile = useIsMobile();
 
 	const NormalCrumbs = crumbs.slice(0, -1).map((crumb, i) => {
 		return (
@@ -46,13 +48,15 @@ export function Header() {
 	NormalCrumbs.push(LastCrumb);
 
 	const TooManyCrumbs = (
-		<BreadcrumbItem key={crumbs[0]}>
-			<BreadcrumbLink asChild>
-				<Link href={getLink(crumbs[0])} className="flex items-center gap-1.5">
-					{getName(crumbs[0])}
-				</Link>
-			</BreadcrumbLink>
-			<BreadcrumbSeparator className="hidden md:block" />
+		<>
+			<BreadcrumbItem key={crumbs[0]}>
+				<BreadcrumbLink asChild>
+					<Link href={getLink(crumbs[0])} className="flex items-center gap-1.5">
+						{getName(crumbs[0])}
+					</Link>
+				</BreadcrumbLink>
+			</BreadcrumbItem>
+			<BreadcrumbSeparator />
 			<BreadcrumbItem>
 				<DropdownMenu>
 					<DropdownMenuTrigger className="flex items-center gap-1">
@@ -72,9 +76,9 @@ export function Header() {
 					</DropdownMenuContent>
 				</DropdownMenu>
 			</BreadcrumbItem>
-			<BreadcrumbSeparator className="hidden md:block" />
+			<BreadcrumbSeparator />
 			{LastCrumb}
-		</BreadcrumbItem>
+		</>
 	);
 
 	return (
@@ -82,7 +86,7 @@ export function Header() {
 			<SidebarTrigger className="-ml-1" />
 			<Separator orientation="vertical" className="mr-2 h-4" />
 			<Breadcrumb>
-				<BreadcrumbList>{crumbs.length >= 5 ? TooManyCrumbs : NormalCrumbs}</BreadcrumbList>
+				<BreadcrumbList>{crumbs.length >= 4 && isMobile ? TooManyCrumbs : NormalCrumbs}</BreadcrumbList>
 			</Breadcrumb>
 		</header>
 	);
