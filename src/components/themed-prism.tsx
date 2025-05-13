@@ -2,12 +2,12 @@
 
 import { useTheme } from "next-themes";
 import { Prism } from "react-syntax-highlighter";
-import { coldarkDark, coldarkCold } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { coldarkDark, vs } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { GeistMono } from "geist/font/mono";
 
 export function ThemedPrism(props: any) {
 	const { resolvedTheme: theme } = useTheme();
-	const style = theme === "dark" ? coldarkDark : coldarkCold;
+	const style = theme === "dark" ? coldarkDark : vs;
 
 	return (
 		<Prism

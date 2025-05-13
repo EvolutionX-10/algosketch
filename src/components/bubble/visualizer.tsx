@@ -14,7 +14,7 @@ export default function Visualizer() {
 	return (
 		<>
 			<Banner onClickAction={handleClick} />
-			<div ref={ref}>hello world incoming</div>
+			<h2 ref={ref}>Interactive Visualizer</h2>
 		</>
 	);
 }
