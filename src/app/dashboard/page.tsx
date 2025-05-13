@@ -1,5 +1,3 @@
-import Visualizer from "@/components/bubble/visualizer";
-
 export default function Page() {
-	return <Visualizer />;
+	return <h1>Dashboard</h1>;
 }
