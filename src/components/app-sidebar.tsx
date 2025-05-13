@@ -24,7 +24,7 @@ import { getLink } from "@/lib/utils";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const pathname = usePathname();
-	const { setOpenMobile } = useSidebar();
+	const { toggleSidebar } = useSidebar();
 	const active = pathname
 		.split("/")
 		.filter((crumb) => crumb !== "")
@@ -67,7 +67,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 														<SidebarMenuItem key={node.title}>
 															<SidebarMenuButton
 																asChild
-																onClick={() => setOpenMobile(false)}
+																onClick={() => toggleSidebar()}
 																isActive={matchActive(active, node.title)}
 																className="ml-2"
 															>
@@ -95,7 +95,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 																				<SidebarMenuItem key={subNode.title}>
 																					<SidebarMenuButton
 																						asChild
-																						onClick={() => setOpenMobile(false)}
+																						onClick={() => toggleSidebar()}
 																						isActive={matchActive(active, subNode.title)}
 																						className="ml-2"
 																					>
