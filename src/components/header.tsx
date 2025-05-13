@@ -63,7 +63,7 @@ export function Header() {
 						{crumbs.slice(1, -1).map((crumb) => (
 							<DropdownMenuItem key={crumb} className="w-full">
 								<BreadcrumbLink asChild>
-									<Link href={getLink(crumb)} className="flex items-center gap-1.5 w-full">
+									<Link href={getLink(crumb)} className="flex w-full items-center gap-1.5">
 										{getName(crumb)}
 									</Link>
 								</BreadcrumbLink>
@@ -78,7 +78,7 @@ export function Header() {
 	);
 
 	return (
-		<header className="bg-background sticky top-0 flex h-16 shrink-0 items-center gap-2 border-b px-4">
+		<header className="bg-background/70 sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b px-4 backdrop-blur-lg">
 			<SidebarTrigger className="-ml-1" />
 			<Separator orientation="vertical" className="mr-2 h-4" />
 			<Breadcrumb>
