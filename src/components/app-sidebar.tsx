@@ -14,6 +14,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 	SidebarRail,
+	useSidebar,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import ThemedImage from "./themed-image";
@@ -23,6 +24,7 @@ import { getLink } from "@/lib/utils";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const pathname = usePathname();
+	const { setOpenMobile } = useSidebar();
 	const active = pathname
 		.split("/")
 		.filter((crumb) => crumb !== "")
@@ -37,6 +39,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 					alt="AlgoSketch Logo"
 					width={64}
 					height={64}
+					fetchPriority="high"
 					className="h-6 w-6"
 				/>
 				<span className="ml-0.5 tracking-wide">lgoSketch</span>
@@ -62,7 +65,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 												if (!node.items) {
 													return (
 														<SidebarMenuItem key={node.title}>
-															<SidebarMenuButton asChild isActive={matchActive(active, node.title)} className="ml-2">
+															<SidebarMenuButton
+																asChild
+																onClick={() => setOpenMobile(false)}
+																isActive={matchActive(active, node.title)}
+																className="ml-2"
+															>
 																<Link href={getLink(node.url)}>{node.title}</Link>
 															</SidebarMenuButton>
 														</SidebarMenuItem>
@@ -87,6 +95,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 																				<SidebarMenuItem key={subNode.title}>
 																					<SidebarMenuButton
 																						asChild
+																						onClick={() => setOpenMobile(false)}
 																						isActive={matchActive(active, subNode.title)}
 																						className="ml-2"
 																					>
