@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-	const adminPasswordPath = "/beta";
+	const adminPasswordPath = "/password";
 	const clearAdminPath = "/clear";
 
 	if (request.nextUrl.pathname === adminPasswordPath) {
@@ -12,7 +12,7 @@ export function middleware(request: NextRequest) {
 			httpOnly: true,
 			secure: process.env.NODE_ENV === "production",
 			sameSite: "strict",
-			maxAge: 60 * 60 * 24,
+			maxAge: 60 * 60,
 			path: "/",
 		});
 
