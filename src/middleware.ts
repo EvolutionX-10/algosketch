@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
 	if (request.nextUrl.pathname === adminPasswordPath) {
 		const response = NextResponse.redirect(new URL("/dashboard", request.url));
 
-		response.cookies.set("admin", "true", {
+		response.cookies.set("dev", "true", {
 			httpOnly: true,
 			secure: process.env.NODE_ENV === "production",
 			sameSite: "strict",
@@ -21,11 +21,11 @@ export function middleware(request: NextRequest) {
 
 	if (request.nextUrl.pathname === clearAdminPath) {
 		const response = NextResponse.redirect(new URL("/", request.url));
-		response.cookies.delete("admin");
+		response.cookies.delete("dev");
 		return response;
 	}
 
-	const isAdmin = request.cookies.get("admin")?.value === "true";
+	const isAdmin = request.cookies.get("dev")?.value === "true";
 
 	if (request.nextUrl.pathname === "/soon") {
 		return NextResponse.next();
