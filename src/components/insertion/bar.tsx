@@ -1,6 +1,6 @@
 "use client";
 
-import { BarItem } from "./bubbleSort";
+import { BarItem } from "./insertionSort";
 import { cn } from "@/lib/utils";
 
 interface BarProps {
@@ -15,7 +15,7 @@ export default function Bar({ item, maxValue, index }: BarProps) {
 	const stateStyles = {
 		default: "bg-blue-500",
 		comparing: "bg-yellow-500",
-		swapping: "bg-red-500",
+		inserting: "bg-red-500",
 		sorted: "bg-green-500",
 	};
 

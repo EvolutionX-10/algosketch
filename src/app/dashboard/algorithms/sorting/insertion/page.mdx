@@ -1,0 +1,163 @@
+import Visualizer from "@/components/insertion/visualizer";
+
+# Insertion Sort Algorithm
+
+Insertion Sort is a simple sorting algorithm that builds the sorted array one element at a time. It is much less efficient on large lists than more advanced algorithms such as quicksort, heapsort, or merge sort, but it has several advantages.
+
+## How Insertion Sort Works
+
+Insertion sort works by taking elements from the unsorted part of the array and inserting them into their correct position in the sorted part of the array.
+
+### Algorithm Steps
+
+1. Start with the second element (index 1), assuming the first element (index 0) is already sorted
+2. Compare the current element with the previous elements
+3. If the previous element is greater than the current element, move the previous element one position ahead
+4. Repeat step 3 until a position for the current element is found
+5. Insert the current element into its correct position
+6. Move to the next element and repeat steps 2-5 until the entire array is sorted
+
+## Visual Representation
+
+Consider this unsorted array: `[5, 3, 8, 4, 2]`
+
+**First Pass:**
+
+- Start with element at index 1 (value 3)
+- Compare 3 with 5: 3 < 5, move 5 one position ahead → `[5, 5, 8, 4, 2]`
+- Insert 3 into the correct position → `[3, 5, 8, 4, 2]`
+
+**Second Pass:**
+
+- Element at index 2 (value 8)
+- Compare 8 with 5: 8 > 5, no movement needed → `[3, 5, 8, 4, 2]`
+
+**Third Pass:**
+
+- Element at index 3 (value 4)
+- Compare 4 with 8: 4 < 8, move 8 one position ahead → `[3, 5, 8, 8, 2]`
+- Compare 4 with 5: 4 < 5, move 5 one position ahead → `[3, 5, 5, 8, 2]`
+- Insert 4 into the correct position → `[3, 4, 5, 8, 2]`
+
+**Fourth Pass:**
+
+- Element at index 4 (value 2)
+- Compare 2 with 8: 2 < 8, move 8 one position ahead → `[3, 4, 5, 8, 8]`
+- Compare 2 with 5: 2 < 5, move 5 one position ahead → `[3, 4, 5, 5, 8]`
+- Compare 2 with 4: 2 < 4, move 4 one position ahead → `[3, 4, 4, 5, 8]`
+- Compare 2 with 3: 2 < 3, move 3 one position ahead → `[3, 3, 4, 5, 8]`
+- Insert 2 into the correct position → `[2, 3, 4, 5, 8]`
+
+Final sorted array: `[2, 3, 4, 5, 8]`
+
+## Time Complexity
+
+- **Worst-case time complexity**: O(n²) - when the array is sorted in reverse order
+- **Average-case time complexity**: O(n²)
+- **Best-case time complexity**: O(n) - when the array is already sorted
+- **Stability**: Stable - equal elements maintain their relative order
+
+## Space Complexity
+
+Insertion sort has a space complexity of O(1) because it sorts in-place, requiring only a constant amount of additional memory.
+
+## Implementation in JavaScript
+
+```js
+function insertionSort(arr) {
+	const n = arr.length;
+
+	for (let i = 1; i < n; i++) {
+		// Current element to be inserted into sorted part
+		let current = arr[i];
+
+		// Index of the last element in the sorted part
+		let j = i - 1;
+
+		// Move elements of arr[0..i-1] that are greater than current
+		// to one position ahead of their current position
+		while (j >= 0 && arr[j] > current) {
+			arr[j + 1] = arr[j];
+			j--;
+		}
+
+		// Insert the current element into its correct position
+		arr[j + 1] = current;
+	}
+
+	return arr;
+}
+
+// Example usage
+const array = [5, 3, 8, 4, 2];
+console.log(insertionSort(array)); // [2, 3, 4, 5, 8]
+```
+
+## Advantages and Disadvantages
+
+### Advantages
+
+- Simple implementation
+- Efficient for small data sets
+- More efficient than other simple quadratic algorithms for partially sorted arrays
+- Adaptive - runs faster when the array is already substantially sorted
+- Stable - does not change the relative order of elements with equal keys
+- In-place - only requires a constant amount O(1) of additional memory space
+- Online - can sort a list as it receives it
+
+### Disadvantages
+
+- Inefficient for large datasets
+- Much less efficient than more advanced algorithms like quicksort, heapsort, or merge sort
+- Requires many element shifts
+
+## When to Use Insertion Sort
+
+Insertion sort is primarily used for:
+
+- Small datasets or nearly sorted datasets
+- When simplicity is more important than efficiency
+- As a building block in more complex algorithms
+- Online sorting situations where items come in one at a time
+- When memory is limited
+
+## Optimizations
+
+### Binary Insertion Sort
+
+An improvement to the standard insertion sort is to use binary search to find the correct position for insertion:
+
+```js
+function binaryInsertionSort(arr) {
+	const n = arr.length;
+
+	for (let i = 1; i < n; i++) {
+		const current = arr[i];
+
+		// Find position using binary search
+		let left = 0;
+		let right = i - 1;
+
+		while (left <= right) {
+			const mid = Math.floor((left + right) / 2);
+			if (arr[mid] > current) {
+				right = mid - 1;
+			} else {
+				left = mid + 1;
+			}
+		}
+
+		// Shift all elements to the right
+		for (let j = i - 1; j >= left; j--) {
+			arr[j + 1] = arr[j];
+		}
+
+		// Insert the element
+		arr[left] = current;
+	}
+
+	return arr;
+}
+```
+
+<Visualizer />

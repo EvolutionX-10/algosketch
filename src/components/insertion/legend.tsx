@@ -4,7 +4,7 @@ export default function Legend() {
 	const legendItems = [
 		{ color: "bg-blue-500", label: "Unsorted" },
 		{ color: "bg-yellow-500", label: "Comparing" },
-		{ color: "bg-red-500", label: "Swapping" },
+		{ color: "bg-red-500", label: "Inserting" },
 		{ color: "bg-green-500", label: "Sorted" },
 	];
 
