@@ -15,6 +15,10 @@ export const navData = [
 						title: "Insertion Sort",
 						url: "insertion",
 					},
+					{
+						title: "Selection Sort",
+						url: "selection",
+					}
 				],
 			},
 			{
