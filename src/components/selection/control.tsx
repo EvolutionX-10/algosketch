@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Slider } from "../ui/slider";
-import { toast } from "sonner";
 
 interface ControlProps {
 	onResetAction: (arraySize: number) => void;
@@ -38,41 +36,36 @@ export default function Control({
 }: ControlProps) {
 	const [arraySize, setArraySize] = useState(10);
 
-	const handleArraySizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const value = Number(e.target.value);
-		if (value >= 0 && value <= 15) {
-			setArraySize(value);
-		} else {
-			toast.error("Array size must be between 5 and 15");
-		}
+	const handleArraySizeChange = (value: number[]) => {
+		setArraySize(value[0]);
 	};
 
 	return (
 		<div className="bg-background flex flex-col flex-wrap gap-4 rounded-lg border p-4">
 			<div className="grid w-full gap-4 md:grid-cols-2">
 				<div className="flex flex-col gap-2">
-					<Label htmlFor="array-size">Array Size</Label>
-					<div className="flex items-center gap-2">
-						<Input
-							id="array-size"
-							type="number"
-							min={5}
-							max={15}
-							value={arraySize}
-							onChange={handleArraySizeChange}
-							disabled={isPlaying}
-						/>
-					</div>
+					<Label htmlFor="array-size">Array Size: {arraySize}</Label>
+					<Slider
+						id="array-size"
+						min={5}
+						max={15}
+						step={1}
+						value={[arraySize]}
+						onValueChange={handleArraySizeChange}
+						disabled={isPlaying}
+						className="py-4"
+					/>
 					<Button variant="outline" onClick={() => onResetAction(arraySize)} disabled={isPlaying}>
 						Generate
 					</Button>
-				</div>				<div className="flex flex-col gap-2">
+				</div>
+				<div className="flex flex-col gap-2">
 					<Label htmlFor="speed">Animation Speed</Label>
 					<Slider
 						id="speed"
 						min={1}
 						max={10}
-						step={1}
+						step={0.1}
 						value={[speed]}
 						onValueChange={(value) => onSpeedChangeAction(value[0])}
 						className="py-4"
