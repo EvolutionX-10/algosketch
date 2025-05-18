@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { Slider } from "../ui/slider";
 import { toast } from "sonner";
 
 interface ControlProps {
@@ -65,17 +66,16 @@ export default function Control({
 					<Button variant="outline" onClick={() => onResetAction(arraySize)} disabled={isPlaying}>
 						Generate
 					</Button>
-				</div>
-
-				<div>
+				</div>				<div className="flex flex-col gap-2">
 					<Label htmlFor="speed">Animation Speed</Label>
-					<Input
+					<Slider
 						id="speed"
-						type="range"
 						min={1}
 						max={10}
-						value={speed}
-						onChange={(e) => onSpeedChangeAction(Number(e.target.value))}
+						step={1}
+						value={[speed]}
+						onValueChange={(value) => onSpeedChangeAction(value[0])}
+						className="py-4"
 					/>
 				</div>
 			</div>
