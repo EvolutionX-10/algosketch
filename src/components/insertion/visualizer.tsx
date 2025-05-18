@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Bar from "./bar";
-import { BarItem, SortingStep, generateRandomArray, insertionSortSteps } from "./insertionSort";
+import Bar from "../shared/bar";
+import { BarItem, SortingStep, generateRandomArray, insertionSortSteps, stateStyles } from "./insertionSort";
 import Control from "./control";
 import CodeSnippet from "./codeSnippet";
 import Legend from "./legend";
@@ -159,7 +159,13 @@ export default function Visualizer() {
 						<div className="bg-card flex h-80 flex-col rounded-lg border p-4">
 							<div className="flex flex-1 items-end justify-center gap-2">
 								{currentStep.array.map((item, idx) => (
-									<Bar key={`${item.id}-${idx}`} item={item} maxValue={maxValue} index={idx} />
+									<Bar
+										key={`${item.id}-${idx}`}
+										item={item}
+										maxValue={maxValue}
+										index={idx}
+										stateStyles={stateStyles}
+									/>
 								))}
 							</div>
 						</div>

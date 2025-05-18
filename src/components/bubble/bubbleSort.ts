@@ -1,12 +1,16 @@
 "use client";
+import { BaseBarItem } from "@/lib/types";
 
 export type SortingState = "default" | "comparing" | "swapping" | "sorted";
 
-export interface BarItem {
-	value: number;
-	state: SortingState;
-	id: string; // For stable keying in React
-}
+export interface BarItem extends BaseBarItem<SortingState> {}
+
+export const stateStyles: Record<SortingState, string> = {
+	default: "bg-blue-500",
+	comparing: "bg-yellow-500",
+	swapping: "bg-red-500",
+	sorted: "bg-green-500",
+};
 
 export interface SortingStep {
 	array: BarItem[];
