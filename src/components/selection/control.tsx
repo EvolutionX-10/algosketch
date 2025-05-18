@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
-import { Slider } from "../ui/slider";
 import ElasticSlider from "../ui/elastic-slider";
 
 interface ControlProps {

@@ -51,15 +51,7 @@ interface SliderProps {
 	onValueChange?: (value: number) => void;
 }
 
-const Slider: React.FC<SliderProps> = ({
-	defaultValue,
-	min,
-	max,
-	isStepped,
-	step,
-	onValueChange,
-	disabled,
-}) => {
+const Slider: React.FC<SliderProps> = ({ defaultValue, min, max, isStepped, step, onValueChange, disabled }) => {
 	const [value, setValue] = useState<number>(defaultValue);
 	const sliderRef = useRef<HTMLDivElement>(null);
 	const [region, setRegion] = useState<"left" | "middle" | "right">("middle");
