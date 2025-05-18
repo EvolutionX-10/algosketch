@@ -56,27 +56,27 @@ Selection sort has a space complexity of O(1) because it sorts in-place, requiri
 
 ```js
 function selectionSort(arr) {
-  const n = arr.length;
+	const n = arr.length;
 
-  for (let i = 0; i < n - 1; i++) {
-    // Find the minimum element in unsorted part
-    let minIndex = i;
-    
-    for (let j = i + 1; j < n; j++) {
-      // Compare with current minimum
-      if (arr[j] < arr[minIndex]) {
-        // Update minimum index if found
-        minIndex = j;
-      }
-    }
-    
-    // Swap the found minimum with the first unsorted element
-    if (minIndex !== i) {
-      [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
-    }
-  }
+	for (let i = 0; i < n - 1; i++) {
+		// Find the minimum element in unsorted part
+		let minIndex = i;
 
-  return arr;
+		for (let j = i + 1; j < n; j++) {
+			// Compare with current minimum
+			if (arr[j] < arr[minIndex]) {
+				// Update minimum index if found
+				minIndex = j;
+			}
+		}
+
+		// Swap the found minimum with the first unsorted element
+		if (minIndex !== i) {
+			[arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+		}
+	}
+
+	return arr;
 }
 
 // Example usage

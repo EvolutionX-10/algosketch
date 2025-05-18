@@ -18,7 +18,7 @@ export const navData = [
 					{
 						title: "Selection Sort",
 						url: "selection",
-					}
+					},
 				],
 			},
 			{
