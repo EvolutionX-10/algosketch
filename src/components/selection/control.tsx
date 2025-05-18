@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Slider } from "../ui/slider";
+import ElasticSlider from "../ui/elastic-slider";
 
 interface ControlProps {
 	onResetAction: (arraySize: number) => void;
@@ -36,24 +37,20 @@ export default function Control({
 }: ControlProps) {
 	const [arraySize, setArraySize] = useState(10);
 
-	const handleArraySizeChange = (value: number[]) => {
-		setArraySize(value[0]);
-	};
-
 	return (
 		<div className="bg-background flex flex-col flex-wrap gap-4 rounded-lg border p-4">
-			<div className="grid w-full gap-4 md:grid-cols-2">
+			<div className="grid w-full gap-12 gap-y-4 md:grid-cols-2">
 				<div className="flex flex-col gap-2">
 					<Label htmlFor="array-size">Array Size: {arraySize}</Label>
-					<Slider
-						id="array-size"
+					<ElasticSlider
 						min={5}
 						max={15}
+						isStepped
 						step={1}
-						value={[arraySize]}
-						onValueChange={handleArraySizeChange}
+						defaultValue={arraySize}
+						onValueChange={(value) => setArraySize(value)}
 						disabled={isPlaying}
-						className="py-4"
+						className="py-2"
 					/>
 					<Button variant="outline" onClick={() => onResetAction(arraySize)} disabled={isPlaying}>
 						Generate
@@ -61,14 +58,12 @@ export default function Control({
 				</div>
 				<div className="flex flex-col gap-2">
 					<Label htmlFor="speed">Animation Speed</Label>
-					<Slider
-						id="speed"
+					<ElasticSlider
+						defaultValue={speed}
 						min={1}
 						max={10}
-						step={0.1}
-						value={[speed]}
-						onValueChange={(value) => onSpeedChangeAction(value[0])}
-						className="py-4"
+						onValueChange={(value) => onSpeedChangeAction(value)}
+						className="py-2"
 					/>
 				</div>
 			</div>
