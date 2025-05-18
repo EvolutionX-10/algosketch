@@ -124,7 +124,6 @@ export default function Visualizer() {
 			intervalRef.current = null;
 		}
 	};
-
 	// Clean up interval on unmount
 	useEffect(() => {
 		return () => {
@@ -133,6 +132,13 @@ export default function Visualizer() {
 			}
 		};
 	}, []);
+
+	// Reset animation interval when speed changes during playback
+	useEffect(() => {
+		if (isPlaying && intervalRef.current) {
+			startAnimation(); // This will clear the existing interval and create a new one with updated speed
+		}
+	}, [speed]);
 
 	// Get the current step data to display
 	const currentStep = steps[currentStepIndex] || {
