@@ -1,5 +1,6 @@
 "use client";
 import { GeistMono } from "geist/font/mono";
+import { ThemedPrism } from "../themed-prism";
 
 interface CodeSnippetProps {
 	currentStep: number;
@@ -49,22 +50,22 @@ export default function CodeSnippet({ currentStep, isComparing, isInserting }: C
 		highlightedLine = 4;
 	}
 
-	const codeLines = code.split("\n");
-
 	return (
-		<div className="overflow-x-auto rounded-lg p-4">
-			<h2 className="mb-2 text-lg font-medium">Insertion Sort Implementation</h2>
-			<pre className={"border bg-slate-50 text-sm dark:bg-slate-900 " + GeistMono.className}>
-				{codeLines.map((line, index) => (
-					<div
-						key={index}
-						className={`${index === highlightedLine - 1 ? "rounded-sm bg-blue-100 font-semibold dark:bg-blue-700/50" : ""} px-2 py-0.5`}
-					>
-						<span className="mr-4 text-gray-500 dark:text-gray-400">{index + 1}</span>
-						<span className="text-slate-800 dark:text-gray-200">{line}</span>
-					</div>
-				))}
-			</pre>
-		</div>
+		<ThemedPrism
+			language="javascript"
+			customStyle={{ fontFamily: GeistMono.className }}
+			showLineNumbers={true}
+			wrapLines={true}
+			lineProps={(lineNumber) => {
+				if (lineNumber === highlightedLine) {
+					return {
+						className: "bg-blue-300/50 font-medium rounded-sm dark:bg-blue-200/20 block",
+					};
+				}
+				return {};
+			}}
+		>
+			{code}
+		</ThemedPrism>
 	);
 }
