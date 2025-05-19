@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { BarItem, SortingStep, selectionSortSteps, generateRandomArray, stateStyles } from "./selectionSort";
 import Bar from "../shared/bar";
+import { AnimatePresence } from "motion/react";
 import Control from "./control";
 import Legend from "./legend";
 import InfoBox from "./infoBox";
@@ -165,9 +166,11 @@ export default function Visualizer() {
 					<div className="md:col-span-2">
 						<div className="bg-card flex h-80 flex-col rounded-lg border p-4">
 							<div className="flex flex-1 items-end justify-center gap-2">
-								{currentStep.array.map((item, index) => (
-									<Bar key={item.id} item={item} maxValue={maxValue} index={index} stateStyles={stateStyles} />
-								))}
+								<AnimatePresence>
+									{currentStep.array.map((item, index) => (
+										<Bar key={item.id} item={item} maxValue={maxValue} index={index} stateStyles={stateStyles} />
+									))}
+								</AnimatePresence>
 							</div>
 						</div>
 					</div>

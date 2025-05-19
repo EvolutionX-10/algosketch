@@ -9,6 +9,7 @@ import InfoBox from "./infoBox";
 import SortStepDescription from "./stepDescription";
 import CodeSnippet from "./codeSnippet";
 import Banner from "../banner";
+import { AnimatePresence } from "motion/react";
 
 export default function Visualizer() {
 	const [array, setArray] = useState<BarItem[]>([]);
@@ -157,9 +158,11 @@ export default function Visualizer() {
 					<div className="md:col-span-2">
 						<div className="bg-card flex h-80 flex-col rounded-lg border p-4">
 							<div className="flex flex-1 items-end justify-center gap-2">
-								{currentStep.array.map((item, index) => (
-									<Bar key={item.id} item={item} maxValue={maxValue} index={index} stateStyles={stateStyles} />
-								))}
+								<AnimatePresence>
+									{currentStep.array.map((item, index) => (
+										<Bar key={item.id} item={item} maxValue={maxValue} index={index} stateStyles={stateStyles} />
+									))}
+								</AnimatePresence>
 							</div>
 						</div>
 					</div>
