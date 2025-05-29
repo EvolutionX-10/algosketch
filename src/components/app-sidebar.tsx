@@ -77,7 +77,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 													);
 												} else {
 													return (
-														<Collapsible key={node.title} title={node.title} className="group/sub-collapsible">
+														<Collapsible
+															key={node.title}
+															title={node.title}
+															defaultOpen
+															className="group/sub-collapsible"
+														>
 															<SidebarGroup>
 																<SidebarGroupLabel
 																	asChild
