@@ -19,6 +19,18 @@ export const navData = [
 						title: "Selection Sort",
 						url: "selection",
 					},
+					{
+						title: "Merge Sort",
+						url: "merge",
+					},
+					{
+						title: "Quick Sort",
+						url: "quick",
+					},
+					{
+						title: "Heap Sort",
+						url: "heap",
+					}
 				],
 			},
 			{
