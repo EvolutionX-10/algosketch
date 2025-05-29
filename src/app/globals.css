@@ -52,7 +52,7 @@
 	--g: 12px; /* the gap between dashes */
 
 	/* --c: #556270 25%, #0000 0; */
-	--c: #6a74807b 25%, #0000 0;
+	--c: #6a748037 25%, #0000 0;
 	background:
 		conic-gradient(at var(--g) var(--t), var(--c)) calc((var(--s) / var(--n) - var(--g) + var(--t)) / 2) 0 /
 			calc(var(--s) / var(--n)) var(--s),
