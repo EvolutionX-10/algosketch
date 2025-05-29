@@ -3,7 +3,6 @@
 import { useTheme } from "next-themes";
 import { Prism, type SyntaxHighlighterProps } from "react-syntax-highlighter";
 import { coldarkDark, vs } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { GeistMono } from "geist/font/mono";
 
 export function ThemedPrism(props: SyntaxHighlighterProps) {
 	const { resolvedTheme: theme } = useTheme();
@@ -15,7 +14,7 @@ export function ThemedPrism(props: SyntaxHighlighterProps) {
 			style={style}
 			codeTagProps={{
 				style: {
-					fontFamily: GeistMono.style.fontFamily,
+					fontFamily: "var(--font-mono)",
 				},
 			}}
 			{...props}

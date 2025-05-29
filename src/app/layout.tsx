@@ -4,6 +4,7 @@ import "./globals.css";
 import Hydrate from "@/components/hydrate";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { Geist_Mono } from "next/font/google";
 
 const heading = Patrick_Hand_SC({
 	subsets: ["latin"],
@@ -24,6 +25,13 @@ const fancy = Gloria_Hallelujah({
 	variable: "--font-fancy",
 	display: "swap",
 	weight: ["400"],
+});
+
+const geistMono = Geist_Mono({
+	subsets: ["latin"],
+	variable: "--font-mono",
+	display: "swap",
+	weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -48,7 +56,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<html lang="en">
-			<body className={`${heading.variable} ${body.variable} ${fancy.variable} font-body antialiased`}>
+			<body
+				className={`${heading.variable} ${body.variable} ${fancy.variable} ${geistMono.variable} font-body antialiased`}
+			>
 				<Hydrate>
 					<ThemeProvider attribute={"class"} defaultTheme={"system"} enableSystem>
 						<main className="flex min-h-screen min-w-screen flex-col items-center justify-center">{children}</main>

@@ -1,5 +1,4 @@
 "use client";
-import { GeistMono } from "geist/font/mono";
 import { ThemedPrism } from "../themed-prism";
 
 interface CodeSnippetProps {
@@ -53,7 +52,7 @@ export default function CodeSnippet({ currentStep, isComparing, isSwapping }: Co
 	return (
 		<ThemedPrism
 			language="javascript"
-			customStyle={{ fontFamily: GeistMono.className }}
+			customStyle={{ fontFamily: "var(--font-mono)" }}
 			showLineNumbers={true}
 			wrapLines={true}
 			lineProps={(lineNumber) => {

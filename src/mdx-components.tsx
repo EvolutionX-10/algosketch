@@ -1,5 +1,4 @@
 import type { MDXComponents } from "mdx/types";
-import { GeistMono } from "geist/font/mono";
 import { ThemedPrism } from "@/components/themed-prism";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
@@ -9,10 +8,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 			if (language === "text") {
 				return (
 					<span
-						className={
-							"rounded-md bg-gray-200 p-1 text-sm text-gray-600 dark:bg-gray-900 dark:text-gray-300 " +
-							GeistMono.className
-						}
+						className="rounded-md bg-gray-200 p-1 font-mono text-sm text-gray-600 dark:bg-gray-900 dark:text-gray-300"
 						{...props}
 					>
 						{children}
