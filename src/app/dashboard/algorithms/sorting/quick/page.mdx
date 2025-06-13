@@ -1,1 +1,178 @@
-# To be Implemented
+import Visualizer from "@/components/quick/visualizer";
+
+# Quick Sort Algorithm
+
+Quick Sort is a highly efficient divide-and-conquer sorting algorithm that works by selecting a 'pivot' element from the array and partitioning the other elements into two sub-arrays according to whether they are less than or greater than the pivot.
+
+## How Quick Sort Works
+
+Quick Sort follows the divide-and-conquer paradigm and consists of three main steps:
+
+### Algorithm Steps
+
+1. **Choose a pivot**: Select an element from the array as the pivot (commonly the last element)
+2. **Partition**: Rearrange the array so that all elements smaller than the pivot come before it, and all elements greater come after it
+3. **Recursively apply**: Apply the same process to the sub-arrays on either side of the pivot
+
+### Partitioning Process
+
+The partitioning process is the heart of Quick Sort:
+
+1. Choose the rightmost element as the pivot
+2. Keep track of the index of the smaller element
+3. Traverse through the array from left to right
+4. If an element is smaller than or equal to the pivot, swap it with the element at the smaller index
+5. Finally, swap the pivot with the element right after the last smaller element
+
+## Visual Representation
+
+Consider this unsorted array: `[8, 3, 5, 4, 7, 6, 1, 2]`
+
+**First Partition (Pivot = 2):**
+
+- Compare each element with pivot (2)
+- Elements ≤ 2: move to left side → `[1, 2, 5, 4, 7, 6, 8, 3]`
+- Pivot (2) is now in correct position at index 1
+
+**Recursive Calls:**
+
+- Left subarray: `[1]` (already sorted)
+- Right subarray: `[5, 4, 7, 6, 8, 3]` (needs further partitioning)
+
+**Second Partition (Pivot = 3):**
+
+- Partition `[5, 4, 7, 6, 8, 3]` around pivot (3)
+- Result: `[3, 4, 7, 6, 8, 5]`
+
+This process continues recursively until all elements are in their correct positions.
+
+## Time Complexity
+
+- **Best-case time complexity**: O(n log n) - when the pivot always divides the array into two equal halves
+- **Average-case time complexity**: O(n log n) - with random pivot selection
+- **Worst-case time complexity**: O(n²) - when the pivot is always the smallest or largest element
+- **Stability**: Unstable - equal elements may not maintain their relative order
+
+## Space Complexity
+
+Quick Sort has a space complexity of O(log n) on average due to the recursive call stack. In the worst case, it can be O(n) if the recursion depth becomes n.
+
+## Implementation in JavaScript
+
+```js
+function quickSort(arr, low = 0, high = arr.length - 1) {
+	if (low < high) {
+		// Partition the array and get pivot index
+		const pivotIndex = partition(arr, low, high);
+		
+		// Recursively sort elements before and after partition
+		quickSort(arr, low, pivotIndex - 1);
+		quickSort(arr, pivotIndex + 1, high);
+	}
+	return arr;
+}
+
+function partition(arr, low, high) {
+	// Choose rightmost element as pivot
+	const pivot = arr[high];
+	let i = low - 1; // Index of smaller element
+	
+	for (let j = low; j < high; j++) {
+		// If current element is smaller than or equal to pivot
+		if (arr[j] <= pivot) {
+			i++;
+			// Swap elements
+			[arr[i], arr[j]] = [arr[j], arr[i]];
+		}
+	}
+	
+	// Place pivot in correct position
+	[arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
+	return i + 1; // Return pivot index
+}
+
+// Example usage
+const array = [8, 3, 5, 4, 7, 6, 1, 2];
+console.log(quickSort(array)); // [1, 2, 3, 4, 5, 6, 7, 8]
+```
+
+## Advantages and Disadvantages
+
+### Advantages
+
+- Very efficient for large datasets
+- In-place sorting (requires only O(log n) extra space)
+- Cache-efficient due to good locality of reference
+- Widely used in practice
+
+### Disadvantages
+
+- Worst-case time complexity is O(n²)
+- Not stable (doesn't preserve relative order of equal elements)
+- Performance depends heavily on pivot selection
+
+## When to Use Quick Sort
+
+Quick Sort is ideal for:
+
+- Large datasets where average-case performance matters
+- Systems where memory usage is a concern (in-place sorting)
+- General-purpose sorting when stability is not required
+- Applications where cache performance is important
+
+## Optimizations
+
+### Pivot Selection Strategies
+
+**Random Pivot**: Choose a random element as pivot to avoid worst-case scenarios:
+
+```js
+function randomizedPartition(arr, low, high) {
+	// Choose random pivot and swap with last element
+	const randomIndex = Math.floor(Math.random() * (high - low + 1)) + low;
+	[arr[randomIndex], arr[high]] = [arr[high], arr[randomIndex]];
+	return partition(arr, low, high);
+}
+```
+
+**Median-of-Three**: Choose the median of first, middle, and last elements:
+
+```js
+function medianOfThree(arr, low, high) {
+	const mid = Math.floor((low + high) / 2);
+	if (arr[mid] < arr[low]) [arr[low], arr[mid]] = [arr[mid], arr[low]];
+	if (arr[high] < arr[low]) [arr[low], arr[high]] = [arr[high], arr[low]];
+	if (arr[high] < arr[mid]) [arr[mid], arr[high]] = [arr[high], arr[mid]];
+	[arr[mid], arr[high]] = [arr[high], arr[mid]];
+}
+```
+
+### Hybrid Approach
+
+For small subarrays, switch to insertion sort for better performance:
+
+```js
+function hybridQuickSort(arr, low = 0, high = arr.length - 1) {
+	if (high - low < 10) {
+		insertionSort(arr, low, high);
+	} else if (low < high) {
+		const pivotIndex = partition(arr, low, high);
+		hybridQuickSort(arr, low, pivotIndex - 1);
+		hybridQuickSort(arr, pivotIndex + 1, high);
+	}
+}
+```
+
+## Real-world Applications
+
+- Standard library implementations (C++ std::sort, Java Arrays.sort)
+- Database query optimization
+- Numerical computations
+- Data processing pipelines
+- Operating system utilities
+
+## Comparison with Other Algorithms
+
+Unlike Merge Sort, Quick Sort is an in-place algorithm but is not stable. Unlike Heap Sort, Quick Sort has better average-case performance and cache locality, making it preferred for general-purpose sorting.
+
+<Visualizer />
