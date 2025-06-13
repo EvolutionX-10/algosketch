@@ -72,6 +72,9 @@ function heapify(arr, heapSize, rootIndex) {
 			lineProps={(lineNumber) => ({
 				style: {
 					display: "block",
+					borderRadius: "0.25em",
+					padding: "0.2em 0.5em",
+					fontWeight: getHighlightedLines().includes(lineNumber) ? "600" : "normal",
 					backgroundColor: getHighlightedLines().includes(lineNumber) ? "rgba(255, 255, 0, 0.2)" : "transparent",
 				},
 			})}

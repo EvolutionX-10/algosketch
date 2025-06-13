@@ -76,9 +76,12 @@ function merge(left, right) {
 				if (lineNumber >= highlightRange[0] && lineNumber <= highlightRange[1]) {
 					return {
 						className: "bg-blue-300/50 font-medium rounded-sm dark:bg-blue-200/20 block",
+						style: {
+							padding: "0.2em 0.5em",
+						},
 					};
 				}
-				return {};
+				return { style: { display: "block", padding: "0.2em 0.5em" } };
 			}}
 		>
 			{code}
