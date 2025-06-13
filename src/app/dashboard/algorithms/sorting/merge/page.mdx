@@ -1,4 +1,5 @@
 import Visualizer from "@/components/merge/visualizer";
+import TreeVisualization from "@/components/merge/tree-visualization";
 
 # Merge Sort Algorithm
 
@@ -25,29 +26,32 @@ This process continues until all pieces are merged back into one fully sorted ar
 
 Consider this unsorted array: `[38, 27, 43, 3, 9, 82, 10]`
 
-**Dividing Phase:**
+### Dividing Phase
 
-```
-         [38, 27, 43, 3, 9, 82, 10]
-                /           \
-    [38, 27, 43, 3]       [9, 82, 10]
-        /     \             /     \
-  [38, 27]   [43, 3]     [9]    [82, 10]
-    /  \      /  \              /    \
- [38] [27]  [43] [3]         [82]   [10]
-```
+<TreeVisualization 
+	data={[38, 27, 43, 3, 9, 82, 10]} 
+	title="Divide Phase - Breaking Down the Array"
+	subtitle="The array is recursively divided until each subarray contains a single element"
+/>
 
-**Merging Phase:**
+The algorithm recursively divides the array into smaller subarrays:
+- Level 0: `[38, 27, 43, 3, 9, 82, 10]` (original array)
+- Level 1: `[38, 27, 43, 3]` and `[9, 82, 10]`
+- Level 2: `[38, 27]`, `[43, 3]`, `[9]`, and `[82, 10]`
+- Level 3: `[38]`, `[27]`, `[43]`, `[3]`, `[82]`, and `[10]`
 
-```
- [38] [27]  [43] [3]         [82]   [10]
-    \  /      \  /              \    /
-  [27, 38]   [3, 43]           [10, 82]
-       \       /                   /
-   [3, 27, 38, 43]           [9, 10, 82]
-             \                    /
-         [3, 9, 10, 27, 38, 43, 82]
-```
+### Merging Phase
+
+<TreeVisualization 
+	data={[3, 9, 10, 27, 38, 43, 82]} 
+	title="Merge Phase - Combining Sorted Subarrays"
+	subtitle="Sorted subarrays are merged back together to form the final sorted array"
+/>
+
+The sorted subarrays are then merged back together:
+- `[27, 38]` + `[3, 43]` → `[3, 27, 38, 43]`
+- `[9]` + `[10, 82]` → `[9, 10, 82]`
+- `[3, 27, 38, 43]` + `[9, 10, 82]` → `[3, 9, 10, 27, 38, 43, 82]`
 
 ## Time Complexity
 
