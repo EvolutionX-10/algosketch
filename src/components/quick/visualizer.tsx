@@ -176,7 +176,7 @@ export default function Visualizer() {
 						</div>
 					</div>{" "}
 					<div>
-						<InfoBox currentStep={currentStepIndex + 1} comparisons={comparisons} swaps={swaps} isSorted={isSorted} />
+						<InfoBox currentStep={currentStepIndex} comparisons={comparisons} swaps={swaps} isSorted={isSorted} />
 					</div>
 				</div>{" "}
 				<Control
