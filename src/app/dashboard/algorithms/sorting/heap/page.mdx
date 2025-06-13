@@ -1,1 +1,209 @@
-# To be Implemented
+import Visualizer from "@/components/heap/visualizer";
+
+# Heap Sort Algorithm
+
+Heap Sort is a comparison-based sorting algorithm that uses a binary heap data structure. It divides its input into a sorted and an unsorted region, and it iteratively shrinks the unsorted region by extracting the largest element and moving that to the sorted region.
+
+## How Heap Sort Works
+
+Heap Sort works in two main phases:
+
+### Phase 1: Build Max Heap
+
+1. **Heapify**: Convert the input array into a max heap where the parent node is always greater than or equal to its children
+2. **Bottom-up construction**: Start from the last non-leaf node and heapify each subtree
+
+### Phase 2: Extract Elements
+
+1. **Extract maximum**: Remove the root (maximum element) and place it at the end of the array
+2. **Restore heap property**: Heapify the reduced heap to maintain the max heap property
+3. **Repeat**: Continue until all elements are extracted
+
+### Heap Properties
+
+- **Complete Binary Tree**: All levels are filled except possibly the last level
+- **Max Heap Property**: Parent ≥ Children for every node
+- **Array Representation**: For node at index i:
+  - Left child: 2i + 1
+  - Right child: 2i + 2
+  - Parent: (i - 1) / 2
+
+## Visual Representation
+
+Consider this unsorted array: `[4, 10, 3, 5, 1]`
+
+**Step 1: Build Max Heap**
+
+```
+Original:  [4, 10, 3, 5, 1]
+After heapifying: [10, 5, 3, 4, 1]
+
+Tree representation:
+       10
+      /  \
+     5    3
+    / \
+   4   1
+```
+
+**Step 2: Extract Elements**
+
+1. **Extract 10**: Move to end → `[1, 5, 3, 4, 10]`, then heapify → `[5, 4, 3, 1, 10]`
+2. **Extract 5**: Move to end → `[1, 4, 3, 5, 10]`, then heapify → `[4, 1, 3, 5, 10]`
+3. **Extract 4**: Move to end → `[3, 1, 4, 5, 10]`, then heapify → `[3, 1, 4, 5, 10]`
+4. **Extract 3**: Move to end → `[1, 3, 4, 5, 10]`
+
+Final sorted array: `[1, 3, 4, 5, 10]`
+
+## Time Complexity
+
+- **Best-case time complexity**: O(n log n)
+- **Average-case time complexity**: O(n log n)
+- **Worst-case time complexity**: O(n log n)
+- **Stability**: Unstable - equal elements may not maintain their relative order
+
+The time complexity is always O(n log n) because:
+- Building the heap takes O(n) time
+- Each of the n extractions takes O(log n) time for heapifying
+
+## Space Complexity
+
+Heap Sort has a space complexity of O(1) as it sorts in-place, requiring only a constant amount of additional memory space regardless of input size.
+
+## Implementation in JavaScript
+
+```js
+function heapSort(arr) {
+	const n = arr.length;
+	
+	// Build max heap (rearrange array)
+	for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+		heapify(arr, n, i);
+	}
+	
+	// Extract elements one by one from heap
+	for (let i = n - 1; i > 0; i--) {
+		// Move current root to end
+		[arr[0], arr[i]] = [arr[i], arr[0]];
+		
+		// Call heapify on the reduced heap
+		heapify(arr, i, 0);
+	}
+	
+	return arr;
+}
+
+function heapify(arr, heapSize, rootIndex) {
+	let largest = rootIndex; // Initialize largest as root
+	const left = 2 * rootIndex + 1; // Left child
+	const right = 2 * rootIndex + 2; // Right child
+	
+	// If left child is larger than root
+	if (left < heapSize && arr[left] > arr[largest]) {
+		largest = left;
+	}
+	
+	// If right child is larger than largest so far
+	if (right < heapSize && arr[right] > arr[largest]) {
+		largest = right;
+	}
+	
+	// If largest is not root
+	if (largest !== rootIndex) {
+		[arr[rootIndex], arr[largest]] = [arr[largest], arr[rootIndex]];
+		
+		// Recursively heapify the affected sub-tree
+		heapify(arr, heapSize, largest);
+	}
+}
+
+// Example usage
+const array = [4, 10, 3, 5, 1];
+console.log(heapSort(array)); // [1, 3, 4, 5, 10]
+```
+
+## Advantages and Disadvantages
+
+### Advantages
+
+- **Guaranteed performance**: Always O(n log n) time complexity
+- **In-place sorting**: Requires only O(1) extra space
+- **Not affected by input order**: Performance is consistent regardless of initial arrangement
+- **Simple implementation**: Relatively straightforward to code and understand
+
+### Disadvantages
+
+- **Not stable**: Equal elements may not maintain their relative order
+- **Poor cache performance**: Heap operations have poor locality of reference
+- **Not adaptive**: Doesn't take advantage of existing order in the data
+
+## When to Use Heap Sort
+
+Heap Sort is ideal for:
+
+- Systems with strict memory constraints (embedded systems)
+- Applications requiring guaranteed O(n log n) performance
+- Situations where worst-case performance is critical
+- Real-time systems where predictable performance is needed
+
+## Optimizations
+
+### Iterative Heapify
+
+Replace recursive heapify with iterative version to avoid stack overflow:
+
+```js
+function iterativeHeapify(arr, heapSize, rootIndex) {
+	while (true) {
+		let largest = rootIndex;
+		const left = 2 * rootIndex + 1;
+		const right = 2 * rootIndex + 2;
+		
+		if (left < heapSize && arr[left] > arr[largest]) {
+			largest = left;
+		}
+		
+		if (right < heapSize && arr[right] > arr[largest]) {
+			largest = right;
+		}
+		
+		if (largest === rootIndex) break;
+		
+		[arr[rootIndex], arr[largest]] = [arr[largest], arr[rootIndex]];
+		rootIndex = largest;
+	}
+}
+```
+
+### Bottom-up Heap Construction
+
+The standard heap construction is already optimal at O(n), but understanding why:
+
+- Leaf nodes (about n/2 nodes) require 0 operations
+- Nodes at height 1 require at most 1 operation
+- Nodes at height h require at most h operations
+- Total: O(n) operations
+
+## Real-world Applications
+
+- **Priority queues**: Heap data structure is fundamental for priority queues
+- **Operating systems**: Process scheduling algorithms
+- **Graph algorithms**: Dijkstra's shortest path algorithm
+- **Selection algorithms**: Finding k largest/smallest elements
+- **Memory management**: Heap allocation strategies
+
+## Comparison with Other Algorithms
+
+- **vs Quick Sort**: Heap Sort guarantees O(n log n) but has worse average-case performance
+- **vs Merge Sort**: Heap Sort is in-place but not stable
+- **vs Insertion Sort**: Heap Sort is much faster for large datasets but has overhead for small arrays
+
+## Heap Data Structure Applications
+
+Beyond sorting, heaps are used in:
+
+- **Priority Queues**: Efficient insertion and extraction of priority elements
+- **Heap Selection**: Finding k largest elements in O(n + k log n)
+- **Graph Algorithms**: Dijkstra's and Prim's algorithms use min-heaps
+
+<Visualizer />
