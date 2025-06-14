@@ -1,4 +1,5 @@
 import Visualizer from "@/components/quick/visualizer";
+import PartitionTreeVisualization from "@/components/quick/partition-tree-visualization";
 
 # Quick Sort Algorithm
 
@@ -28,23 +29,29 @@ The partitioning process is the heart of Quick Sort:
 
 Consider this unsorted array: `[8, 3, 5, 4, 7, 6, 1, 2]`
 
+### Partitioning Tree Structure
+
+<PartitionTreeVisualization 
+	data={[8, 3, 5, 4, 7, 6, 1, 2]} 
+	title="Quick Sort Partitioning Tree"
+	subtitle="Shows how the array is recursively partitioned around pivot elements"
+	pivotStrategy="last"
+/>
+
+The tree above shows how Quick Sort recursively partitions the array:
+- Each node represents a partition operation
+- Blue connections show left partitions (≤ pivot)
+- Red connections show right partitions (> pivot)
+- Green nodes are base cases (≤1 element)
+
+### Step-by-Step Process
+
 **First Partition (Pivot = 2):**
+- Elements ≤ 2: `[1, 2]` (left partition)
+- Elements > 2: `[8, 3, 5, 4, 7, 6]` (right partition)
 
-- Compare each element with pivot (2)
-- Elements ≤ 2: move to left side → `[1, 2, 5, 4, 7, 6, 8, 3]`
-- Pivot (2) is now in correct position at index 1
-
-**Recursive Calls:**
-
-- Left subarray: `[1]` (already sorted)
-- Right subarray: `[5, 4, 7, 6, 8, 3]` (needs further partitioning)
-
-**Second Partition (Pivot = 3):**
-
-- Partition `[5, 4, 7, 6, 8, 3]` around pivot (3)
-- Result: `[3, 4, 7, 6, 8, 5]`
-
-This process continues recursively until all elements are in their correct positions.
+**Recursive Partitioning:**
+The process continues on each partition until all sub-arrays have ≤1 element.
 
 ## Time Complexity
 

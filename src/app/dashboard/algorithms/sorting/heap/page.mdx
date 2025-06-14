@@ -1,4 +1,5 @@
 import Visualizer from "@/components/heap/visualizer";
+import HeapTreeVisualization from "@/components/heap/heap-tree-visualization";
 
 # Heap Sort Algorithm
 
@@ -32,19 +33,45 @@ Heap Sort works in two main phases:
 
 Consider this unsorted array: `[4, 10, 3, 5, 1]`
 
-**Step 1: Build Max Heap**
+### Step 1: Build Max Heap
 
-```
-Original:  [4, 10, 3, 5, 1]
-After heapifying: [10, 5, 3, 4, 1]
+<HeapTreeVisualization 
+	data={[4, 10, 3, 5, 1]} 
+	title="Original Array as Binary Tree"
+	subtitle="Before heapifying - notice the heap property violations"
+/>
 
-Tree representation:
-       10
-      /  \
-     5    3
-    / \
-   4   1
-```
+After applying the heapify process:
+
+<HeapTreeVisualization 
+	data={[10, 5, 3, 4, 1]} 
+	title="Max Heap After Heapifying"
+	subtitle="All nodes now satisfy the max heap property (parent ≥ children)"
+/>
+
+### Step 2: Extract Elements
+
+Here's what happens during the extraction phase:
+
+<HeapTreeVisualization 
+	data={[5, 4, 3, 1]} 
+	title="Heap After First Extraction"
+	subtitle="Root (10) removed, heap property restored with remaining elements"
+/>
+
+<HeapTreeVisualization 
+	data={[4, 1, 3]} 
+	title="Heap After Second Extraction"
+	subtitle="Element 5 extracted, continuing the sorting process"
+/>
+
+<HeapTreeVisualization 
+	data={[3, 1]} 
+	title="Near Completion"
+	subtitle="Only a few elements remain in the heap"
+/>
+
+The process continues until all elements are extracted and the array is fully sorted.
 
 **Step 2: Extract Elements**
 
