@@ -30,7 +30,7 @@ export const navData = [
 					{
 						title: "Heap Sort",
 						url: "heap",
-					}
+					},
 				],
 			},
 			{

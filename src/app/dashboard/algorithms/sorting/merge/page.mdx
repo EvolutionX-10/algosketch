@@ -28,13 +28,14 @@ Consider this unsorted array: `[38, 27, 43, 3, 9, 82, 10]`
 
 ### Dividing Phase
 
-<TreeVisualization 
-	data={[38, 27, 43, 3, 9, 82, 10]} 
+<TreeVisualization
+	data={[38, 27, 43, 3, 9, 82, 10]}
 	title="Divide Phase - Breaking Down the Array"
 	subtitle="The array is recursively divided until each subarray contains a single element"
 />
 
 The algorithm recursively divides the array into smaller subarrays:
+
 - Level 0: `[38, 27, 43, 3, 9, 82, 10]` (original array)
 - Level 1: `[38, 27, 43, 3]` and `[9, 82, 10]`
 - Level 2: `[38, 27]`, `[43, 3]`, `[9]`, and `[82, 10]`
@@ -42,13 +43,14 @@ The algorithm recursively divides the array into smaller subarrays:
 
 ### Merging Phase
 
-<TreeVisualization 
-	data={[3, 9, 10, 27, 38, 43, 82]} 
+<TreeVisualization
+	data={[3, 9, 10, 27, 38, 43, 82]}
 	title="Merge Phase - Combining Sorted Subarrays"
 	subtitle="Sorted subarrays are merged back together to form the final sorted array"
 />
 
 The sorted subarrays are then merged back together:
+
 - `[27, 38]` + `[3, 43]` → `[3, 27, 38, 43]`
 - `[9]` + `[10, 82]` → `[9, 10, 82]`
 - `[3, 27, 38, 43]` + `[9, 10, 82]` → `[3, 9, 10, 27, 38, 43, 82]`
@@ -68,39 +70,39 @@ Merge sort has a space complexity of O(n) because it requires additional memory 
 
 ```js
 function mergeSort(arr) {
-  // Base case: single item arrays are already sorted
-  if (arr.length <= 1) return arr;
-  
-  // Divide: Split the array into halves
-  const mid = Math.floor(arr.length / 2);
-  const left = mergeSort(arr.slice(0, mid));
-  const right = mergeSort(arr.slice(mid));
-  
-  // Combine: Merge the sorted halves
-  return merge(left, right);
+	// Base case: single item arrays are already sorted
+	if (arr.length <= 1) return arr;
+
+	// Divide: Split the array into halves
+	const mid = Math.floor(arr.length / 2);
+	const left = mergeSort(arr.slice(0, mid));
+	const right = mergeSort(arr.slice(mid));
+
+	// Combine: Merge the sorted halves
+	return merge(left, right);
 }
 
 function merge(left, right) {
-  const merged = [];
-  let i = 0;
-  let j = 0;
-  
-  // Compare elements from both arrays and merge in sorted order
-  while (i < left.length && j < right.length) {
-    if (left[i] <= right[j]) {
-      merged.push(left[i]);
-      i++;
-    } else {
-      merged.push(right[j]);
-      j++;
-    }
-  }
-  
-  // Add any remaining elements
-  merged.push(...left.slice(i));
-  merged.push(...right.slice(j));
-  
-  return merged;
+	const merged = [];
+	let i = 0;
+	let j = 0;
+
+	// Compare elements from both arrays and merge in sorted order
+	while (i < left.length && j < right.length) {
+		if (left[i] <= right[j]) {
+			merged.push(left[i]);
+			i++;
+		} else {
+			merged.push(right[j]);
+			j++;
+		}
+	}
+
+	// Add any remaining elements
+	merged.push(...left.slice(i));
+	merged.push(...right.slice(j));
+
+	return merged;
 }
 
 // Example usage
@@ -143,15 +145,15 @@ For small subarrays (typically less than 10-20 elements), switching to insertion
 
 ```js
 function mergeSortOptimized(arr) {
-  if (arr.length <= 10) {
-    return insertionSort(arr);
-  }
-  
-  const mid = Math.floor(arr.length / 2);
-  const left = mergeSortOptimized(arr.slice(0, mid));
-  const right = mergeSortOptimized(arr.slice(mid));
-  
-  return merge(left, right);
+	if (arr.length <= 10) {
+		return insertionSort(arr);
+	}
+
+	const mid = Math.floor(arr.length / 2);
+	const left = mergeSortOptimized(arr.slice(0, mid));
+	const right = mergeSortOptimized(arr.slice(mid));
+
+	return merge(left, right);
 }
 ```
 

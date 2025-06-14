@@ -178,9 +178,7 @@ export default function Visualizer() {
 			<Banner onClickAction={handleScroll} />
 			<div ref={containerRef} className="flex w-full flex-col gap-4">
 				<h2 className="mb-2 text-2xl font-bold">Heap Sort Visualizer</h2>
-
 				<Legend />
-
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-3">
 					<div className="md:col-span-2">
 						<div className="bg-card flex h-80 flex-col rounded-lg border p-4">

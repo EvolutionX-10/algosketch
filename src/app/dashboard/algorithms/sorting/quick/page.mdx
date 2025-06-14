@@ -31,14 +31,15 @@ Consider this unsorted array: `[8, 3, 5, 4, 7, 6, 1, 2]`
 
 ### Partitioning Tree Structure
 
-<PartitionTreeVisualization 
-	data={[8, 3, 5, 4, 7, 6, 1, 2]} 
+<PartitionTreeVisualization
+	data={[8, 3, 5, 4, 7, 6, 1, 2]}
 	title="Quick Sort Partitioning Tree"
 	subtitle="Shows how the array is recursively partitioned around pivot elements"
 	pivotStrategy="last"
 />
 
 The tree above shows how Quick Sort recursively partitions the array:
+
 - Each node represents a partition operation
 - Blue connections show left partitions (≤ pivot)
 - Red connections show right partitions (> pivot)
@@ -47,6 +48,7 @@ The tree above shows how Quick Sort recursively partitions the array:
 ### Step-by-Step Process
 
 **First Partition (Pivot = 2):**
+
 - Elements ≤ 2: `[1, 2]` (left partition)
 - Elements > 2: `[8, 3, 5, 4, 7, 6]` (right partition)
 
@@ -71,7 +73,7 @@ function quickSort(arr, low = 0, high = arr.length - 1) {
 	if (low < high) {
 		// Partition the array and get pivot index
 		const pivotIndex = partition(arr, low, high);
-		
+
 		// Recursively sort elements before and after partition
 		quickSort(arr, low, pivotIndex - 1);
 		quickSort(arr, pivotIndex + 1, high);
@@ -83,7 +85,7 @@ function partition(arr, low, high) {
 	// Choose rightmost element as pivot
 	const pivot = arr[high];
 	let i = low - 1; // Index of smaller element
-	
+
 	for (let j = low; j < high; j++) {
 		// If current element is smaller than or equal to pivot
 		if (arr[j] <= pivot) {
@@ -92,7 +94,7 @@ function partition(arr, low, high) {
 			[arr[i], arr[j]] = [arr[j], arr[i]];
 		}
 	}
-	
+
 	// Place pivot in correct position
 	[arr[i + 1], arr[high]] = [arr[high], arr[i + 1]];
 	return i + 1; // Return pivot index

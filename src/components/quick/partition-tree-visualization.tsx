@@ -180,7 +180,7 @@ export default function PartitionTreeVisualization({
 												x={(x1 + x2) / 2}
 												y={(y1 + y2) / 2 - 5}
 												textAnchor="middle"
-												className="fill-gray-800 opacity-60 text-xs dark:fill-gray-400"
+												className="fill-gray-800 text-xs opacity-60 dark:fill-gray-400"
 											>
 												{isLeftPartition ? "≤ pivot" : "> pivot"}
 											</text>
