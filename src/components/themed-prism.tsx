@@ -17,6 +17,12 @@ export function ThemedPrism(props: SyntaxHighlighterProps) {
 					fontFamily: "var(--font-mono)",
 				},
 			}}
+			wrapLines
+			lineProps={() => {
+				return {
+					style: { padding: "0.05em 0.5em", display: "block" },
+				};
+			}}
 			{...props}
 		>
 			{props.children}
