@@ -1,0 +1,97 @@
+import Visualizer from "@/components/linear/visualizer";
+
+# Linear Search Algorithm
+
+Linear Search is the simplest search algorithm that works by sequentially checking each element in a collection until the target element is found or the entire collection has been searched.
+
+## How Linear Search Works
+
+Linear search examines each element in the array one by one, starting from the first element, until it finds the target value or reaches the end of the array.
+
+### Algorithm Steps
+
+1. Start at the first element (index 0) of the array
+2. Compare the current element with the target value
+3. If they match, return the current index (element found)
+4. If they don't match, move to the next element
+5. Repeat steps 2-4 until either:
+   - The target is found (return the index)
+   - The end of the array is reached (return -1, indicating not found)
+
+## Visual Representation
+
+Consider this array: `[15, 8, 23, 42, 7, 16, 9]` and we're searching for `23`
+
+**Step 1:** Check index 0 (value 15) → 15 ≠ 23, continue <br />
+**Step 2:** Check index 1 (value 8) → 8 ≠ 23, continue <br />
+**Step 3:** Check index 2 (value 23) → 23 = 23, found! Return index 2 <br />
+
+In the worst case, if we were searching for `9`, we would need to check all 7 elements.
+
+## Time Complexity
+
+- **Best Case**: O(1) - Target is the first element
+- **Average Case**: O(n) - Target is somewhere in the middle
+- **Worst Case**: O(n) - Target is the last element or not present
+
+Where `n` is the number of elements in the array.
+
+## Space Complexity
+
+**O(1)** - Linear search uses only a constant amount of extra space regardless of the input size.
+
+## Implementation in JavaScript
+
+```js
+function linearSearch(arr, target) {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === target) {
+            return i; // Found! Return the index
+        }
+    }
+    return -1; // Not found
+}
+
+// Example usage
+const array = [15, 8, 23, 42, 7, 16, 9];
+console.log(linearSearch(array, 23)); // Output: 2
+console.log(linearSearch(array, 100)); // Output: -1
+```
+
+## Advantages and Disadvantages
+
+### Advantages
+- **Simple Implementation**: Easy to understand and implement
+- **Works on Unsorted Data**: No requirement for the array to be sorted
+- **Memory Efficient**: Uses constant extra space
+- **Works on Any Data Type**: Can search any comparable data type
+
+### Disadvantages
+- **Slow for Large Arrays**: O(n) time complexity can be inefficient
+- **No Early Optimization**: Must check every element in worst case
+- **Better Alternatives Exist**: For sorted data, binary search is much faster
+
+## When to Use Linear Search
+
+Linear search is ideal when:
+
+- **Small datasets**: When the array size is small (< 100 elements)
+- **Unsorted data**: When the data is not sorted and sorting would be expensive
+- **Simple requirements**: When implementation simplicity is more important than performance
+- **One-time searches**: When you're only searching once and don't want the overhead of sorting
+
+## Real-world Applications
+
+- **Simple list lookups**: Finding items in small collections
+- **Database table scans**: When no index is available
+- **String pattern matching**: Basic substring search in small texts
+- **Validation**: Checking if a value exists in a small set of valid options
+- **Debugging**: Simple search operations during development
+
+## Comparison with Other Algorithms
+
+- **vs Binary Search**: Linear search works on unsorted data but is slower (O(n) vs O(log n))
+- **vs Hash Table Lookup**: Linear search uses no extra space but is slower (O(n) vs O(1))
+- **vs Tree Search**: Linear search is simpler but less efficient for repeated searches
+
+<Visualizer />

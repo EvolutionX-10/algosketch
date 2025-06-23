@@ -35,7 +35,17 @@ export const navData = [
 			},
 			{
 				title: "Searching Algorithms",
-				url: "#",
+				url: "searching",
+				items: [
+					{
+						title: "Linear Search",
+						url: "linear",
+					},
+					{
+						title: "Binary Search",
+						url: "binary",
+					},
+				],
 			},
 		],
 	},

@@ -1,0 +1,169 @@
+import Visualizer from "@/components/binary/visualizer";
+
+# Binary Search Algorithm
+
+Binary Search is an efficient search algorithm that finds the position of a target value within a sorted array by repeatedly dividing the search interval in half and comparing the target with the middle element.
+
+## How Binary Search Works
+
+Binary search operates on the principle of divide and conquer, systematically eliminating half of the remaining elements with each comparison.
+
+### Algorithm Steps
+
+1. **Initialize bounds**: Set `left = 0` and `right = array.length - 1`
+2. **Calculate middle**: Find the middle index: `mid = (left + right) / 2`
+3. **Compare with target**:
+   - If `array[mid] === target`: Found! Return the index
+   - If `array[mid] < target`: Search the right half (`left = mid + 1`)
+   - If `array[mid] > target`: Search the left half (`right = mid - 1`)
+4. **Repeat**: Continue until the element is found or `left > right`
+5. **Not found**: If the loop ends without finding the target, return -1
+
+### Key Requirement
+
+**The array must be sorted** for binary search to work correctly. This is because the algorithm relies on the ordering to determine which half of the array to eliminate.
+
+## Visual Representation
+
+Consider this sorted array: `[2, 5, 8, 12, 16, 23, 38, 45, 56, 67, 78]` and we're searching for `23`
+
+**Step 1:** Check middle (index 5, value 23) → 23 = 23, found! Return index 5
+
+If we were searching for `67`:
+
+**Step 1:** Check middle (index 5, value 23) → 23 < 67, search right half <br />
+**Step 2:** Check middle of right half (index 8, value 56) → 56 < 67, search right half <br />
+**Step 3:** Check middle (index 9, value 67) → 67 = 67, found! Return index 9 <br />
+
+## Time Complexity
+
+- **Best Case**: O(1) - Target is the middle element
+- **Average Case**: O(log n) - Target requires several divisions
+- **Worst Case**: O(log n) - Target is at the end of search or not present
+
+Where `n` is the number of elements in the array.
+
+## Space Complexity
+
+**O(1)** - Binary search uses only a constant amount of extra space (iterative implementation).
+
+**O(log n)** - For recursive implementation due to call stack.
+
+## Implementation in JavaScript
+
+```js
+function binarySearch(arr, target) {
+    let left = 0;
+    let right = arr.length - 1;
+    
+    while (left <= right) {
+        let mid = Math.floor((left + right) / 2);
+        
+        if (arr[mid] === target) {
+            return mid; // Found! Return the index
+        } else if (arr[mid] < target) {
+            left = mid + 1; // Search right half
+        } else {
+            right = mid - 1; // Search left half
+        }
+    }
+    return -1; // Not found
+}
+
+// Example usage
+const sortedArray = [2, 5, 8, 12, 16, 23, 38, 45, 56, 67, 78];
+console.log(binarySearch(sortedArray, 23)); // Output: 5
+console.log(binarySearch(sortedArray, 100)); // Output: -1
+```
+
+### Recursive Implementation
+
+```js
+function binarySearchRecursive(arr, target, left = 0, right = arr.length - 1) {
+    if (left > right) {
+        return -1; // Not found
+    }
+    
+    const mid = Math.floor((left + right) / 2);
+    
+    if (arr[mid] === target) {
+        return mid; // Found!
+    } else if (arr[mid] < target) {
+        return binarySearchRecursive(arr, target, mid + 1, right);
+    } else {
+        return binarySearchRecursive(arr, target, left, mid - 1);
+    }
+}
+```
+
+## Advantages and Disadvantages
+
+### Advantages
+- **Very Fast**: O(log n) time complexity is much faster than linear search
+- **Predictable Performance**: Consistent logarithmic performance regardless of data distribution
+- **Memory Efficient**: Uses constant space (iterative version)
+- **Scalable**: Performance advantage increases with larger datasets
+
+### Disadvantages
+- **Requires Sorted Data**: Array must be sorted before searching
+- **Sorting Overhead**: If data isn't already sorted, sorting takes O(n log n) time
+- **Not Suitable for Linked Lists**: Requires random access to elements
+- **Insertion/Deletion Complexity**: Maintaining sorted order can be expensive
+
+## When to Use Binary Search
+
+Binary search is ideal when:
+
+- **Large sorted datasets**: When you have many elements and they're already sorted
+- **Frequent searches**: When you'll be searching the same dataset multiple times
+- **Performance critical**: When search speed is more important than insertion speed
+- **Static or mostly static data**: When the dataset doesn't change frequently
+
+## Real-world Applications
+
+- **Database Indexing**: Database systems use binary search in B-tree indexes
+- **Dictionary/Phone Book Lookup**: Finding entries in alphabetically sorted lists
+- **Library Systems**: Locating books in sorted catalogs
+- **Version Control**: Git uses binary search for commit history (git bisect)
+- **Debugging**: Finding the source of bugs in version history
+- **Search Engines**: Initial filtering in sorted index structures
+- **Autocomplete Features**: Finding suggestions in sorted word lists
+
+## Variations and Extensions
+
+### Finding Insertion Point
+```js
+function findInsertionPoint(arr, target) {
+    let left = 0;
+    let right = arr.length;
+    
+    while (left < right) {
+        const mid = Math.floor((left + right) / 2);
+        if (arr[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid;
+        }
+    }
+    return left;
+}
+```
+
+### Finding Range (First and Last Occurrence)
+```js
+function findRange(arr, target) {
+    const first = findFirst(arr, target);
+    if (first === -1) return [-1, -1];
+    const last = findLast(arr, target);
+    return [first, last];
+}
+```
+
+## Comparison with Other Algorithms
+
+- **vs Linear Search**: Much faster for large sorted datasets (O(log n) vs O(n))
+- **vs Hash Table**: Binary search doesn't require extra space and works with ranges
+- **vs Tree Search**: Similar performance but binary search works on arrays
+- **vs Interpolation Search**: Binary search is more reliable with non-uniform data distribution
+
+<Visualizer />
