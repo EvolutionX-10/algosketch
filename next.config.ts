@@ -6,9 +6,6 @@ const nextConfig: NextConfig = {
 		position: "bottom-right",
 	},
 	pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
-	experimental: {
-		scrollRestoration: true,
-	},
 };
 
 const withMDX = createMDX({

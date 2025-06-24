@@ -83,7 +83,7 @@ export function Header() {
 
 	return (
 		<header className="bg-background/70 sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b px-4 backdrop-blur-lg">
-			<SidebarTrigger className="-ml-1" />
+			<SidebarTrigger className="-ml-2 size-8 cursor-pointer p-4" />
 			<Separator orientation="vertical" className="mr-2 h-4" />
 			<Breadcrumb>
 				<BreadcrumbList>{crumbs.length >= 4 && isMobile ? TooManyCrumbs : NormalCrumbs}</BreadcrumbList>
