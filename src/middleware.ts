@@ -1,11 +1,14 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { generateDailyPassword } from "./lib/utils";
 
 export function middleware(request: NextRequest) {
 	if (request.nextUrl.origin === "http://localhost:3000") return NextResponse.next();
 
-	const adminPasswordPath = "/password";
 	const clearAdminPath = "/clear";
+
+	const todaysPassword = generateDailyPassword();
+	const adminPasswordPath = `/${todaysPassword}`;
 
 	if (request.nextUrl.pathname === adminPasswordPath) {
 		const response = NextResponse.redirect(new URL("/dashboard", request.url));
