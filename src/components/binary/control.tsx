@@ -63,7 +63,7 @@ export default function Control({
 					<Label htmlFor="array-size">Array Size: {arraySize}</Label>
 					<ElasticSlider
 						min={5}
-						max={20}
+						max={15}
 						step={1}
 						isStepped
 						defaultValue={arraySize}
