@@ -8,7 +8,6 @@ import {
 	SidebarContent,
 	SidebarGroup,
 	SidebarGroupContent,
-	SidebarGroupLabel,
 	SidebarHeader,
 	SidebarMenu,
 	SidebarMenuButton,
@@ -32,7 +31,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
 	return (
 		<Sidebar {...props}>
-			<SidebarHeader className="font-heading flex flex-row items-center gap-0 text-2xl">
+			<SidebarHeader className="font-heading flex flex-row items-center gap-0 p-4 text-2xl">
 				<ThemedImage
 					srcLight="/images/icon-light.png"
 					srcDark="/images/icon-dark.png"
@@ -42,34 +41,39 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 					fetchPriority="high"
 					className="h-6 w-6"
 				/>
-				<span className="ml-0.5 tracking-wide">lgoSketch</span>
+				<span className="ml-0.5 tracking-wider">lgoSketch</span>
 			</SidebarHeader>
 			<SidebarContent className="gap-0">
 				{navData.map((root) => (
-					<Collapsible key={root.title} title={root.title} defaultOpen className="group/collapsible">
-						<SidebarGroup>
-							<SidebarGroupLabel
-								asChild
-								className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm"
-							>
-								<CollapsibleTrigger>
-									{root.title}{" "}
-									<ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+					<Collapsible key={root.title} title={root.title} className="group/collapsible">
+						<SidebarGroup className="py-0.5">
+							<div className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground relative flex items-center rounded-md text-sm transition-all duration-200 ease-in-out">
+								<Link
+									href={getLink(root.url)}
+									className="hover:bg-sidebar-accent/50 sidebar-item-hover flex h-8 flex-1 items-center rounded-md px-2 transition-all duration-150 ease-in-out"
+									onClick={() => isMobile && toggleSidebar()}
+								>
+									{root.title}
+								</Link>
+								<CollapsibleTrigger asChild>
+									<button className="hover:bg-sidebar-accent/70 flex h-8 w-8 items-center justify-center rounded-md transition-all duration-150 ease-in-out hover:cursor-pointer">
+										<ChevronRight className="h-4 w-4 transition-transform duration-200 ease-in-out group-data-[state=open]/collapsible:rotate-90" />
+									</button>
 								</CollapsibleTrigger>
-							</SidebarGroupLabel>
-							<CollapsibleContent className="border-l-sidebar-ring border-l-2">
+							</div>
+							<CollapsibleContent className="border-l-sidebar-ring data-[state=closed]:animate-slide-up data-[state=open]:animate-slide-down overflow-hidden border-l-2">
 								<SidebarGroupContent>
 									<SidebarMenu>
 										{root.items &&
 											root.items.map((node) => {
 												if (!node.items) {
 													return (
-														<SidebarMenuItem key={node.title}>
+														<SidebarMenuItem key={node.title} className="transition-all duration-150 ease-in-out">
 															<SidebarMenuButton
 																asChild
 																onClick={() => isMobile && toggleSidebar()}
 																isActive={matchActive(active, node.title)}
-																className="ml-2"
+																className="sidebar-item-hover ml-2"
 															>
 																<Link href={getLink(node.url)}>{node.title}</Link>
 															</SidebarMenuButton>
@@ -77,32 +81,35 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 													);
 												} else {
 													return (
-														<Collapsible
-															key={node.title}
-															title={node.title}
-															defaultOpen
-															className="group/sub-collapsible"
-														>
-															<SidebarGroup>
-																<SidebarGroupLabel
-																	asChild
-																	className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm"
-																>
-																	<CollapsibleTrigger>
-																		{node.title}{" "}
-																		<ChevronRight className="ml-auto transition-transform group-data-[state=open]/sub-collapsible:rotate-90" />
+														<Collapsible key={node.title} title={node.title} className="group/sub-collapsible">
+															<SidebarGroup className="py-0.5">
+																<div className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground relative flex items-center text-sm transition-all duration-200 ease-in-out">
+																	<Link
+																		href={getLink(node.url)}
+																		className="hover:bg-sidebar-accent/50 sidebar-item-hover flex h-8 flex-1 items-center px-2 transition-all duration-150 ease-in-out"
+																		onClick={() => isMobile && toggleSidebar()}
+																	>
+																		{node.title}
+																	</Link>
+																	<CollapsibleTrigger asChild>
+																		<button className="hover:bg-sidebar-accent/70 flex h-8 w-8 items-center justify-center rounded-md transition-all duration-150 ease-in-out hover:cursor-pointer">
+																			<ChevronRight className="h-4 w-4 transition-transform duration-200 ease-in-out group-data-[state=open]/sub-collapsible:rotate-90" />
+																		</button>
 																	</CollapsibleTrigger>
-																</SidebarGroupLabel>
-																<CollapsibleContent className="border-l-2">
+																</div>
+																<CollapsibleContent className="data-[state=closed]:animate-slide-up data-[state=open]:animate-slide-down overflow-hidden border-l-2">
 																	<SidebarGroupContent>
 																		<SidebarMenu>
 																			{node.items.map((subNode) => (
-																				<SidebarMenuItem key={subNode.title}>
+																				<SidebarMenuItem
+																					key={subNode.title}
+																					className="transition-all duration-150 ease-in-out"
+																				>
 																					<SidebarMenuButton
 																						asChild
 																						onClick={() => isMobile && toggleSidebar()}
 																						isActive={matchActive(active, subNode.title)}
-																						className="ml-2"
+																						className="sidebar-item-hover"
 																					>
 																						<Link href={getLink(subNode.url)}>{subNode.title}</Link>
 																					</SidebarMenuButton>
