@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
@@ -59,7 +58,6 @@ export default function Control({
 
 	return (
 		<div className="flex flex-col gap-4 rounded-lg border p-4 shadow-sm">
-			{/* Array Generation */}
 			<div className="grid gap-4">
 				<div className="space-y-2">
 					<Label htmlFor="array-size">Array Size: {arraySize}</Label>
@@ -78,8 +76,6 @@ export default function Control({
 					Generate Sorted Array
 				</Button>
 			</div>
-
-			{/* Animation Speed */}
 			<div className="space-y-2">
 				<Label htmlFor="speed">Animation Speed</Label>
 				<ElasticSlider
@@ -90,8 +86,6 @@ export default function Control({
 					className="py-2"
 				/>
 			</div>
-
-			{/* Target Selection */}
 			<div className="space-y-2">
 				<Label htmlFor="target">Search Target</Label>
 				<div className="flex gap-2">
@@ -120,14 +114,11 @@ export default function Control({
 					Random Target from Array
 				</Button>
 			</div>
-
-			{/* Playback Controls */}
 			<div className="flex flex-wrap items-center justify-between">
 				<div className="flex w-full justify-center gap-2 md:w-auto">
 					<Button variant="outline" onClick={onPrevAction} disabled={!canGoPrev || isPlaying}>
 						Previous
 					</Button>
-
 					{isPlaying ? (
 						<Button variant="outline" onClick={onPauseAction} disabled={!canGoNext}>
 							Pause
@@ -137,12 +128,10 @@ export default function Control({
 							{currentStep === 0 ? "Start" : "Resume"}
 						</Button>
 					)}
-
 					<Button variant="outline" onClick={onNextAction} disabled={!canGoNext || isPlaying}>
 						Next
 					</Button>
 				</div>
-
 				<div className="md:text-muted-foreground flex w-full justify-center pt-4 text-sm md:w-fit md:p-0">
 					Step {currentStep} of {totalSteps}
 				</div>

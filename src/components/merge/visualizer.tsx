@@ -29,12 +29,10 @@ export default function Visualizer() {
 		}
 	};
 
-	// Initialize with random array
 	useEffect(() => {
 		resetArray(12);
 	}, []);
 
-	// Generate a new random array and reset the visualization
 	const resetArray = (size: number) => {
 		const newArray = generateRandomArray(size);
 		setArray(newArray);
@@ -51,11 +49,10 @@ export default function Visualizer() {
 			intervalRef.current = null;
 		}
 	};
-	// Go to the next step in the algorithm
+
 	const nextStep = () => {
 		setCurrentStepIndex((prevIndex) => {
 			if (prevIndex < steps.length - 1) {
-				// Update stats for the next step
 				const nextStepData = steps[prevIndex + 1];
 				if (nextStepData.comparing.length > 0) {
 					setComparisons((prev) => prev + 1);
@@ -69,19 +66,17 @@ export default function Visualizer() {
 				return prevIndex + 1;
 			} else {
 				pauseAnimation();
-				return prevIndex; // Stay at the current index if it's the last step
+				return prevIndex;
 			}
 		});
 	};
 
-	// Go to the previous step
 	const prevStep = () => {
 		if (currentStepIndex > 0) {
 			setCurrentStepIndex((prev) => prev - 1);
 		}
 	};
 
-	// Start/resume the animation
 	const startAnimation = () => {
 		if (currentStepIndex < steps.length - 1) {
 			setIsPlaying(true);
@@ -124,7 +119,6 @@ export default function Visualizer() {
 		}
 	};
 
-	// Clean up interval on unmount
 	useEffect(() => {
 		return () => {
 			if (intervalRef.current) {
@@ -133,13 +127,12 @@ export default function Visualizer() {
 		};
 	}, []);
 
-	// Reset animation interval when speed changes during playback
 	useEffect(() => {
 		if (isPlaying && intervalRef.current) {
-			startAnimation(); // This will clear the existing interval and create a new one with updated speed
+			startAnimation();
 		}
 	}, [speed]);
-	// Get the current step data to display
+
 	const currentStep = steps[currentStepIndex] || {
 		array: array,
 		comparing: [],

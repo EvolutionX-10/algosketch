@@ -41,7 +41,6 @@ function isValidMaxHeap(arr: number[], index: number): boolean {
 	const leftChild = 2 * index + 1;
 	const rightChild = 2 * index + 2;
 
-	// Check if current node satisfies max heap property with its children
 	let isValid = true;
 
 	if (leftChild < arr.length && arr[index] < arr[leftChild]) {
@@ -57,11 +56,11 @@ function isValidMaxHeap(arr: number[], index: number): boolean {
 
 function getNodeColor(node: HeapNode, isCompleteMaxHeap: boolean): string {
 	if (node.isRoot) {
-		return "#dc2626"; // Red for root
+		return "#dc2626";
 	} else if (node.isMaxHeap) {
-		return "#10b981"; // Green for valid heap nodes
+		return "#10b981";
 	} else {
-		return "#f59e0b"; // Orange/yellow for invalid heap nodes
+		return "#f59e0b";
 	}
 }
 
@@ -74,7 +73,6 @@ export default function HeapTreeVisualization({
 	const nodes = generateHeapNodes(data);
 	const maxLevel = Math.max(...nodes.map((n) => n.level));
 
-	// SVG dimensions - heap trees are typically more compact than merge sort trees
 	const svgWidth = Math.max(500, Math.pow(2, maxLevel) * 100);
 	const svgHeight = Math.max(250, (maxLevel + 1) * 80 + 100);
 	const nodeRadius = 20;
@@ -92,17 +90,6 @@ export default function HeapTreeVisualization({
 		return 60 + level * levelSpacing;
 	};
 
-	// Group nodes by level for better rendering
-	const nodesByLevel = nodes.reduce(
-		(acc, node) => {
-			if (!acc[node.level]) acc[node.level] = [];
-			acc[node.level].push(node);
-			return acc;
-		},
-		{} as Record<number, HeapNode[]>,
-	);
-
-	// Check if the entire array forms a valid max heap
 	const isCompleteMaxHeap = nodes.every((node) => node.isMaxHeap);
 
 	return (
@@ -128,7 +115,6 @@ export default function HeapTreeVisualization({
 						className="h-auto max-w-full"
 						preserveAspectRatio="xMidYMin meet"
 					>
-						{/* Draw level indicators */}
 						{Array.from({ length: maxLevel + 1 }, (_, level) => (
 							<g key={`level-${level}`}>
 								<text
@@ -149,14 +135,12 @@ export default function HeapTreeVisualization({
 									className="dark:stroke-gray-600"
 								/>
 							</g>
-						))}{" "}
-						{/* Draw connections between parent and child nodes */}
+						))}
 						{nodes.map((node) => {
 							const leftChildIndex = 2 * node.index + 1;
 							const rightChildIndex = 2 * node.index + 2;
 							const connections = [];
 
-							// Left child connection
 							if (leftChildIndex < nodes.length) {
 								const childNode = nodes[leftChildIndex];
 								const x1 = getNodeX(node);
@@ -164,7 +148,6 @@ export default function HeapTreeVisualization({
 								const x2 = getNodeX(childNode);
 								const y2 = getNodeY(childNode.level) - nodeRadius;
 
-								// Highlight violating connections in red
 								const isViolation = data[node.index] < data[leftChildIndex];
 
 								connections.push(
@@ -182,7 +165,6 @@ export default function HeapTreeVisualization({
 								);
 							}
 
-							// Right child connection
 							if (rightChildIndex < nodes.length) {
 								const childNode = nodes[rightChildIndex];
 								const x1 = getNodeX(node);
@@ -190,7 +172,6 @@ export default function HeapTreeVisualization({
 								const x2 = getNodeX(childNode);
 								const y2 = getNodeY(childNode.level) - nodeRadius;
 
-								// Highlight violating connections in red
 								const isViolation = data[node.index] < data[rightChildIndex];
 
 								connections.push(
@@ -210,15 +191,14 @@ export default function HeapTreeVisualization({
 
 							return connections;
 						})}
-						{/* Draw nodes */}
+
 						{nodes.map((node) => {
 							const x = getNodeX(node);
 							const y = getNodeY(node.level);
 
 							return (
 								<g key={node.index}>
-									{/* Node shadow for depth */}
-									<circle cx={x + 2} cy={y + 2} r={nodeRadius} fill="rgba(0,0,0,0.15)" /> {/* Node background */}
+									<circle cx={x + 2} cy={y + 2} r={nodeRadius} fill="rgba(0,0,0,0.15)" />
 									<circle
 										cx={x}
 										cy={y}
@@ -228,7 +208,7 @@ export default function HeapTreeVisualization({
 										strokeWidth="2"
 										className="cursor-default transition-all duration-300 hover:brightness-110"
 									/>
-									{/* Node text */}
+
 									<text
 										x={x}
 										y={y + 5}
@@ -238,7 +218,7 @@ export default function HeapTreeVisualization({
 									>
 										{node.value}
 									</text>
-									{/* Array index indicator */}
+
 									<text
 										x={x}
 										y={y + nodeRadius + 15}
@@ -247,7 +227,7 @@ export default function HeapTreeVisualization({
 									>
 										[{node.index}]
 									</text>
-									{/* Root indicator */}
+
 									{node.isRoot && (
 										<text
 											x={x}
@@ -261,7 +241,7 @@ export default function HeapTreeVisualization({
 								</g>
 							);
 						})}
-						{/* Array representation at the bottom */}
+
 						<g>
 							<text
 								x={svgWidth / 2}
@@ -301,7 +281,7 @@ export default function HeapTreeVisualization({
 					<span className="text-gray-700 dark:text-gray-300">Heap Violation</span>
 				</div>
 			</div>
-			{/* Heap properties explanation */}
+
 			<div className="mt-4 rounded-lg bg-gray-50 p-4 text-sm dark:bg-gray-800">
 				<h4 className="mb-2 font-semibold text-gray-800 dark:text-gray-200">Heap Properties:</h4>
 				<ul className="space-y-1 text-gray-600 dark:text-gray-400">

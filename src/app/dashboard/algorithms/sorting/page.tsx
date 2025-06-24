@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon, BarChart3Icon, ClockIcon, ZapIcon } from "lucide-react";
 
-// Sorting algorithm data with metadata
 const sortingAlgorithms = [
 	{
 		title: "Bubble Sort",
@@ -81,7 +80,6 @@ const sortingAlgorithms = [
 export default function SortingPage() {
 	return (
 		<div className="container mx-auto w-4/5 px-4 py-8 select-none max-md:w-[95vw]">
-			{/* Header Section */}
 			<div className="mb-12 text-center">
 				<div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600">
 					<BarChart3Icon className="h-8 w-8 text-white" />
@@ -94,21 +92,16 @@ export default function SortingPage() {
 					approaches tackle the challenge of organizing data efficiently.
 				</p>
 			</div>
-
-			{/* Algorithm Cards Grid */}
 			<div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
 				{sortingAlgorithms.map((algorithm) => (
 					<div
 						key={algorithm.url}
 						className="group bg-card border-border hover:border-ring/20 relative flex h-full min-h-[520px] flex-col overflow-hidden rounded-xl border transition-all duration-300"
 					>
-						{/* Gradient Background */}
 						<div
 							className={`absolute inset-0 bg-gradient-to-br ${algorithm.color} opacity-5 transition-opacity duration-300 group-hover:opacity-10`}
 						/>
-
 						<div className="relative flex flex-1 flex-col p-8">
-							{/* Algorithm Header */}
 							<div className="mb-6 flex items-start justify-between">
 								<div className="flex items-start gap-4">
 									<div className="text-3xl">{algorithm.icon}</div>
@@ -130,11 +123,7 @@ export default function SortingPage() {
 									</div>
 								</div>
 							</div>
-
-							{/* Description */}
 							<p className="text-muted-foreground mb-6 text-sm leading-relaxed">{algorithm.description}</p>
-
-							{/* Complexity Badges */}
 							<div className="mb-6 flex flex-wrap items-center gap-4">
 								<div className="flex items-center gap-2">
 									<ClockIcon className="text-muted-foreground h-4 w-4" />
@@ -151,8 +140,6 @@ export default function SortingPage() {
 									</code>
 								</div>
 							</div>
-
-							{/* Features */}
 							<div className="mb-8 flex-1">
 								<div className="flex flex-wrap gap-2">
 									{algorithm.features.map((feature, idx) => (
@@ -165,8 +152,6 @@ export default function SortingPage() {
 									))}
 								</div>
 							</div>
-
-							{/* Action Button */}
 							<div className="mt-auto">
 								<Link href={`/dashboard/algorithms/sorting/${algorithm.url}`}>
 									<Button className="group/btn w-full cursor-pointer" variant="outline" size="lg">
@@ -179,8 +164,6 @@ export default function SortingPage() {
 					</div>
 				))}
 			</div>
-
-			{/* Additional Information Section */}
 			<div className="bg-muted/30 rounded-xl p-10 text-center">
 				<h2 className="mb-8 text-2xl font-semibold">Why Study Sorting Algorithms?</h2>
 				<div className="grid grid-cols-1 gap-8 text-left md:grid-cols-3">

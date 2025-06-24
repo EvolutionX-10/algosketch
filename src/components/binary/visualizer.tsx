@@ -29,12 +29,10 @@ export default function Visualizer() {
 		}
 	};
 
-	// Initialize with random array
 	useEffect(() => {
 		resetArray(10);
 	}, []);
 
-	// Generate a new random array and reset the visualization
 	const resetArray = (size: number) => {
 		const newArray = generateRandomArray(size);
 		setArray(newArray);
@@ -58,7 +56,6 @@ export default function Visualizer() {
 		}
 	};
 
-	// Handle target change
 	const handleTargetChange = (newTarget: number) => {
 		setTarget(newTarget);
 		const newSteps = binarySearchSteps(array, newTarget);
@@ -73,21 +70,18 @@ export default function Visualizer() {
 		}
 	};
 
-	// Go to the next step in the algorithm
 	const nextStep = () => {
 		if (currentStepIndex < steps.length - 1) {
 			setCurrentStepIndex(currentStepIndex + 1);
 		}
 	};
 
-	// Go to the previous step
 	const prevStep = () => {
 		if (currentStepIndex > 0) {
 			setCurrentStepIndex(currentStepIndex - 1);
 		}
 	};
 
-	// Start/resume the animation
 	const startAnimation = () => {
 		if (currentStepIndex < steps.length - 1) {
 			setIsPlaying(true);
@@ -120,14 +114,12 @@ export default function Visualizer() {
 		}
 	};
 
-	// Update comparisons count based on current step
 	useEffect(() => {
 		if (steps.length > 0 && currentStepIndex < steps.length) {
 			setComparisons(Math.max(0, currentStepIndex));
 		}
 	}, [currentStepIndex, steps]);
 
-	// Clean up interval on unmount
 	useEffect(() => {
 		return () => {
 			if (intervalRef.current) {
@@ -136,14 +128,12 @@ export default function Visualizer() {
 		};
 	}, []);
 
-	// Reset animation interval when speed changes during playback
 	useEffect(() => {
 		if (isPlaying && intervalRef.current) {
-			startAnimation(); // This will clear the existing interval and create a new one with updated speed
+			startAnimation();
 		}
 	}, [speed]);
 
-	// Get the current step data to display
 	const currentStep = steps[currentStepIndex] || {
 		array: array,
 		left: 0,
@@ -179,7 +169,6 @@ export default function Visualizer() {
 									))}
 								</AnimatePresence>
 							</div>
-							{/* Target and bounds indicators */}
 							<div className="mt-4 flex flex-wrap justify-center gap-2 text-center">
 								<span className="bg-muted rounded-md px-3 py-1 text-sm font-medium">
 									Target: <span className="font-bold text-green-600">{target}</span>

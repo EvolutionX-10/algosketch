@@ -25,13 +25,10 @@ function generatePartitionNodes(arr: number[], level = 0, position = 0): Partiti
 		return nodes;
 	}
 
-	// Use last element as pivot (Lomuto partition scheme)
 	const pivot = arr[arr.length - 1];
 	const leftPartition = arr.slice(0, -1).filter((x) => x < pivot);
 	const rightPartition = arr.slice(0, -1).filter((x) => x > pivot);
-	const equalElements = arr.slice(0, -1).filter((x) => x === pivot);
 
-	// Current node with pivot
 	nodes.push({
 		value: arr,
 		level,
@@ -41,7 +38,6 @@ function generatePartitionNodes(arr: number[], level = 0, position = 0): Partiti
 		rightPartition,
 	});
 
-	// Recursively partition left and right (only if they have elements)
 	if (leftPartition.length > 0) {
 		const leftNodes = generatePartitionNodes(leftPartition, level + 1, position * 2);
 		nodes.push(...leftNodes);
@@ -64,7 +60,6 @@ export default function PartitionTreeVisualization({
 	const nodes = generatePartitionNodes(data);
 	const maxLevel = Math.max(...nodes.map((n) => n.level));
 
-	// SVG dimensions
 	const svgWidth = Math.max(600, Math.pow(2, maxLevel) * 140);
 	const svgHeight = Math.max(300, (maxLevel + 1) * 100);
 	const nodeHeight = 40;
@@ -88,7 +83,6 @@ export default function PartitionTreeVisualization({
 		return Math.min(baseWidth, 200);
 	};
 
-	// Group nodes by level
 	const nodesByLevel = nodes.reduce(
 		(acc, node) => {
 			if (!acc[node.level]) acc[node.level] = [];
@@ -121,7 +115,6 @@ export default function PartitionTreeVisualization({
 						className="h-auto max-w-full"
 						preserveAspectRatio="xMidYMin meet"
 					>
-						{/* Draw level indicators */}
 						{Array.from({ length: maxLevel + 1 }, (_, level) => (
 							<g key={`level-${level}`}>
 								<text
@@ -144,7 +137,6 @@ export default function PartitionTreeVisualization({
 							</g>
 						))}
 
-						{/* Draw connections between parent and child partitions */}
 						{Object.entries(nodesByLevel).map(([level, levelNodes]) => {
 							const currentLevel = parseInt(level);
 							if (currentLevel === maxLevel) return null;
@@ -161,7 +153,6 @@ export default function PartitionTreeVisualization({
 									const x2 = getNodeX(child);
 									const y2 = getNodeY(childLevel) - nodeHeight / 2;
 
-									// Determine if this is left or right partition
 									const isLeftPartition = child.position % 2 === 0;
 
 									return (
@@ -175,7 +166,6 @@ export default function PartitionTreeVisualization({
 												strokeWidth="2"
 												className="transition-colors"
 											/>
-											{/* Partition label */}
 											<text
 												x={(x1 + x2) / 2}
 												y={(y1 + y2) / 2 - 5}
@@ -190,7 +180,6 @@ export default function PartitionTreeVisualization({
 							});
 						})}
 
-						{/* Draw nodes */}
 						{nodes.map((node, index) => {
 							const x = getNodeX(node);
 							const y = getNodeY(node.level);
@@ -199,7 +188,6 @@ export default function PartitionTreeVisualization({
 
 							return (
 								<g key={index}>
-									{/* Node shadow */}
 									<rect
 										x={x - nodeWidth / 2 + 3}
 										y={y - nodeHeight / 2 + 3}
@@ -208,7 +196,6 @@ export default function PartitionTreeVisualization({
 										rx="8"
 										fill="rgba(0,0,0,0.15)"
 									/>
-									{/* Node background */}
 									<rect
 										x={x - nodeWidth / 2}
 										y={y - nodeHeight / 2}
@@ -220,7 +207,6 @@ export default function PartitionTreeVisualization({
 										strokeWidth="2"
 										className="cursor-default transition-all duration-300 hover:brightness-110"
 									/>
-									{/* Node text */}
 									<text
 										x={x}
 										y={y}
@@ -230,7 +216,6 @@ export default function PartitionTreeVisualization({
 									>
 										{displayValue}
 									</text>
-									{/* Pivot indicator */}
 									{node.pivot !== undefined && (
 										<text
 											x={x}
@@ -241,7 +226,6 @@ export default function PartitionTreeVisualization({
 											Pivot: {node.pivot}
 										</text>
 									)}
-									{/* Level indicator for root */}
 									{node.level === 0 && (
 										<text
 											x={x}
@@ -271,7 +255,7 @@ export default function PartitionTreeVisualization({
 				<div className="flex items-center gap-2">
 					<div className="h-1 w-6 bg-blue-500" style={{ borderRadius: "1px" }}></div>
 					<span className="text-gray-700 dark:text-gray-300">Left Partition (≤ pivot)</span>
-				</div>{" "}
+				</div>
 				<div className="flex items-center gap-2">
 					<div className="h-1 w-6 bg-red-500" style={{ borderRadius: "1px" }}></div>
 					<span className="text-gray-700 dark:text-gray-300">Right Partition (&gt; pivot)</span>

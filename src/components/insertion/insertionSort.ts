@@ -14,13 +14,12 @@ export const stateStyles: Record<SortingState, string> = {
 
 export interface SortingStep {
 	array: BarItem[];
-	currentIndex: number; // Current element being inserted
-	comparingIndex: number; // Index being compared against
-	insertPosition: number; // Position where current element will be inserted
-	sortedIndices: number[]; // Indices that are sorted
+	currentIndex: number;
+	comparingIndex: number;
+	insertPosition: number;
+	sortedIndices: number[];
 }
 
-// Generate a random array of numbers
 export function generateRandomArray(length: number, max: number = 94): BarItem[] {
 	const timestamp = Date.now();
 	return Array.from({ length }, (_, i) => ({
@@ -30,7 +29,6 @@ export function generateRandomArray(length: number, max: number = 94): BarItem[]
 	}));
 }
 
-// Insertion sort algorithm that returns each step of the sorting process
 export function insertionSortSteps(inputArray: BarItem[]): SortingStep[] {
 	const steps: SortingStep[] = [];
 	const array = inputArray.map((item) => ({ ...item })); // Deep clone array
@@ -47,7 +45,6 @@ export function insertionSortSteps(inputArray: BarItem[]): SortingStep[] {
 	});
 
 	for (let i = 1; i < n; i++) {
-		// Mark the current element being considered
 		array[i].state = "comparing";
 		steps.push({
 			array: array.map((item) => ({ ...item })),
@@ -57,13 +54,10 @@ export function insertionSortSteps(inputArray: BarItem[]): SortingStep[] {
 			sortedIndices: Array.from({ length: i }, (_, idx) => idx),
 		});
 
-		// Store current element to insert
 		const current = { ...array[i] };
 		let j = i - 1;
 
-		// Find the proper position for the current element
 		while (j >= 0) {
-			// Highlight the comparison
 			const arrayBeforeComparison = array.map((item) => ({ ...item }));
 			arrayBeforeComparison[j].state = "comparing";
 			arrayBeforeComparison[i].state = "inserting";
@@ -76,9 +70,7 @@ export function insertionSortSteps(inputArray: BarItem[]): SortingStep[] {
 				sortedIndices: Array.from({ length: i }, (_, idx) => idx),
 			});
 
-			// If current element is smaller, shift elements
 			if (array[j].value > current.value) {
-				// Shift and visualize
 				array[j + 1] = { ...array[j] };
 
 				const arrayAfterShift = array.map((item) => ({ ...item }));
@@ -94,16 +86,13 @@ export function insertionSortSteps(inputArray: BarItem[]): SortingStep[] {
 
 				j--;
 			} else {
-				// Found the correct position
 				break;
 			}
 		}
 
-		// Insert the current element at the correct position
 		array[j + 1] = { ...current };
 		array[j + 1].state = "sorted";
 
-		// Mark all elements up to i as sorted
 		for (let k = 0; k <= i; k++) {
 			array[k].state = "sorted";
 		}
@@ -117,7 +106,6 @@ export function insertionSortSteps(inputArray: BarItem[]): SortingStep[] {
 		});
 	}
 
-	// Final state - all elements sorted
 	steps.push({
 		array: array.map((item) => ({ ...item, state: "sorted" })),
 		currentIndex: -1,

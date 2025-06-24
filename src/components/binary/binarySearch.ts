@@ -24,7 +24,6 @@ export interface SearchingStep {
 	comparison?: "less" | "greater" | "equal";
 }
 
-// Generate a sorted random array of numbers
 export function generateRandomArray(length: number, max: number = 94): BarItem[] {
 	const values = Array.from({ length }, () => Math.floor(Math.random() * max) + 5);
 	values.sort((a, b) => a - b);
@@ -36,7 +35,6 @@ export function generateRandomArray(length: number, max: number = 94): BarItem[]
 	}));
 }
 
-// Binary search algorithm that returns each step of the searching process
 export function binarySearchSteps(inputArray: BarItem[], target: number): SearchingStep[] {
 	const steps: SearchingStep[] = [];
 	const array = [...inputArray.map((item) => ({ ...item }))]; // Deep clone array
@@ -58,7 +56,6 @@ export function binarySearchSteps(inputArray: BarItem[], target: number): Search
 	while (left <= right) {
 		const mid = Math.floor((left + right) / 2);
 
-		// Show the current search space and mid element
 		const searchingArray = array.map((item, index) => ({
 			...item,
 			state:
@@ -74,7 +71,6 @@ export function binarySearchSteps(inputArray: BarItem[], target: number): Search
 
 		if (midValue === target) {
 			comparison = "equal";
-			// Found the target
 			const foundArray = array.map((item, index) => ({
 				...item,
 				state:
@@ -98,7 +94,6 @@ export function binarySearchSteps(inputArray: BarItem[], target: number): Search
 			return steps;
 		} else if (midValue < target) {
 			comparison = "less";
-			// Target is in the right half
 			steps.push({
 				array: searchingArray,
 				left,
@@ -113,7 +108,6 @@ export function binarySearchSteps(inputArray: BarItem[], target: number): Search
 			left = mid + 1;
 		} else {
 			comparison = "greater";
-			// Target is in the left half
 			steps.push({
 				array: searchingArray,
 				left,
@@ -129,7 +123,6 @@ export function binarySearchSteps(inputArray: BarItem[], target: number): Search
 		}
 	}
 
-	// Target not found
 	const notFoundArray = array.map((item) => ({
 		...item,
 		state: "not-found" as SearchingState,

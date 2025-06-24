@@ -25,7 +25,6 @@ export default function SortStepDescription({
 	isSwapping,
 	values,
 }: SortStepDescriptionProps) {
-	// Initial state
 	if (currentStepIndex === 0) {
 		return (
 			<div className="space-y-2">
@@ -39,7 +38,6 @@ export default function SortStepDescription({
 		);
 	}
 
-	// Final state
 	if (currentStepIndex === totalSteps - 1) {
 		return (
 			<div className="space-y-2">
@@ -52,7 +50,6 @@ export default function SortStepDescription({
 		);
 	}
 
-	// Pivot selection
 	if (pivotIndex !== -1 && !isPartitioning && !isSwapping && comparingIndices.length === 0) {
 		return (
 			<div className="space-y-2">
@@ -68,7 +65,6 @@ export default function SortStepDescription({
 		);
 	}
 
-	// Comparison phase
 	if (comparingIndices.length > 0 && !isSwapping) {
 		const [compareIndex] = comparingIndices;
 		const compareValue = values[compareIndex];
@@ -90,7 +86,7 @@ export default function SortStepDescription({
 			</div>
 		);
 	}
-	// Swapping phase
+
 	if (isSwapping && swappingIndices.length > 0) {
 		const [i, j] = swappingIndices;
 		return (
@@ -111,7 +107,6 @@ export default function SortStepDescription({
 		);
 	}
 
-	// Partitioning complete
 	if (pivotIndex !== -1 && sortedIndices.includes(pivotIndex) && !isPartitioning) {
 		return (
 			<div className="space-y-2">
@@ -127,7 +122,6 @@ export default function SortStepDescription({
 		);
 	}
 
-	// Partitioning phase
 	if (isPartitioning) {
 		const [low, high] = partitionIndices;
 		return (
@@ -144,7 +138,6 @@ export default function SortStepDescription({
 		);
 	}
 
-	// Elements sorted
 	if (sortedIndices.length > 0) {
 		return (
 			<div className="space-y-2">

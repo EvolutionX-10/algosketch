@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import ElasticSlider from "../ui/elastic-slider";
-import { Play, Pause, SkipForward, SkipBack, RotateCcw, Shuffle } from "lucide-react";
+import { Shuffle } from "lucide-react";
 
 interface ControlProps {
 	onResetAction: (arraySize: number) => void;
@@ -58,7 +58,6 @@ export default function Control({
 
 	return (
 		<div className="flex flex-col gap-4 rounded-lg border p-4 shadow-sm">
-			{/* Array Generation */}
 			<div className="grid gap-4">
 				<div className="space-y-2">
 					<Label htmlFor="array-size">Array Size: {arraySize}</Label>
@@ -89,7 +88,6 @@ export default function Control({
 				/>
 			</div>
 
-			{/* Target Selection */}
 			<div className="space-y-2">
 				<Label htmlFor="target">Search Target</Label>
 				<div className="flex gap-2">
@@ -119,7 +117,6 @@ export default function Control({
 				</Button>
 			</div>
 
-			{/* Playback Controls */}
 			<div className="flex flex-wrap items-center justify-between">
 				<div className="flex w-full justify-center gap-2 md:w-auto">
 					<Button variant="outline" onClick={onPrevAction} disabled={!canGoPrev || isPlaying}>

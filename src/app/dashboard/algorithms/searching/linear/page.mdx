@@ -44,12 +44,12 @@ Where `n` is the number of elements in the array.
 
 ```js
 function linearSearch(arr, target) {
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] === target) {
-            return i; // Found! Return the index
-        }
-    }
-    return -1; // Not found
+	for (let i = 0; i < arr.length; i++) {
+		if (arr[i] === target) {
+			return i; // Found! Return the index
+		}
+	}
+	return -1; // Not found
 }
 
 // Example usage
@@ -61,12 +61,14 @@ console.log(linearSearch(array, 100)); // Output: -1
 ## Advantages and Disadvantages
 
 ### Advantages
+
 - **Simple Implementation**: Easy to understand and implement
 - **Works on Unsorted Data**: No requirement for the array to be sorted
 - **Memory Efficient**: Uses constant extra space
 - **Works on Any Data Type**: Can search any comparable data type
 
 ### Disadvantages
+
 - **Slow for Large Arrays**: O(n) time complexity can be inefficient
 - **No Early Optimization**: Must check every element in worst case
 - **Better Alternatives Exist**: For sorted data, binary search is much faster

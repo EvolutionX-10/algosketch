@@ -25,7 +25,6 @@ export default function SortStepDescription({
 	isExtracting,
 	values,
 }: SortStepDescriptionProps) {
-	// Initial state
 	if (currentStepIndex === 0) {
 		return (
 			<div className="space-y-2">
@@ -39,7 +38,6 @@ export default function SortStepDescription({
 		);
 	}
 
-	// Final state
 	if (currentStepIndex === totalSteps - 1) {
 		return (
 			<div className="space-y-2">
@@ -53,7 +51,6 @@ export default function SortStepDescription({
 		);
 	}
 
-	// Building heap phase
 	if (isBuilding && heapifyingIndex !== -1) {
 		return (
 			<div className="space-y-2">
@@ -69,7 +66,6 @@ export default function SortStepDescription({
 		);
 	}
 
-	// Heap building complete
 	if (isBuilding && heapifyingIndex === -1 && comparingIndices.length === 0) {
 		return (
 			<div className="space-y-2">
@@ -82,7 +78,6 @@ export default function SortStepDescription({
 		);
 	}
 
-	// Extracting maximum element
 	if (isExtracting && rootIndex !== -1) {
 		return (
 			<div className="space-y-2">
@@ -95,7 +90,6 @@ export default function SortStepDescription({
 		);
 	}
 
-	// Heapifying after extraction
 	if (isExtracting && heapifyingIndex !== -1) {
 		return (
 			<div className="space-y-2">
@@ -108,7 +102,6 @@ export default function SortStepDescription({
 		);
 	}
 
-	// Comparing elements
 	if (comparingIndices.length > 0) {
 		return (
 			<div className="space-y-2">
@@ -119,7 +112,6 @@ export default function SortStepDescription({
 		);
 	}
 
-	// Elements sorted
 	if (sortedIndices.length > 0) {
 		const recentlySorted = sortedIndices.slice(-1)[0];
 		return (

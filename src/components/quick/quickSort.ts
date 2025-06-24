@@ -19,28 +19,25 @@ export interface SortingStep {
 	pivotIndex: number;
 	comparingIndices: number[];
 	swappingIndices: number[];
-	partitionIndices: [number, number]; // [low, high] bounds of current partition
+	partitionIndices: [number, number];
 	sortedIndices: number[];
 	isPartitioning: boolean;
 	isSwapping: boolean;
 }
 
-// Generate a random array of numbers
 export function generateRandomArray(length: number, max: number = 94): BarItem[] {
 	const timestamp = Date.now();
 	return Array.from({ length }, (_, i) => ({
 		value: Math.floor(Math.random() * max) + 5, // Min value of 5 to ensure visibility
 		state: "default",
-		id: `item-${i}-${timestamp}-${Math.random().toString(36).substr(2, 9)}`, // Truly unique keys
+		id: `item-${i}-${timestamp}-${Math.random().toString(36).substr(2, 9)}`,
 	}));
 }
 
-// Helper function to clone array items
 function cloneItems(array: BarItem[]): BarItem[] {
 	return array.map((item) => ({ ...item }));
 }
 
-// Partition function for quick sort with step recording
 function partitionSteps(
 	array: BarItem[],
 	steps: SortingStep[],
@@ -48,11 +45,9 @@ function partitionSteps(
 	high: number,
 	sortedIndices: number[],
 ): number {
-	// Choose rightmost element as pivot
 	const pivotIndex = high;
 	const pivotValue = array[pivotIndex].value;
 
-	// Show pivot selection
 	const arrayWithPivot = cloneItems(array);
 	for (let idx = 0; idx < arrayWithPivot.length; idx++) {
 		if (idx === pivotIndex) {
@@ -75,9 +70,8 @@ function partitionSteps(
 		isSwapping: false,
 	});
 
-	let i = low - 1; // Index of smaller element
+	let i = low - 1;
 	for (let j = low; j < high; j++) {
-		// Show comparison with pivot
 		const arrayWithComparing = cloneItems(array);
 		for (let idx = 0; idx < arrayWithComparing.length; idx++) {
 			if (idx === pivotIndex) {
@@ -104,11 +98,8 @@ function partitionSteps(
 			isSwapping: false,
 		});
 
-		// If current element is smaller than or equal to pivot
 		if (array[j].value <= pivotValue) {
 			i++;
-
-			// Show swap if needed
 			if (i !== j) {
 				const arrayWithSwapping = cloneItems(array);
 				for (let idx = 0; idx < arrayWithSwapping.length; idx++) {
@@ -136,13 +127,13 @@ function partitionSteps(
 					isSwapping: true,
 				});
 
-				// Perform swap
 				const temp = array[i];
 				array[i] = array[j];
 				array[j] = temp;
 			}
 		}
-	} // Place pivot in correct position
+	}
+
 	if (i + 1 !== pivotIndex) {
 		const arrayWithFinalSwap = cloneItems(array);
 		for (let idx = 0; idx < arrayWithFinalSwap.length; idx++) {
@@ -168,17 +159,14 @@ function partitionSteps(
 			isSwapping: true,
 		});
 
-		// Perform final swap
 		const temp = array[i + 1];
 		array[i + 1] = array[pivotIndex];
 		array[pivotIndex] = temp;
 	}
 
-	// Mark pivot as sorted
 	const finalPivotIndex = i + 1;
 	sortedIndices.push(finalPivotIndex);
 
-	// Show partitioned array with pivot in correct position
 	const arrayWithPartitioned = cloneItems(array);
 	for (let idx = 0; idx < arrayWithPartitioned.length; idx++) {
 		if (idx === finalPivotIndex || sortedIndices.includes(idx)) {
@@ -202,7 +190,6 @@ function partitionSteps(
 	return finalPivotIndex;
 }
 
-// Recursive quick sort function with step recording
 function quickSortRecursive(
 	array: BarItem[],
 	steps: SortingStep[],
@@ -211,14 +198,11 @@ function quickSortRecursive(
 	sortedIndices: number[],
 ): void {
 	if (low < high) {
-		// Partition the array and get pivot index
 		const pivotIndex = partitionSteps(array, steps, low, high, sortedIndices);
 
-		// Recursively sort elements before and after partition
 		quickSortRecursive(array, steps, low, pivotIndex - 1, sortedIndices);
 		quickSortRecursive(array, steps, pivotIndex + 1, high, sortedIndices);
 	} else if (low === high && !sortedIndices.includes(low)) {
-		// Single element - mark as sorted
 		sortedIndices.push(low);
 		const arrayWithSorted = cloneItems(array);
 		for (let idx = 0; idx < arrayWithSorted.length; idx++) {
@@ -242,14 +226,11 @@ function quickSortRecursive(
 	}
 }
 
-// Quick sort algorithm that returns each step of the sorting process
 export function quickSortSteps(inputArray: BarItem[]): SortingStep[] {
-	// Create a deep copy of the input array
 	const array = cloneItems(inputArray);
 	const steps: SortingStep[] = [];
 	const n = array.length;
 
-	// Add initial state
 	const initialArray = cloneItems(array);
 	for (let item of initialArray) {
 		item.state = "default";
@@ -266,11 +247,9 @@ export function quickSortSteps(inputArray: BarItem[]): SortingStep[] {
 		isSwapping: false,
 	});
 
-	// Sort the array
 	const sortedIndices: number[] = [];
 	quickSortRecursive(array, steps, 0, n - 1, sortedIndices);
 
-	// Add final step with all elements sorted
 	const finalArray = cloneItems(array);
 	for (let item of finalArray) {
 		item.state = "sorted";

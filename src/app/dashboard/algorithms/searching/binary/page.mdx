@@ -53,21 +53,21 @@ Where `n` is the number of elements in the array.
 
 ```js
 function binarySearch(arr, target) {
-    let left = 0;
-    let right = arr.length - 1;
-    
-    while (left <= right) {
-        let mid = Math.floor((left + right) / 2);
-        
-        if (arr[mid] === target) {
-            return mid; // Found! Return the index
-        } else if (arr[mid] < target) {
-            left = mid + 1; // Search right half
-        } else {
-            right = mid - 1; // Search left half
-        }
-    }
-    return -1; // Not found
+	let left = 0;
+	let right = arr.length - 1;
+
+	while (left <= right) {
+		let mid = Math.floor((left + right) / 2);
+
+		if (arr[mid] === target) {
+			return mid; // Found! Return the index
+		} else if (arr[mid] < target) {
+			left = mid + 1; // Search right half
+		} else {
+			right = mid - 1; // Search left half
+		}
+	}
+	return -1; // Not found
 }
 
 // Example usage
@@ -80,31 +80,33 @@ console.log(binarySearch(sortedArray, 100)); // Output: -1
 
 ```js
 function binarySearchRecursive(arr, target, left = 0, right = arr.length - 1) {
-    if (left > right) {
-        return -1; // Not found
-    }
-    
-    const mid = Math.floor((left + right) / 2);
-    
-    if (arr[mid] === target) {
-        return mid; // Found!
-    } else if (arr[mid] < target) {
-        return binarySearchRecursive(arr, target, mid + 1, right);
-    } else {
-        return binarySearchRecursive(arr, target, left, mid - 1);
-    }
+	if (left > right) {
+		return -1; // Not found
+	}
+
+	const mid = Math.floor((left + right) / 2);
+
+	if (arr[mid] === target) {
+		return mid; // Found!
+	} else if (arr[mid] < target) {
+		return binarySearchRecursive(arr, target, mid + 1, right);
+	} else {
+		return binarySearchRecursive(arr, target, left, mid - 1);
+	}
 }
 ```
 
 ## Advantages and Disadvantages
 
 ### Advantages
+
 - **Very Fast**: O(log n) time complexity is much faster than linear search
 - **Predictable Performance**: Consistent logarithmic performance regardless of data distribution
 - **Memory Efficient**: Uses constant space (iterative version)
 - **Scalable**: Performance advantage increases with larger datasets
 
 ### Disadvantages
+
 - **Requires Sorted Data**: Array must be sorted before searching
 - **Sorting Overhead**: If data isn't already sorted, sorting takes O(n log n) time
 - **Not Suitable for Linked Lists**: Requires random access to elements
@@ -132,30 +134,32 @@ Binary search is ideal when:
 ## Variations and Extensions
 
 ### Finding Insertion Point
+
 ```js
 function findInsertionPoint(arr, target) {
-    let left = 0;
-    let right = arr.length;
-    
-    while (left < right) {
-        const mid = Math.floor((left + right) / 2);
-        if (arr[mid] < target) {
-            left = mid + 1;
-        } else {
-            right = mid;
-        }
-    }
-    return left;
+	let left = 0;
+	let right = arr.length;
+
+	while (left < right) {
+		const mid = Math.floor((left + right) / 2);
+		if (arr[mid] < target) {
+			left = mid + 1;
+		} else {
+			right = mid;
+		}
+	}
+	return left;
 }
 ```
 
 ### Finding Range (First and Last Occurrence)
+
 ```js
 function findRange(arr, target) {
-    const first = findFirst(arr, target);
-    if (first === -1) return [-1, -1];
-    const last = findLast(arr, target);
-    return [first, last];
+	const first = findFirst(arr, target);
+	if (first === -1) return [-1, -1];
+	const last = findLast(arr, target);
+	return [first, last];
 }
 ```
 

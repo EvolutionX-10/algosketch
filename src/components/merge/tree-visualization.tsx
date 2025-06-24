@@ -26,13 +26,11 @@ function generateTreeNodes(arr: number[], level = 0, position = 0): TreeNode[] {
 	const left = arr.slice(0, mid);
 	const right = arr.slice(mid);
 
-	// Add left subtree
 	if (left.length > 0) {
 		const leftNodes = generateTreeNodes(left, level + 1, position * 2);
 		nodes.push(...leftNodes);
 	}
 
-	// Add right subtree
 	if (right.length > 0) {
 		const rightNodes = generateTreeNodes(right, level + 1, position * 2 + 1);
 		nodes.push(...rightNodes);
@@ -45,7 +43,6 @@ export default function TreeVisualization({ data, title, subtitle, showPhase = "
 	const nodes = generateTreeNodes(data);
 	const maxLevel = Math.max(...nodes.map((n) => n.level));
 
-	// SVG dimensions - using fixed width for better control
 	const svgWidth = Math.max(600, Math.pow(2, maxLevel) * 120); // Dynamic width based on tree width
 	const svgHeight = Math.max(300, (maxLevel + 1) * 100);
 	const nodeHeight = 32;
@@ -53,9 +50,9 @@ export default function TreeVisualization({ data, title, subtitle, showPhase = "
 
 	const getNodeX = (node: TreeNode) => {
 		const levelNodes = Math.pow(2, node.level);
-		const totalWidth = svgWidth - 100; // Leave margins
+		const totalWidth = svgWidth - 100;
 		const nodeSpacing = totalWidth / Math.max(levelNodes, 1);
-		const startX = 50 + nodeSpacing / 2; // Center the first node
+		const startX = 50 + nodeSpacing / 2;
 		return startX + (node.position % levelNodes) * nodeSpacing;
 	};
 
@@ -63,14 +60,12 @@ export default function TreeVisualization({ data, title, subtitle, showPhase = "
 		return 70 + level * levelSpacing;
 	};
 
-	// Calculate node width based on content
 	const getNodeWidth = (node: TreeNode) => {
 		const content = node.value.length === 1 ? node.value[0].toString() : `[${node.value.join(", ")}]`;
 		const baseWidth = Math.max(80, content.length * 8 + 20);
 		return Math.min(baseWidth, 180); // Cap maximum width
 	};
 
-	// Group nodes by level for better rendering
 	const nodesByLevel = nodes.reduce(
 		(acc, node) => {
 			if (!acc[node.level]) acc[node.level] = [];
@@ -79,6 +74,7 @@ export default function TreeVisualization({ data, title, subtitle, showPhase = "
 		},
 		{} as Record<number, TreeNode[]>,
 	);
+
 	return (
 		<div className="bg-card my-6 rounded-lg border p-6">
 			<div className="mb-4 text-center">
@@ -90,7 +86,7 @@ export default function TreeVisualization({ data, title, subtitle, showPhase = "
 					<span>Nodes: {nodes.length}</span>
 					<span>•</span>
 					<span>Height: O(log n)</span>
-				</div>{" "}
+				</div>
 			</div>
 			<div className="flex justify-center overflow-x-auto pb-4">
 				<div className="inline-block min-w-fit">
@@ -124,7 +120,6 @@ export default function TreeVisualization({ data, title, subtitle, showPhase = "
 							</g>
 						))}
 
-						{/* Draw connections between nodes */}
 						{Object.entries(nodesByLevel).map(([level, levelNodes]) => {
 							const currentLevel = parseInt(level);
 							if (currentLevel === maxLevel) return null;
@@ -156,7 +151,7 @@ export default function TreeVisualization({ data, title, subtitle, showPhase = "
 								});
 							});
 						})}
-						{/* Draw nodes */}
+
 						{nodes.map((node, index) => {
 							const x = getNodeX(node);
 							const y = getNodeY(node.level);
@@ -168,7 +163,6 @@ export default function TreeVisualization({ data, title, subtitle, showPhase = "
 
 							return (
 								<g key={index}>
-									{/* Node shadow for depth */}
 									<rect
 										x={x - nodeWidth / 2 + 3}
 										y={y - nodeHeight / 2 + 3}
@@ -177,7 +171,6 @@ export default function TreeVisualization({ data, title, subtitle, showPhase = "
 										rx="8"
 										fill="rgba(0,0,0,0.15)"
 									/>
-									{/* Node background */}
 									<rect
 										x={x - nodeWidth / 2}
 										y={y - nodeHeight / 2}
@@ -189,7 +182,6 @@ export default function TreeVisualization({ data, title, subtitle, showPhase = "
 										strokeWidth={isLeaf ? "3" : "2"}
 										className="cursor-default transition-all duration-300 hover:brightness-110"
 									/>
-									{/* Node text */}
 									<text
 										x={x}
 										y={y + 5}
@@ -199,7 +191,6 @@ export default function TreeVisualization({ data, title, subtitle, showPhase = "
 									>
 										{finalDisplay}
 									</text>
-									{/* Level indicator for root node */}
 									{node.level === 0 && (
 										<text
 											x={x}
@@ -215,7 +206,7 @@ export default function TreeVisualization({ data, title, subtitle, showPhase = "
 						})}
 					</svg>
 				</div>
-			</div>{" "}
+			</div>
 			<div className="mt-6 flex flex-wrap justify-center gap-6 text-sm">
 				<div className="flex items-center gap-2">
 					<div className="h-4 w-4 rounded bg-blue-500 shadow-sm"></div>

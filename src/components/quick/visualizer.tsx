@@ -12,7 +12,6 @@ import Banner from "../banner";
 import { AnimatePresence } from "motion/react";
 
 export default function Visualizer() {
-	const [array, setArray] = useState<BarItem[]>([]);
 	const [steps, setSteps] = useState<SortingStep[]>([]);
 	const [currentStepIndex, setCurrentStepIndex] = useState(0);
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -29,15 +28,12 @@ export default function Visualizer() {
 		}
 	};
 
-	// Initialize with random array
 	useEffect(() => {
 		resetArray(10);
 	}, []);
 
-	// Generate a new random array and reset the visualization
 	const resetArray = (size: number) => {
 		const newArray = generateRandomArray(size);
-		setArray(newArray);
 		const newSteps = quickSortSteps(newArray);
 		setSteps(newSteps);
 		setCurrentStepIndex(0);
@@ -51,11 +47,9 @@ export default function Visualizer() {
 		}
 	};
 
-	// Go to the next step in the algorithm
 	const nextStep = () => {
 		setCurrentStepIndex((prevIndex) => {
 			if (prevIndex < steps.length - 1) {
-				// Update stats for the next step
 				const nextStepData = steps[prevIndex + 1];
 				if (nextStepData.comparingIndices.length > 0) {
 					setComparisons((prev) => prev + 1);
@@ -71,11 +65,9 @@ export default function Visualizer() {
 		});
 	};
 
-	// Go to the previous step in the algorithm
 	const prevStep = () => {
 		setCurrentStepIndex((prevIndex) => {
 			if (prevIndex > 0) {
-				// Update stats for the previous step
 				const currentStepData = steps[prevIndex];
 				if (currentStepData.comparingIndices.length > 0) {
 					setComparisons((prev) => Math.max(0, prev - 1));
@@ -88,7 +80,7 @@ export default function Visualizer() {
 			return prevIndex;
 		});
 	};
-	// Start the animation
+
 	const startAnimation = () => {
 		if (currentStepIndex < steps.length - 1) {
 			setIsPlaying(true);
@@ -120,7 +112,6 @@ export default function Visualizer() {
 		}
 	};
 
-	// Cleanup interval on component unmount
 	useEffect(() => {
 		return () => {
 			if (intervalRef.current) {
@@ -128,14 +119,13 @@ export default function Visualizer() {
 			}
 		};
 	}, []);
-	// Update interval timing when speed changes
+
 	useEffect(() => {
 		if (isPlaying && intervalRef.current) {
-			startAnimation(); // This will clear the existing interval and create a new one with updated speed
+			startAnimation();
 		}
 	}, [speed, isPlaying]);
 
-	// Pause the animation
 	const pauseAnimation = () => {
 		setIsPlaying(false);
 		if (intervalRef.current) {
@@ -144,7 +134,6 @@ export default function Visualizer() {
 		}
 	};
 
-	// Early return if no steps are available
 	if (steps.length === 0) {
 		return <div>Loading...</div>;
 	}
@@ -172,11 +161,9 @@ export default function Visualizer() {
 								</AnimatePresence>
 							</div>
 						</div>
-					</div>{" "}
-					<div>
-						<InfoBox currentStep={currentStepIndex} comparisons={comparisons} swaps={swaps} isSorted={isSorted} />
 					</div>
-				</div>{" "}
+					<InfoBox currentStep={currentStepIndex} comparisons={comparisons} swaps={swaps} isSorted={isSorted} />
+				</div>
 				<Control
 					onResetAction={resetArray}
 					onStartAction={startAnimation}
@@ -190,7 +177,7 @@ export default function Visualizer() {
 					totalSteps={steps.length - 1}
 					speed={speed}
 					onSpeedChangeAction={setSpeed}
-				/>{" "}
+				/>
 				<div className="bg-background mt-6 rounded-lg border p-4">
 					<SortStepDescription
 						currentStepIndex={currentStepIndex}

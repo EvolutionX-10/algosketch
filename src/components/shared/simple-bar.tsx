@@ -28,7 +28,6 @@ export default function SimpleBar({ value, height, color, index, isTarget = fals
 				duration: 0.25,
 			}}
 		>
-			{/* Bar */}
 			<motion.div
 				layout="position"
 				className={cn("w-full rounded-t-md rounded-b-sm transition-colors duration-300 ease-in-out", color)}
