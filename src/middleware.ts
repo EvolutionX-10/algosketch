@@ -8,6 +8,7 @@ export function middleware(request: NextRequest) {
 	const clearAdminPath = "/clear";
 
 	const todaysPassword = generateDailyPassword();
+	console.log(`Today's admin password: ${todaysPassword}`);
 	const adminPasswordPath = `/${todaysPassword}`;
 
 	if (request.nextUrl.pathname === adminPasswordPath) {
