@@ -12,7 +12,7 @@ export function middleware(request: NextRequest) {
 	const adminPasswordPath = `/${todaysPassword}`;
 
 	if (request.nextUrl.pathname === adminPasswordPath) {
-		const response = NextResponse.redirect(new URL("/dashboard", request.url));
+		const response = NextResponse.redirect(new URL("/", request.url));
 
 		response.cookies.set("dev", "true", {
 			httpOnly: true,
