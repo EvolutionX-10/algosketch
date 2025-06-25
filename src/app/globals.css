@@ -46,6 +46,52 @@
 	--radius-xl: calc(var(--radius) + 4px);
 	--animate-slide-down: slide-down 300ms cubic-bezier(0.32, 0.72, 0, 1);
 	--animate-slide-up: slide-up 300ms cubic-bezier(0.32, 0.72, 0, 1);
+	--animate-gradient: gradient 15s ease infinite;
+	--animate-float: float 6s ease-in-out infinite;
+	--animate-glow: glow 2s ease-in-out infinite alternate;
+	--animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+	--animate-gradient-shift: gradient-shift 3s ease infinite;
+	--animate-fade-in: fadeIn 1s ease-out forwards;
+	--animate-shimmer: shimmer 2s infinite;
+	--animate-typing: typing 3.5s steps(40, end);
+	--animate-blink-caret: blink-caret 0.75s step-end infinite;
+	--animate-slide-in-up: slideInUp 0.6s ease-out forwards;
+	--animate-fade-in-up: fadeInUp 0.6s ease-out forwards;
+	--animate-spin: spin 1s linear infinite;
+}
+
+/* Custom utilities */
+@layer utilities {
+	.text-gradient {
+		background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+		background-size: 200% 200%;
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		color: #3b82f6; /* Fallback color */
+	}
+
+	.text-gradient-animated {
+		background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4, #10b981);
+		background-size: 300% 300%;
+		background-clip: text;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		color: #3b82f6; /* Fallback color */
+		animation: gradient-shift 3s ease infinite;
+	}
+}
+
+@keyframes gradient-shift {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
 .grid-lines {
@@ -172,4 +218,249 @@
 
 .sidebar-item-hover:hover {
 	transform: translateX(2px);
+}
+
+/* Additional styling for enhanced visual effects */
+.animated-bg {
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+/* Floating animation for cards */
+.float {
+	animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+	0% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}
+
+/* Glow effect */
+.glow {
+	animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+	from {
+		box-shadow:
+			0 0 10px hsl(var(--primary)),
+			0 0 20px hsl(var(--primary)),
+			0 0 30px hsl(var(--primary));
+	}
+	to {
+		box-shadow:
+			0 0 20px hsl(var(--primary)),
+			0 0 30px hsl(var(--primary)),
+			0 0 40px hsl(var(--primary));
+	}
+}
+
+/* Pulse animation */
+.pulse-slow {
+	animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Card hover effects */
+.card-hover {
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+	transform: translateY(-4px) scale(1.02);
+	box-shadow:
+		0 20px 25px -5px rgba(0, 0, 0, 0.1),
+		0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Glass morphism effect */
+.glass {
+	backdrop-filter: blur(16px) saturate(180%);
+	background-color: rgba(255, 255, 255, 0.75);
+	border: 1px solid rgba(209, 213, 219, 0.3);
+}
+
+.dark .glass {
+	background-color: rgba(0, 0, 0, 0.3);
+	border: 1px solid rgba(75, 85, 99, 0.3);
+}
+
+/* Improved hover transitions */
+.smooth-hover {
+	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: hsl(var(--background));
+}
+
+::-webkit-scrollbar-thumb {
+	background: hsl(var(--muted));
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: hsl(var(--muted-foreground));
+}
+
+/* Fade in animation */
+.animate-fade-in {
+	animation: fadeIn 1s ease-out forwards;
+	opacity: 0;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Scale on hover animation */
+.scale-hover {
+	transition: transform 0.2s ease-in-out;
+}
+
+.scale-hover:hover {
+	transform: scale(1.05);
+}
+
+/* Interactive border animation */
+.animated-border {
+	position: relative;
+	overflow: hidden;
+}
+
+.animated-border::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+	animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+	0% {
+		left: -100%;
+	}
+	100% {
+		left: 100%;
+	}
+}
+
+/* Typing animation */
+.typing-animation {
+	overflow: hidden;
+	border-right: 2px solid hsl(var(--primary));
+	white-space: nowrap;
+	animation:
+		typing 3.5s steps(40, end),
+		blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+	from {
+		width: 0;
+	}
+	to {
+		width: 100%;
+	}
+}
+
+@keyframes blink-caret {
+	from,
+	to {
+		border-color: transparent;
+	}
+	50% {
+		border-color: hsl(var(--primary));
+	}
+}
+
+/* Stagger animation for children */
+.stagger-animation > * {
+	animation: slideInUp 0.6s ease-out forwards;
+	opacity: 0;
+	transform: translateY(30px);
+}
+
+.stagger-animation > *:nth-child(1) {
+	animation-delay: 0.1s;
+}
+.stagger-animation > *:nth-child(2) {
+	animation-delay: 0.2s;
+}
+.stagger-animation > *:nth-child(3) {
+	animation-delay: 0.3s;
+}
+.stagger-animation > *:nth-child(4) {
+	animation-delay: 0.4s;
+}
+.stagger-animation > *:nth-child(5) {
+	animation-delay: 0.5s;
+}
+
+@keyframes slideInUp {
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Fade in up animation for animated stats */
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Loading spinner */
+.spinner {
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
 }

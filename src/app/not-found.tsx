@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { HomeIcon, ArrowLeftIcon } from "lucide-react";
+import { HomeIcon, ArrowLeftIcon, SearchIcon } from "lucide-react";
 
 export default function NotFound() {
 	return (
@@ -29,6 +29,12 @@ export default function NotFound() {
 						<Link href="/dashboard" className="flex items-center gap-2">
 							<ArrowLeftIcon className="size-4" />
 							Back to Dashboard
+						</Link>
+					</Button>
+					<Button asChild variant="ghost" size="lg" className="font-medium">
+						<Link href="/dashboard/algorithms" className="flex items-center gap-2">
+							<SearchIcon className="size-4" />
+							Explore Algorithms
 						</Link>
 					</Button>
 				</div>
