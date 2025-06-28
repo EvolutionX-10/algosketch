@@ -26,7 +26,7 @@ export default function Home() {
 	];
 
 	return (
-		<div className="relative min-h-screen w-full overflow-hidden">
+		<div className="relative flex min-h-screen w-full flex-col">
 			{/* Background pattern */}
 			<div className="grid-lines absolute inset-0 opacity-30"></div>
 
@@ -45,23 +45,23 @@ export default function Home() {
 				style={{ animationDelay: "2s" }}
 			></div>
 
-			<section className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 text-center select-none max-md:py-12">
+			<main className="relative z-10 flex flex-1 flex-col items-center justify-center px-4 py-8 text-center select-none">
 				<div className="mb-8 flex items-center gap-3">
-					<h1 className="font-heading text-6xl font-bold tracking-tight md:text-8xl">
+					<h1 className="font-heading text-5xl font-bold tracking-tight md:text-7xl lg:text-8xl">
 						<span className="text-gradient-animated">Algo</span>
 						<span className="text-foreground">Sketch</span>
 					</h1>
 				</div>
 
 				<p
-					className="font-body text-muted-foreground animate-fade-in mb-8 max-w-3xl text-lg md:text-xl"
+					className="font-body text-muted-foreground animate-fade-in mb-8 max-w-2xl text-base md:text-lg lg:text-xl"
 					style={{ animationDelay: "0.5s" }}
 				>
 					Interactive algorithm visualizations that make complex concepts simple. Watch sorting and searching algorithms
 					come to life with beautiful animations.
 				</p>
 
-				<div className="mb-12 flex flex-col gap-4 sm:flex-row" style={{ animationDelay: "1s" }}>
+				<div className="mb-8 flex flex-col gap-4 sm:flex-row lg:mb-12" style={{ animationDelay: "1s" }}>
 					<Button asChild size="lg" className="group relative overflow-hidden">
 						<Link href="/dashboard">
 							<span className="relative z-10 flex items-center">
@@ -117,8 +117,8 @@ export default function Home() {
 					</div>
 				</div>
 
-				<AnimatedStats stats={algorithmStats} className="mt-16 max-w-2xl" />
-			</section>
+				<AnimatedStats stats={algorithmStats} className="mt-12 max-w-2xl" />
+			</main>
 			<Footer />
 		</div>
 	);

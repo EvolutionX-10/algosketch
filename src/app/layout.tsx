@@ -61,7 +61,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 			>
 				<Hydrate>
 					<ThemeProvider attribute={"class"} defaultTheme={"system"} enableSystem>
-						<main className="flex min-h-screen min-w-screen flex-col items-center justify-center">{children}</main>
+						<div className="flex min-h-screen flex-col">{children}</div>
 						<Toaster />
 					</ThemeProvider>
 				</Hydrate>
