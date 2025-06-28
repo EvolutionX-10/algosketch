@@ -18,11 +18,12 @@ import {
 import Link from "next/link";
 import ThemedImage from "./themed-image";
 import { navData } from "@/lib/constants";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { getLink } from "@/lib/utils";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	const pathname = usePathname();
+	const router = useRouter();
 	const { toggleSidebar, isMobile } = useSidebar();
 	const active = pathname
 		.split("/")
@@ -31,7 +32,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
 	return (
 		<Sidebar {...props}>
-			<SidebarHeader className="font-heading flex flex-row items-center gap-0 p-4 text-2xl">
+			<SidebarHeader
+				className="font-heading flex cursor-pointer flex-row items-center gap-0 p-4 text-2xl select-none"
+				onClick={() => {
+					if (isMobile) {
+						toggleSidebar();
+					}
+					router.push("/");
+				}}
+			>
 				<ThemedImage
 					srcLight="/images/icon-light.png"
 					srcDark="/images/icon-dark.png"
