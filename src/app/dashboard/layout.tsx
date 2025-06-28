@@ -4,6 +4,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
@@ -20,7 +21,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 	return (
 		<SidebarProvider className="flex h-screen w-screen">
 			<AppSidebar />
-			<SidebarInset className="flex min-h-0 flex-col">
+			<SidebarInset className="flex min-h-0 flex-col overflow-x-hidden">
 				<Header />
 				<main ref={mainRef} className="flex-1 overflow-auto">
 					<section className="relative flex min-h-full flex-col gap-4 p-4 pt-8 md:items-center-safe">
@@ -28,6 +29,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 					</section>
 					<Footer className="mt-auto" />
 				</main>
+				<ScrollToTop scrollContainer={mainRef.current} />
 			</SidebarInset>
 		</SidebarProvider>
 	);
