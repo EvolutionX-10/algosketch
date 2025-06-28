@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon, CodeIcon, ZapIcon, BookOpenIcon, SparklesIcon, TrendingUpIcon } from "lucide-react";
 import { AnimatedStats } from "@/components/ui/animated-counter";
+import { Footer } from "@/components/footer";
 
 export default function Home() {
 	const algorithmStats = [
@@ -44,7 +45,6 @@ export default function Home() {
 				style={{ animationDelay: "2s" }}
 			></div>
 
-			{/* Hero Section */}
 			<section className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 text-center select-none max-md:py-12">
 				<div className="mb-8 flex items-center gap-3">
 					<h1 className="font-heading text-6xl font-bold tracking-tight md:text-8xl">
@@ -61,7 +61,6 @@ export default function Home() {
 					come to life with beautiful animations.
 				</p>
 
-				{/* Enhanced CTA buttons */}
 				<div className="mb-12 flex flex-col gap-4 sm:flex-row" style={{ animationDelay: "1s" }}>
 					<Button asChild size="lg" className="group relative overflow-hidden">
 						<Link href="/dashboard">
@@ -80,7 +79,6 @@ export default function Home() {
 					</Button>
 				</div>
 
-				{/* Enhanced feature cards with hover effects */}
 				<div className="grid max-w-4xl grid-cols-1 gap-6 md:grid-cols-3" style={{ animationDelay: "1.5s" }}>
 					<div className="group card-hover bg-card/50 hover:bg-card/80 rounded-lg border p-6 backdrop-blur-sm transition-all">
 						<div className="mb-2 flex items-center justify-between">
@@ -119,9 +117,9 @@ export default function Home() {
 					</div>
 				</div>
 
-				{/* Enhanced animated statistics section */}
 				<AnimatedStats stats={algorithmStats} className="mt-16 max-w-2xl" />
 			</section>
+			<Footer />
 		</div>
 	);
 }
