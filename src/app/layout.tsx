@@ -161,6 +161,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 						__html: JSON.stringify(structuredData),
 					}}
 				/>
+				<meta name="google-site-verification" content="HprHd3OhKfBwfT2t2G_AspoTcKtCzdsMV3ktRQ9jckQ" />
 			</head>
 			<body
 				className={`${heading.variable} ${body.variable} ${fancy.variable} ${geistMono.variable} font-body antialiased`}
