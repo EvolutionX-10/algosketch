@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import GithubIcon from "./icons/github";
-import { version } from "../../package.json";
+import pkg from "../../package.json";
 
 export function Footer({ className }: { className?: string }) {
 	const year = new Date().getFullYear();
@@ -36,7 +36,7 @@ export function Footer({ className }: { className?: string }) {
 							<span className="hidden sm:inline">GitHub</span>
 						</Link>
 						<div className="bg-border h-4 w-px" />
-						<span className="text-xs">v{version}</span>
+						<span className="text-xs">v{pkg.version}</span>
 					</div>
 				</div>
 				<div className="text-muted-foreground mt-2 text-center text-xs sm:hidden">
