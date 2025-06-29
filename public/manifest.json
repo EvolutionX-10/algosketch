@@ -1,0 +1,27 @@
+{
+	"name": "AlgoSketch - Interactive Algorithm Visualizations",
+	"short_name": "AlgoSketch",
+	"description": "Master algorithms and data structures through interactive visualizations and step-by-step animations",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#ffffff",
+	"theme_color": "#3b82f6",
+	"orientation": "portrait-primary",
+	"scope": "/",
+	"lang": "en",
+	"categories": ["education", "productivity", "developer"],
+	"icons": [
+		{
+			"src": "/images/icon-light.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/images/icon-dark.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any"
+		}
+	]
+}

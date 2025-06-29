@@ -1,3 +1,5 @@
+export const baseUrl = "https://algosketch.vercel.app";
+
 export const navData = [
 	{
 		title: "Algorithms",

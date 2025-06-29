@@ -5,6 +5,7 @@ import Hydrate from "@/components/hydrate";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { Geist_Mono } from "next/font/google";
+import { baseUrl } from "@/lib/constants";
 
 const heading = Patrick_Hand_SC({
 	subsets: ["latin"],
@@ -35,8 +36,78 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "AlgoSketch",
-	description: "A sketchbook for algorithms",
+	title: {
+		default: "AlgoSketch - Interactive Algorithm Visualizations & Data Structure Learning",
+		template: "%s | AlgoSketch",
+	},
+	description:
+		"Master algorithms and data structures through interactive visualizations. Learn sorting algorithms, search algorithms, and data structures with step-by-step animations and explanations.",
+	keywords: [
+		"algorithm visualization",
+		"data structures",
+		"sorting algorithms",
+		"search algorithms",
+		"computer science",
+		"programming education",
+		"interactive learning",
+		"algorithm animation",
+		"binary search",
+		"bubble sort",
+		"merge sort",
+		"quick sort",
+		"heap sort",
+		"insertion sort",
+		"selection sort",
+		"linear search",
+	],
+	authors: [{ name: "AlgoSketch" }],
+	creator: "AlgoSketch",
+	publisher: "AlgoSketch",
+	formatDetection: {
+		email: false,
+		address: false,
+		telephone: false,
+	},
+	metadataBase: new URL(baseUrl),
+	alternates: {
+		canonical: "/",
+	},
+	openGraph: {
+		title: "AlgoSketch - Interactive Algorithm Visualizations",
+		description:
+			"Master algorithms and data structures through interactive visualizations. Learn sorting algorithms, search algorithms, and data structures with step-by-step animations.",
+		url: baseUrl,
+		siteName: "AlgoSketch",
+		images: [
+			{
+				url: "/images/og-image.png",
+				width: 1200,
+				height: 630,
+				alt: "AlgoSketch - Algorithm Visualization Platform",
+			},
+		],
+		locale: "en_US",
+		type: "website",
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "AlgoSketch - Interactive Algorithm Visualizations",
+		description:
+			"Master algorithms and data structures through interactive visualizations and step-by-step animations.",
+		images: ["/images/twitter-image.png"],
+		creator: "@algosketch",
+	},
+	robots: {
+		index: true,
+		follow: true,
+		googleBot: {
+			index: true,
+			follow: true,
+			"max-video-preview": -1,
+			"max-image-preview": "large",
+			"max-snippet": -1,
+		},
+	},
 	icons: {
 		icon: [
 			{
@@ -50,12 +121,47 @@ export const metadata: Metadata = {
 				href: "/images/icon-dark.png",
 			},
 		],
+		apple: [{ url: "/images/apple-touch-icon.png" }],
 	},
+	manifest: "/manifest.json",
+	category: "education",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+	const structuredData = {
+		"@context": "https://schema.org",
+		"@type": "WebSite",
+		name: "AlgoSketch",
+		description: "Interactive algorithm visualizations and data structure learning platform",
+		url: baseUrl,
+		applicationCategory: "EducationalApplication",
+		operatingSystem: "Web Browser",
+		audience: {
+			"@type": "Audience",
+			audienceType: "Students, Developers, Computer Science Learners",
+		},
+		educationalUse: "skill development",
+		educationalLevel: "beginner to advanced",
+		learningResourceType: "interactive tutorial",
+		teaches: [
+			"sorting algorithms",
+			"search algorithms",
+			"data structures",
+			"algorithm complexity",
+			"computer science fundamentals",
+		],
+	};
+
 	return (
 		<html lang="en">
+			<head>
+				<script
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{
+						__html: JSON.stringify(structuredData),
+					}}
+				/>
+			</head>
 			<body
 				className={`${heading.variable} ${body.variable} ${fancy.variable} ${geistMono.variable} font-body antialiased`}
 			>
