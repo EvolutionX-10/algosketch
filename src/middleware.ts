@@ -1,22 +1,26 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { generateDailyPassword } from "./lib/utils";
 
 export function middleware(request: NextRequest) {
-	if (request.nextUrl.origin === "http://localhost:3000") return NextResponse.next();
+	if (request.nextUrl.origin === "http://localhost:3000") {
+		const response = NextResponse.redirect(new URL(request.nextUrl.pathname, request.url));
+		response.cookies.set("dev", "true", {
+			httpOnly: true,
+			sameSite: "strict",
+			maxAge: 60 * 60,
+			path: "/",
+		});
+		return response;
+	}
 
 	const clearAdminPath = "/clear";
+	const password = "/password";
 
-	const todaysPassword = generateDailyPassword();
-	console.log(`Today's admin password: ${todaysPassword}`);
-	const adminPasswordPath = `/${todaysPassword}`;
-
-	if (request.nextUrl.pathname === adminPasswordPath) {
+	if (request.nextUrl.pathname === password) {
 		const response = NextResponse.redirect(new URL("/", request.url));
 
 		response.cookies.set("dev", "true", {
 			httpOnly: true,
-			secure: process.env.NODE_ENV === "production",
 			sameSite: "strict",
 			maxAge: 60 * 60,
 			path: "/",
@@ -29,16 +33,6 @@ export function middleware(request: NextRequest) {
 		const response = NextResponse.redirect(new URL("/", request.url));
 		response.cookies.delete("dev");
 		return response;
-	}
-
-	const isAdmin = request.cookies.get("dev")?.value === "true";
-
-	if (request.nextUrl.pathname === "/soon") {
-		return NextResponse.next();
-	}
-
-	if (!isAdmin) {
-		return NextResponse.redirect(new URL("/soon", request.url));
 	}
 
 	return NextResponse.next();
