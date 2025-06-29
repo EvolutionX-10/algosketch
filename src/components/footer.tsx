@@ -29,6 +29,7 @@ export function Footer({ className }: { className?: string }) {
 						<Link
 							href="https://github.com/EvolutionX-10/AlgoSketch"
 							target="_blank"
+							aria-label="GitHub repository"
 							rel="noopener noreferrer"
 							className="hover:text-foreground inline-flex items-center gap-1 transition-colors"
 						>
