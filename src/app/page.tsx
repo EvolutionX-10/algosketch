@@ -85,7 +85,7 @@ export default function Home() {
 							<div className="bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground flex min-h-12 min-w-12 items-center justify-center rounded-lg transition-all duration-300">
 								<ZapIcon className="h-6 w-6" />
 							</div>
-							<h3 className="font-heading w-full text-2xl font-semibold">Interactive</h3>
+							<h2 className="font-heading w-full text-2xl font-semibold">Interactive</h2>
 						</div>
 						<p className="text-muted-foreground text-sm">
 							Step through algorithms at your own pace with intuitive controls and real-time visualization.
@@ -97,7 +97,7 @@ export default function Home() {
 							<div className="bg-chart-1/10 text-chart-1 group-hover:bg-chart-1 flex min-h-12 min-w-12 items-center justify-center rounded-lg transition-all duration-300 group-hover:text-white">
 								<CodeIcon className="h-6 w-6" />
 							</div>
-							<h3 className="font-heading w-full text-2xl font-semibold">Educational</h3>
+							<h2 className="font-heading w-full text-2xl font-semibold">Educational</h2>
 						</div>
 						<p className="text-muted-foreground text-sm">
 							Learn how algorithms work with detailed explanations and code snippets alongside visualizations.
@@ -109,7 +109,7 @@ export default function Home() {
 							<div className="bg-chart-2/10 text-chart-2 group-hover:bg-chart-2 flex min-h-12 min-w-12 items-center justify-center rounded-lg transition-all duration-300 group-hover:text-white">
 								<BookOpenIcon className="h-6 w-6" />
 							</div>
-							<h3 className="font-heading w-full text-2xl font-semibold">Comprehensive</h3>
+							<h2 className="font-heading w-full text-2xl font-semibold">Comprehensive</h2>
 						</div>
 						<p className="text-muted-foreground text-sm">
 							Explore a wide range of sorting and searching algorithms with detailed performance analysis.
