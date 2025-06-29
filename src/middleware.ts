@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
 	if (request.nextUrl.origin === "http://localhost:3000") {
-		const response = NextResponse.redirect(new URL(request.nextUrl.pathname, request.url));
+		const response = NextResponse.next();
+
 		response.cookies.set("dev", "true", {
 			httpOnly: true,
 			sameSite: "strict",
