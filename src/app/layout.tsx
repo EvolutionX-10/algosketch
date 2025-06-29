@@ -37,11 +37,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
 	title: {
-		default: "AlgoSketch - Interactive Algorithm Visualizations & Data Structure Learning",
+		default: "AlgoSketch - Algorithm Visualization & Learning Tool",
 		template: "%s | AlgoSketch",
 	},
 	description:
-		"Master algorithms and data structures through interactive visualizations. Learn sorting algorithms, search algorithms, and data structures with step-by-step animations and explanations.",
+		"Learn algorithms and data structures with interactive visualizations, animations, and easy explanations for sorting, searching, and more.",
 	keywords: [
 		"algorithm visualization",
 		"data structures",
@@ -73,9 +73,9 @@ export const metadata: Metadata = {
 		canonical: "/",
 	},
 	openGraph: {
-		title: "AlgoSketch - Interactive Algorithm Visualizations",
+		title: "AlgoSketch - Algorithm Visualization & Learning Tool",
 		description:
-			"Master algorithms and data structures through interactive visualizations. Learn sorting algorithms, search algorithms, and data structures with step-by-step animations.",
+			"Visualize algorithms and data structures in action. AlgoSketch makes learning easy with step-by-step animations and interactive coding tools.",
 		url: baseUrl,
 		siteName: "AlgoSketch",
 		images: [
@@ -91,7 +91,7 @@ export const metadata: Metadata = {
 	},
 	twitter: {
 		card: "summary_large_image",
-		title: "AlgoSketch - Interactive Algorithm Visualizations",
+		title: "AlgoSketch - Algorithm Visualization & Learning Tool",
 		description:
 			"Master algorithms and data structures through interactive visualizations and step-by-step animations.",
 		images: ["/images/twitter-image.png"],
