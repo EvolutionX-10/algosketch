@@ -4,8 +4,6 @@
 	"description": "Master algorithms and data structures through interactive visualizations and step-by-step animations",
 	"start_url": "/",
 	"display": "standalone",
-	"background_color": "#ffffff",
-	"theme_color": "#3b82f6",
 	"orientation": "portrait-primary",
 	"scope": "/",
 	"lang": "en",
