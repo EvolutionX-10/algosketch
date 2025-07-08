@@ -43,7 +43,7 @@ export function FeatureCard({
 	};
 
 	return (
-		<Card className={cn("group transition-all hover:scale-[1.02] hover:shadow-lg", className)}>
+		<Card className={cn("group transition-all hover:shadow-lg", className)}>
 			<CardContent className="p-6">
 				<div className="flex items-start gap-4">
 					<div className={cn("flex h-12 w-12 items-center justify-center rounded-lg text-white", color)}>

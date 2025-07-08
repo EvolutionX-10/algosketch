@@ -345,15 +345,6 @@
 	}
 }
 
-/* Scale on hover animation */
-.scale-hover {
-	transition: transform 0.2s ease-in-out;
-}
-
-.scale-hover:hover {
-	transform: scale(1.05);
-}
-
 /* Interactive border animation */
 .animated-border {
 	position: relative;
