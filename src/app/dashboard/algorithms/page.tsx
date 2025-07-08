@@ -139,20 +139,14 @@ export default function Algorithms() {
 		<div className="w-full max-w-7xl space-y-8">
 			{/* Header */}
 			<div className="space-y-4">
-				<div className="flex items-center justify-between">
-					<div>
-						<h1 className="font-heading text-4xl font-bold tracking-tight">
-							Algorithm{" "}
-							<span className="from-primary to-chart-1 bg-gradient-to-r bg-clip-text text-transparent">Gallery</span>
-						</h1>
-						<p className="font-body text-muted-foreground mt-2 text-lg">
-							Discover and explore interactive algorithm visualizations
-						</p>
-					</div>
-					<Button variant="outline" className="flex items-center gap-2">
-						<FilterIcon className="h-4 w-4" />
-						Filter & Sort
-					</Button>
+				<div className="flex flex-col justify-between">
+					<h1 className="font-heading text-4xl font-bold tracking-tight">
+						Algorithm{" "}
+						<span className="from-primary to-chart-1 bg-gradient-to-r bg-clip-text text-transparent">Gallery</span>
+					</h1>
+					<p className="font-body text-muted-foreground mt-2 text-lg">
+						Discover and explore interactive algorithm visualizations
+					</p>
 				</div>
 
 				{/* Quick Stats */}
@@ -193,7 +187,7 @@ export default function Algorithms() {
 
 				<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 					{sortingAlgorithms.map((algorithm, index) => (
-						<Card key={index} className="group transition-all hover:scale-[1.02] hover:shadow-lg">
+						<Card key={index} className="group transition-all hover:shadow-lg">
 							<CardHeader className="pb-3">
 								<div className="flex items-start justify-between">
 									<div className="flex items-center space-x-3">
@@ -272,7 +266,7 @@ export default function Algorithms() {
 
 				<div className="grid grid-cols-1 gap-6 md:grid-cols-2">
 					{searchingAlgorithms.map((algorithm, index) => (
-						<Card key={index} className="group transition-all hover:scale-[1.02] hover:shadow-lg">
+						<Card key={index} className="group transition-all hover:shadow-lg">
 							<CardHeader className="pb-3">
 								<div className="flex items-start justify-between">
 									<div className="flex items-center space-x-3">
