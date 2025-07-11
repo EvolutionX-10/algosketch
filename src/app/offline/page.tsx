@@ -32,7 +32,11 @@ export default function OfflinePage() {
 				</div>
 
 				<div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
-					<Button onClick={() => redirect("/") && window.location.reload()} variant="default" className="flex items-center gap-2">
+					<Button
+						onClick={() => redirect("/") && window.location.reload()}
+						variant="default"
+						className="flex items-center gap-2"
+					>
 						<RefreshCwIcon className="h-4 w-4" />
 						Try Again
 					</Button>

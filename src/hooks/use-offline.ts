@@ -15,9 +15,9 @@ export function useOffline(options: UseOfflineOptions = {}) {
 		const updateOnlineStatus = () => {
 			const online = navigator.onLine;
 			const previouslyOnline = isOnline;
-			
+
 			setIsOnline(online);
-			
+
 			if (!online && previouslyOnline) {
 				setWasOffline(true);
 				options.onOffline?.();
