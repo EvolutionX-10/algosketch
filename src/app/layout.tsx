@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { Geist_Mono } from "next/font/google";
 import { baseUrl } from "@/lib/constants";
+import ServiceWorkerRegistration from "@/components/service-worker-registration";
+import OfflineIndicator from "@/components/offline-indicator";
 
 const heading = Patrick_Hand_SC({
 	subsets: ["latin"],
@@ -164,11 +166,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 				<meta name="google-site-verification" content="HprHd3OhKfBwfT2t2G_AspoTcKtCzdsMV3ktRQ9jckQ" />
 			</head>
 			<body
-				className={`${heading.variable} ${body.variable} ${fancy.variable} ${geistMono.variable} font-body antialiased`}
+				className={`${heading.variable} ${body.variable} ${fancy.variable} ${geistMono.variable} font-body overflow-x-hidden antialiased`}
 			>
+				<ServiceWorkerRegistration />
 				<Hydrate>
 					<ThemeProvider attribute={"class"} defaultTheme={"system"} enableSystem>
 						<div className="flex min-h-screen flex-col">{children}</div>
+						<OfflineIndicator />
 						<Toaster />
 					</ThemeProvider>
 				</Hydrate>
