@@ -7,7 +7,8 @@ const withSerwist = withSerwistInit({
 	swDest: "public/sw.js",
 	cacheOnNavigation: true,
 	reloadOnOnline: true,
-	disable: process.env.NODE_ENV === "development",
+	disable: false, // Enable in development for testing offline functionality
+	additionalPrecacheEntries: ["/offline"],
 });
 
 const nextConfig: NextConfig = {
