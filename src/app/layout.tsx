@@ -8,6 +8,7 @@ import { Geist_Mono } from "next/font/google";
 import { baseUrl } from "@/lib/constants";
 import ServiceWorkerRegistration from "@/components/service-worker-registration";
 import OfflineIndicator from "@/components/offline-indicator";
+import { Analytics } from "@vercel/analytics/next";
 
 const heading = Patrick_Hand_SC({
 	subsets: ["latin"],
@@ -169,6 +170,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
 				className={`${heading.variable} ${body.variable} ${fancy.variable} ${geistMono.variable} font-body overflow-x-hidden antialiased`}
 			>
 				<ServiceWorkerRegistration />
+				<Analytics />
 				<Hydrate>
 					<ThemeProvider attribute={"class"} defaultTheme={"system"} enableSystem>
 						<div className="flex min-h-screen flex-col">{children}</div>
