@@ -18,7 +18,14 @@ export function Footer({ className }: { className?: string }) {
 						<span>Made with</span>
 						<Heart className="h-3 w-3 fill-red-500 text-red-500" />
 						<span>by</span>
-						<span className="text-foreground font-medium">Aakhyan</span>
+						<Link
+							href="https://linkedin.com/in/aakhyan-j"
+							target="_blank"
+							aria-label="LinkedIn"
+							rel="noopener noreferrer"
+						>
+							<span className="text-foreground font-medium">Aakhyan</span>
+						</Link>
 					</div>
 
 					<div className="hidden sm:block">
@@ -27,7 +34,7 @@ export function Footer({ className }: { className?: string }) {
 
 					<div className="flex items-center gap-4">
 						<Link
-							href="https://github.com/EvolutionX-10/AlgoSketch"
+							href="https://github.com/EvolutionX-10"
 							target="_blank"
 							aria-label="GitHub repository"
 							rel="noopener noreferrer"
