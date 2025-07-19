@@ -66,7 +66,7 @@ export default function Visualizer() {
 
 	return (
 		<div className="flex w-full flex-col gap-4">
-			<h2 className="mb-2 text-2xl font-bold">Stack Visualizer</h2>
+			<h2 className="text-2xl font-bold">Stack Visualizer</h2>
 
 			<Legend />
 
@@ -79,32 +79,31 @@ export default function Visualizer() {
 						</div>
 
 						<div className="relative flex min-h-[400px] flex-col items-center justify-end">
-							<div
-								className={`mb-1 h-4 w-40 bg-gray-400 ${currentStep.stack.length === 0 ? "rounded-b-lg" : "rounded-t-lg rounded-b-xs"}`}
-							></div>
-
-							<div className="flex flex-col-reverse items-center gap-1">
+							<motion.div layout className="flex flex-col-reverse items-center gap-1">
 								<AnimatePresence mode="popLayout">
 									{currentStep.stack.map((item, index) => (
 										<StackItemComponent key={item.id} item={item} index={index} />
 									))}
+									<motion.div
+										key="stack-base"
+										className="mb-1 h-5 w-40 bg-gray-400"
+										layout
+										animate={{
+											borderTopLeftRadius: currentStep.stack.length === 0 ? 8 : 16,
+											borderTopRightRadius: currentStep.stack.length === 0 ? 8 : 16,
+											borderBottomLeftRadius: currentStep.stack.length === 0 ? 16 : 2,
+											borderBottomRightRadius: currentStep.stack.length === 0 ? 16 : 2,
+										}}
+										transition={{
+											borderTopLeftRadius: { duration: 0.3, type: "spring", stiffness: 200, damping: 20 },
+											borderTopRightRadius: { duration: 0.3, type: "spring", stiffness: 200, damping: 20 },
+											borderBottomLeftRadius: { duration: 0.3, type: "spring", stiffness: 200, damping: 20 },
+											borderBottomRightRadius: { duration: 0.3, type: "spring", stiffness: 200, damping: 20 },
+											layout: { duration: 0.3 },
+										}}
+									/>
 								</AnimatePresence>
-							</div>
-
-							{currentStep.stack.length > 0 && (
-								<motion.div
-									className="absolute right-0 flex items-center"
-									style={{
-										bottom: `${currentStep.stack.length * 45 + 20}px`,
-									}}
-									initial={{ opacity: 0, x: 20 }}
-									animate={{ opacity: 1, x: 0 }}
-									exit={{ opacity: 0, x: 20 }}
-								>
-									<div className="mr-2 rounded bg-yellow-500 px-2 py-1 text-sm font-bold text-black">TOP</div>
-									<div className="h-0 w-0 border-t-4 border-r-8 border-b-4 border-transparent border-r-yellow-500"></div>
-								</motion.div>
-							)}
+							</motion.div>
 						</div>
 
 						<div className="mt-4 text-center">
