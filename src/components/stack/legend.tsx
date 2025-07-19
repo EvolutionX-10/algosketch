@@ -1,7 +1,6 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { InfoIcon } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 const legendItems = [
 	{
@@ -13,11 +12,6 @@ const legendItems = [
 		color: "bg-green-500",
 		label: "Pushing",
 		description: "Element being added",
-	},
-	{
-		color: "bg-red-500",
-		label: "Popping",
-		description: "Element being removed",
 	},
 	{
 		color: "bg-yellow-500",
@@ -34,19 +28,16 @@ const legendItems = [
 export default function Legend() {
 	return (
 		<Card className="bg-card/50 backdrop-blur-sm">
-			<CardHeader className="pb-3">
-				<CardTitle className="flex items-center gap-2 text-sm">
-					<InfoIcon className="text-primary h-4 w-4" />
-					Legend
-				</CardTitle>
-			</CardHeader>
 			<CardContent className="pt-0">
 				<div className="grid grid-cols-2 gap-2 md:grid-cols-5">
 					{legendItems.map((item, index) => (
-						<div key={index} className="flex items-center gap-2">
-							<div className={`h-3 w-3 rounded ${item.color} border border-gray-600`} />
+						<div
+							key={index}
+							className="flex items-start justify-center gap-2 max-md:grid max-md:grid-cols-[auto_1fr] max-md:items-center max-md:gap-x-2 max-md:gap-y-0"
+						>
+							<div className={`mt-1 h-4 w-4 rounded ${item.color} border border-gray-600/30`} />
 							<div className="flex flex-col">
-								<span className="text-xs font-medium">{item.label}</span>
+								<span className="text-sm font-medium">{item.label}</span>
 								<span className="text-muted-foreground hidden text-xs lg:block">{item.description}</span>
 							</div>
 						</div>
