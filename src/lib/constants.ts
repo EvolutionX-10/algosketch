@@ -54,6 +54,12 @@ export const navData = [
 	{
 		title: "Data Structures",
 		url: "structures",
+		items: [
+			{
+				title: "Stack",
+				url: "stack",
+			},
+		],
 	},
 ] as NavItem[];
 
