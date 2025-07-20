@@ -120,6 +120,60 @@ export default function Visualizer() {
 					</div>
 				</div>
 
+				<div className="bg-background flex flex-col gap-4 rounded-lg border p-4 md:hidden">
+					<h3 className="text-lg font-semibold">Stack Operations</h3>
+
+					<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+						<div className="flex flex-col gap-2">
+							<Label htmlFor="push-value">Value to Push:</Label>
+							<div className="flex gap-2">
+								<Input
+									id="push-value"
+									type="number"
+									min="1"
+									max="99"
+									value={inputValue}
+									onChange={(e) => setInputValue(e.target.value)}
+									className="flex-1"
+									placeholder="Enter value"
+								/>
+								<Button onClick={handlePush} className="flex items-center gap-2">
+									<PlusIcon className="h-4 w-4" />
+									Push
+								</Button>
+							</div>
+						</div>
+
+						<div className="flex flex-col gap-2">
+							<Label>Stack Operations:</Label>
+							<div className="flex gap-2">
+								<Button
+									onClick={handlePop}
+									disabled={currentStep.stack.length === 0}
+									variant="outline"
+									className="flex items-center gap-2"
+								>
+									<MinusIcon className="h-4 w-4" />
+									Pop
+								</Button>
+								<Button
+									onClick={handlePeek}
+									disabled={currentStep.stack.length === 0}
+									variant="outline"
+									className="flex items-center gap-2"
+								>
+									<EyeIcon className="h-4 w-4" />
+									Peek
+								</Button>
+								<Button onClick={resetStack} variant="outline" className="flex items-center gap-2">
+									<RotateCcwIcon className="h-4 w-4" />
+									Reset
+								</Button>
+							</div>
+						</div>
+					</div>
+				</div>
+
 				<InfoBox
 					currentStep={0}
 					totalSteps={0}
@@ -129,7 +183,7 @@ export default function Visualizer() {
 				/>
 			</div>
 
-			<div className="bg-background flex flex-col gap-4 rounded-lg border p-4">
+			<div className="bg-background flex flex-col gap-4 rounded-lg border p-4 max-md:hidden">
 				<h3 className="text-lg font-semibold">Stack Operations</h3>
 
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
