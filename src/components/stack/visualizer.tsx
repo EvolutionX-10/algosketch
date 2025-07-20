@@ -79,6 +79,14 @@ export default function Visualizer() {
 						</div>
 
 						<div className="relative flex min-h-[400px] flex-col items-center justify-end">
+							<div className="absolute top-0 left-0 z-10 flex h-full w-full select-none md:hidden">
+								<div className="flex flex-1 -translate-x-16 items-center justify-center opacity-40" onClick={handlePop}>
+									POP
+								</div>
+								<div className="flex flex-1 translate-x-16 items-center justify-center opacity-40" onClick={handlePush}>
+									PUSH
+								</div>
+							</div>
 							<motion.div layout className="flex flex-col-reverse items-center gap-1">
 								<AnimatePresence mode="popLayout">
 									{currentStep.stack.map((item, index) => (
