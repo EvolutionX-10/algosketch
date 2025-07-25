@@ -1,5 +1,6 @@
 import Visualizer from "@/components/merge/visualizer";
 import TreeVisualization from "@/components/merge/tree-visualization";
+import CodeSnippet from "@/components/merge/codeBlock";
 
 # Merge Sort Algorithm
 
@@ -66,49 +67,8 @@ The sorted subarrays are then merged back together:
 
 Merge sort has a space complexity of O(n) because it requires additional memory proportional to the size of the input array for the merging process.
 
-## Implementation in JavaScript
-
-```js
-function mergeSort(arr) {
-	// Base case: single item arrays are already sorted
-	if (arr.length <= 1) return arr;
-
-	// Divide: Split the array into halves
-	const mid = Math.floor(arr.length / 2);
-	const left = mergeSort(arr.slice(0, mid));
-	const right = mergeSort(arr.slice(mid));
-
-	// Combine: Merge the sorted halves
-	return merge(left, right);
-}
-
-function merge(left, right) {
-	const merged = [];
-	let i = 0;
-	let j = 0;
-
-	// Compare elements from both arrays and merge in sorted order
-	while (i < left.length && j < right.length) {
-		if (left[i] <= right[j]) {
-			merged.push(left[i]);
-			i++;
-		} else {
-			merged.push(right[j]);
-			j++;
-		}
-	}
-
-	// Add any remaining elements
-	merged.push(...left.slice(i));
-	merged.push(...right.slice(j));
-
-	return merged;
-}
-
-// Example usage
-const array = [38, 27, 43, 3, 9, 82, 10];
-console.log(mergeSort(array)); // [3, 9, 10, 27, 38, 43, 82]
-```
+## Implementation
+<CodeSnippet />
 
 ## Advantages and Disadvantages
 

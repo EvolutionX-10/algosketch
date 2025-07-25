@@ -1,4 +1,5 @@
 import Visualizer from "@/components/linear/visualizer";
+import CodeSnippet from "@/components/linear/codeBlock";
 
 # Linear Search Algorithm
 
@@ -40,23 +41,8 @@ Where `n` is the number of elements in the array.
 
 **O(1)** - Linear search uses only a constant amount of extra space regardless of the input size.
 
-## Implementation in JavaScript
-
-```js
-function linearSearch(arr, target) {
-	for (let i = 0; i < arr.length; i++) {
-		if (arr[i] === target) {
-			return i; // Found! Return the index
-		}
-	}
-	return -1; // Not found
-}
-
-// Example usage
-const array = [15, 8, 23, 42, 7, 16, 9];
-console.log(linearSearch(array, 23)); // Output: 2
-console.log(linearSearch(array, 100)); // Output: -1
-```
+## Implementation
+<CodeSnippet />
 
 ## Advantages and Disadvantages
 

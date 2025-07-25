@@ -1,4 +1,5 @@
 import Visualizer from "@/components/insertion/visualizer";
+import CodeSnippet from "@/components/insertion/codeBlock";
 
 # Insertion Sort Algorithm
 
@@ -61,37 +62,8 @@ Final sorted array: `[2, 3, 4, 5, 8]`
 
 Insertion sort has a space complexity of O(1) because it sorts in-place, requiring only a constant amount of additional memory.
 
-## Implementation in JavaScript
-
-```js
-function insertionSort(arr) {
-	const n = arr.length;
-
-	for (let i = 1; i < n; i++) {
-		// Current element to be inserted into sorted part
-		let current = arr[i];
-
-		// Index of the last element in the sorted part
-		let j = i - 1;
-
-		// Move elements of arr[0..i-1] that are greater than current
-		// to one position ahead of their current position
-		while (j >= 0 && arr[j] > current) {
-			arr[j + 1] = arr[j];
-			j--;
-		}
-
-		// Insert the current element into its correct position
-		arr[j + 1] = current;
-	}
-
-	return arr;
-}
-
-// Example usage
-const array = [5, 3, 8, 4, 2];
-console.log(insertionSort(array)); // [2, 3, 4, 5, 8]
-```
+## Implementation
+<CodeSnippet />
 
 ## Advantages and Disadvantages
 

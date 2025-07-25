@@ -1,4 +1,5 @@
 import Visualizer from "@/components/binary/visualizer";
+import CodeSnippet from "@/components/binary/codeBlock";
 
 # Binary Search Algorithm
 
@@ -49,32 +50,8 @@ Where `n` is the number of elements in the array.
 
 **O(log n)** - For recursive implementation due to call stack.
 
-## Implementation in JavaScript
-
-```js
-function binarySearch(arr, target) {
-	let left = 0;
-	let right = arr.length - 1;
-
-	while (left <= right) {
-		let mid = Math.floor((left + right) / 2);
-
-		if (arr[mid] === target) {
-			return mid; // Found! Return the index
-		} else if (arr[mid] < target) {
-			left = mid + 1; // Search right half
-		} else {
-			right = mid - 1; // Search left half
-		}
-	}
-	return -1; // Not found
-}
-
-// Example usage
-const sortedArray = [2, 5, 8, 12, 16, 23, 38, 45, 56, 67, 78];
-console.log(binarySearch(sortedArray, 23)); // Output: 5
-console.log(binarySearch(sortedArray, 100)); // Output: -1
-```
+## Implementation
+<CodeSnippet />
 
 ### Recursive Implementation
 

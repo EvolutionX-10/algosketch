@@ -1,4 +1,5 @@
 import Visualizer from "@/components/selection/visualizer";
+import CodeSnippet from "@/components/selection/codeBlock";
 
 # Selection Sort Algorithm
 
@@ -52,37 +53,8 @@ Final sorted array: `[2, 3, 4, 5, 8]`
 
 Selection sort has a space complexity of O(1) because it sorts in-place, requiring only a constant amount of additional memory for the temporary variable used in swapping.
 
-## Implementation in JavaScript
-
-```js
-function selectionSort(arr) {
-	const n = arr.length;
-
-	for (let i = 0; i < n - 1; i++) {
-		// Find the minimum element in unsorted part
-		let minIndex = i;
-
-		for (let j = i + 1; j < n; j++) {
-			// Compare with current minimum
-			if (arr[j] < arr[minIndex]) {
-				// Update minimum index if found
-				minIndex = j;
-			}
-		}
-
-		// Swap the found minimum with the first unsorted element
-		if (minIndex !== i) {
-			[arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
-		}
-	}
-
-	return arr;
-}
-
-// Example usage
-const array = [5, 3, 8, 4, 2];
-console.log(selectionSort(array)); // [2, 3, 4, 5, 8]
-```
+## Implementation
+<CodeSnippet />
 
 ## Advantages and Disadvantages
 
