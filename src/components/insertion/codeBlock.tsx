@@ -161,7 +161,7 @@ console.log("Sorted array:", sortedArr);`,
 
 	return (
 		<div className="bg-accent rounded border-2 border-cyan-400 p-4">
-			<div className="relative flex gap-2">
+			<div className="relative flex gap-2 flex-wrap">
 				{(Object.keys(code) as Array<Language>).map((lang) => (
 					<button
 						key={lang}
