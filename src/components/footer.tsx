@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import GithubIcon from "./icons/github";
+import { ChangelogModal } from "./ui/changelog-modal";
 import pkg from "../../package.json";
 
 export function Footer({ className }: { className?: string }) {
@@ -44,7 +45,14 @@ export function Footer({ className }: { className?: string }) {
 							<span className="hidden sm:inline">GitHub</span>
 						</Link>
 						<div className="bg-border h-4 w-px" />
-						<span className="text-xs">v{pkg.version}</span>
+						<ChangelogModal currentVersion={pkg.version}>
+							<button
+								className="hover:text-foreground cursor-pointer text-xs transition-colors hover:underline"
+								aria-label="View changelog"
+							>
+								v{pkg.version}
+							</button>
+						</ChangelogModal>
 					</div>
 				</div>
 				<div className="text-muted-foreground mt-2 text-center text-xs sm:hidden">
