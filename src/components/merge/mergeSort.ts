@@ -5,11 +5,11 @@ export type SortingState = "default" | "dividing" | "merging" | "comparing" | "s
 export interface BarItem extends BaseBarItem<SortingState> {}
 
 export const stateStyles: Record<SortingState, string> = {
-	default: "bg-blue-500",
-	dividing: "bg-yellow-500",
-	merging: "bg-red-500",
-	comparing: "bg-fuchsia-500",
-	sorted: "bg-green-500",
+	default: "bg-blue-400",
+	dividing: "bg-amber-400",
+	merging: "bg-rose-400",
+	comparing: "bg-purple-400",
+	sorted: "bg-emerald-400",
 };
 
 export interface SortingStep {

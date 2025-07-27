@@ -6,10 +6,10 @@ export type SortingState = "default" | "comparing" | "inserting" | "sorted";
 export interface BarItem extends BaseBarItem<SortingState> {}
 
 export const stateStyles: Record<SortingState, string> = {
-	default: "bg-blue-500",
-	comparing: "bg-yellow-500",
-	inserting: "bg-red-500",
-	sorted: "bg-green-500",
+	default: "bg-blue-400",
+	comparing: "bg-amber-400",
+	inserting: "bg-rose-400",
+	sorted: "bg-emerald-400",
 };
 
 export interface SortingStep {

@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Bar from "../shared/bar";
+import Node from "../shared/node";
+import VisualizationSwitcher from "../shared/visualization-switcher";
 import { BarItem, SortingStep, generateRandomArray, insertionSortSteps, stateStyles } from "./insertionSort";
 import Control from "./control";
 import CodeSnippet from "./codeSnippet";
@@ -18,6 +20,7 @@ export default function Visualizer() {
 	const [speed, setSpeed] = useState(5);
 	const [comparisons, setComparisons] = useState(0);
 	const [shifts, setShifts] = useState(0);
+	const [visualizationMode, setVisualizationMode] = useState<"bar" | "node">("bar");
 
 	const intervalRef = useRef<NodeJS.Timeout | null>(null);
 	const containerRef = useRef<HTMLDivElement | null>(null);
@@ -147,24 +150,41 @@ export default function Visualizer() {
 		<>
 			<Banner onClickAction={handleScroll} />
 			<div className="flex w-full flex-col gap-4" ref={containerRef}>
-				<h2 className="mb-2 text-2xl font-bold">Insertion Sort Visualizer</h2>
+				<div className="flex items-center justify-between">
+					<h2 className="text-2xl font-bold">Insertion Sort Visualizer</h2>
+					<VisualizationSwitcher
+						mode={visualizationMode}
+						onModeChangeAction={setVisualizationMode}
+						disabled={isPlaying}
+					/>
+				</div>
 
 				<Legend />
 
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-3">
 					<div className="md:col-span-2">
 						<div className="bg-card flex h-80 flex-col rounded-lg border p-4">
-							<div className="flex flex-1 items-end justify-center gap-2">
-								{currentStep.array.map((item, idx) => (
-									<Bar
-										key={`${item.id}-${idx}`}
-										item={item}
-										maxValue={maxValue}
-										index={idx}
-										stateStyles={stateStyles}
-									/>
-								))}
-							</div>
+							{visualizationMode === "bar" ? (
+								<div className="flex flex-1 items-end justify-center gap-2">
+									{currentStep.array.map((item, idx) => (
+										<Bar
+											key={`${item.id}-${idx}`}
+											item={item}
+											maxValue={maxValue}
+											index={idx}
+											stateStyles={stateStyles}
+										/>
+									))}
+								</div>
+							) : (
+								<div className="flex flex-1 items-center justify-center">
+									<div className="flex flex-wrap items-center gap-4">
+										{currentStep.array.map((item, idx) => (
+											<Node key={`${item.id}-${idx}`} item={item} index={idx} stateStyles={stateStyles} />
+										))}
+									</div>
+								</div>
+							)}
 						</div>
 					</div>
 
