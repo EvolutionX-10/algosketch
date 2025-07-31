@@ -78,7 +78,7 @@ export default function Visualizer() {
 							<p className="text-muted-foreground text-sm">{currentStep.message}</p>
 						</div>
 
-						<div className="relative flex min-h-[400px] flex-col items-center justify-end">
+						<div className="relative flex max-h-[500px] min-h-[400px] flex-col items-center justify-end">
 							<div className="absolute top-0 left-0 z-10 flex h-full w-full select-none md:hidden">
 								<div className="flex flex-1 -translate-x-16 items-center justify-center opacity-40" onClick={handlePop}>
 									POP
@@ -87,31 +87,33 @@ export default function Visualizer() {
 									PUSH
 								</div>
 							</div>
-							<motion.div layout className="flex flex-col-reverse items-center gap-1">
-								<AnimatePresence mode="popLayout">
-									{currentStep.stack.map((item, index) => (
-										<StackItemComponent key={item.id} item={item} index={index} />
-									))}
-									<motion.div
-										key="stack-base"
-										className="mb-1 h-5 w-40 bg-gray-400"
-										layout
-										animate={{
-											borderTopLeftRadius: currentStep.stack.length === 0 ? 8 : 16,
-											borderTopRightRadius: currentStep.stack.length === 0 ? 8 : 16,
-											borderBottomLeftRadius: currentStep.stack.length === 0 ? 16 : 2,
-											borderBottomRightRadius: currentStep.stack.length === 0 ? 16 : 2,
-										}}
-										transition={{
-											borderTopLeftRadius: { duration: 0.3, type: "spring", stiffness: 200, damping: 20 },
-											borderTopRightRadius: { duration: 0.3, type: "spring", stiffness: 200, damping: 20 },
-											borderBottomLeftRadius: { duration: 0.3, type: "spring", stiffness: 200, damping: 20 },
-											borderBottomRightRadius: { duration: 0.3, type: "spring", stiffness: 200, damping: 20 },
-											layout: { duration: 0.3 },
-										}}
-									/>
-								</AnimatePresence>
-							</motion.div>
+							<div className="flex max-h-[400px] w-full flex-1 items-end justify-center overflow-y-auto">
+								<motion.div layout className="flex flex-col-reverse items-center gap-1 py-4">
+									<AnimatePresence mode="popLayout">
+										{currentStep.stack.map((item, index) => (
+											<StackItemComponent key={item.id} item={item} index={index} />
+										))}
+										<motion.div
+											key="stack-base"
+											className="mb-1 h-5 w-40 bg-gray-400"
+											layout
+											animate={{
+												borderTopLeftRadius: currentStep.stack.length === 0 ? 8 : 16,
+												borderTopRightRadius: currentStep.stack.length === 0 ? 8 : 16,
+												borderBottomLeftRadius: currentStep.stack.length === 0 ? 16 : 2,
+												borderBottomRightRadius: currentStep.stack.length === 0 ? 16 : 2,
+											}}
+											transition={{
+												borderTopLeftRadius: { duration: 0.3, type: "spring", stiffness: 200, damping: 20 },
+												borderTopRightRadius: { duration: 0.3, type: "spring", stiffness: 200, damping: 20 },
+												borderBottomLeftRadius: { duration: 0.3, type: "spring", stiffness: 200, damping: 20 },
+												borderBottomRightRadius: { duration: 0.3, type: "spring", stiffness: 200, damping: 20 },
+												layout: { duration: 0.3 },
+											}}
+										/>
+									</AnimatePresence>
+								</motion.div>
+							</div>
 						</div>
 
 						<div className="mt-4 text-center">
