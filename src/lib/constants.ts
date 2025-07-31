@@ -59,6 +59,10 @@ export const navData = [
 				title: "Stack",
 				url: "stack",
 			},
+			{
+				title: "Queue",
+				url: "queue",
+			},
 		],
 	},
 ] as NavItem[];
