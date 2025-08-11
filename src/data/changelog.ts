@@ -12,6 +12,32 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
 	{
+		version: "1.1.0",
+		date: "2025-08-11",
+		title: "Data Structures Expansion",
+		description: "Enhanced data structures support with queue implementation and improved visualization experience.",
+		changes: [
+			{
+				type: "feature",
+				description: "Queue Data Structure",
+				details:
+					"Complete queue implementation with FIFO operations (enqueue, dequeue, peek) featuring horizontal visualization layout and interactive controls.",
+			},
+			{
+				type: "improvement",
+				description: "Enhanced Data Structure Visualizations",
+				details:
+					"Added scrolling behavior for both queue (horizontal) and stack (vertical) visualizers to handle large datasets effectively.",
+			},
+			{
+				type: "improvement",
+				description: "Consistent Design Language",
+				details:
+					"Unified design patterns across all data structures with consistent operation controls, legends, and information displays.",
+			},
+		],
+	},
+	{
 		version: "1.0.0",
 		date: "2025-07-27",
 		title: "Production Release",
