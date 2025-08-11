@@ -72,7 +72,7 @@ export default function Visualizer() {
 
 			<div className="grid grid-cols-1 gap-4 md:grid-cols-3">
 				<div className="md:col-span-2">
-					<div className="bg-card flex flex-col rounded-lg border p-6">
+					<div className="bg-card flex flex-col overflow-hidden rounded-lg border p-6">
 						<div className="mb-4 text-center">
 							<h3 className="mb-2 text-lg font-semibold">Queue (FIFO - First In, First Out)</h3>
 							<p className="text-muted-foreground text-sm">{currentStep.message}</p>
@@ -81,13 +81,13 @@ export default function Visualizer() {
 						<div className="relative flex min-h-[200px] flex-col items-center justify-center">
 							<div className="absolute top-0 left-0 z-10 flex h-full w-full select-none md:hidden">
 								<div
-									className="flex flex-1 -translate-x-16 items-center justify-center opacity-40"
+									className="flex flex-1 -translate-x-20 -rotate-90 items-center justify-center opacity-40"
 									onClick={handleDequeue}
 								>
 									DEQUEUE
 								</div>
 								<div
-									className="flex flex-1 translate-x-16 items-center justify-center opacity-40"
+									className="flex flex-1 translate-x-20 rotate-90 items-center justify-center opacity-40"
 									onClick={handleEnqueue}
 								>
 									ENQUEUE
@@ -101,7 +101,7 @@ export default function Visualizer() {
 										<span className="text-muted-foreground text-xs font-medium">FRONT</span>
 										<motion.div
 											className="h-3 w-3 rounded-full bg-yellow-500"
-											animate={{ scale: [1, 1.2, 1] }}
+											animate={{ scale: [1, 1.1, 1] }}
 											transition={{ duration: 1, repeat: Infinity }}
 										/>
 									</div>
@@ -109,15 +109,15 @@ export default function Visualizer() {
 										<span className="text-muted-foreground text-xs font-medium">REAR</span>
 										<motion.div
 											className="h-3 w-3 rounded-full bg-purple-500"
-											animate={{ scale: [1, 1.2, 1] }}
+											animate={{ scale: [1, 1.1, 1] }}
 											transition={{ duration: 1, repeat: Infinity, delay: 0.5 }}
 										/>
 									</div>
 								</div>
 							)}
 
-							<div className="w-full max-w-full overflow-x-auto">
-								<motion.div layout className="flex min-w-max items-center gap-2 px-4">
+							<div className="z-10 w-full max-w-full overflow-x-auto">
+								<motion.div layout className="flex min-w-max items-center gap-4 px-4">
 									<AnimatePresence mode="popLayout">
 										{currentStep.queue.map((item, index) => (
 											<QueueItemComponent key={item.id} item={item} index={index} />
@@ -144,7 +144,7 @@ export default function Visualizer() {
 									<span className="text-muted-foreground text-xs">Front</span>
 									<motion.div
 										className="flex items-center"
-										animate={{ x: [0, 10, 0] }}
+										animate={{ x: [0, 5, 0] }}
 										transition={{ duration: 2, repeat: Infinity }}
 									>
 										<div className="h-px w-8 bg-gray-400" />
@@ -321,7 +321,7 @@ function QueueItemComponent({ item, index }: { item: QueueItem; index: number })
 			}}
 		>
 			<motion.div
-				className={`flex h-16 w-16 items-center justify-center rounded-lg text-sm font-bold text-white transition-colors duration-300 ${stateStyles[item.state]} `}
+				className={`flex h-12 w-12 items-center justify-center rounded-lg text-sm font-bold text-white transition-colors duration-300 md:h-16 md:w-16 ${stateStyles[item.state]} `}
 				animate={{
 					borderColor: item.state === "front" ? "#fbbf24" : item.state === "rear" ? "#a855f7" : "#4b5563",
 					boxShadow:
