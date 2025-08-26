@@ -12,6 +12,39 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
 	{
+		version: "1.2.0",
+		date: "2025-08-26",
+		title: "Linked List Implementation",
+		description:
+			"Added comprehensive linked list data structure with complete CRUD operations and interactive visualization.",
+		changes: [
+			{
+				type: "feature",
+				description: "Linked List Data Structure",
+				details:
+					"Complete linked list implementation with insert at head/tail, delete by value, and search operations featuring dynamic node visualization with pointer connections.",
+			},
+			{
+				type: "feature",
+				description: "Interactive Linked List Visualizer",
+				details:
+					"Visual representation of linked list nodes with clear head/tail indicators, pointer arrows, and state-based color coding for operations.",
+			},
+			{
+				type: "feature",
+				description: "Comprehensive Operation Controls",
+				details:
+					"User-friendly controls for inserting nodes, deleting by value, searching elements, and clearing the entire list with real-time feedback.",
+			},
+			{
+				type: "improvement",
+				description: "Enhanced Navigation",
+				details:
+					"Added linked list to main navigation and breadcrumb system following the established design patterns.",
+			},
+		],
+	},
+	{
 		version: "1.1.0",
 		date: "2025-08-11",
 		title: "Data Structures Expansion",

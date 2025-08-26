@@ -63,6 +63,10 @@ export const navData = [
 				title: "Queue",
 				url: "queue",
 			},
+			{
+				title: "Linked List",
+				url: "linkedlist",
+			},
 		],
 	},
 ] as NavItem[];
