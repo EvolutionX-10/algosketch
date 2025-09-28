@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { TreePineIcon, HeightIcon, DatabaseIcon, ActivityIcon } from "lucide-react";
+import { TreePineIcon, RulerIcon, DatabaseIcon, ActivityIcon } from "lucide-react";
 
 interface InfoBoxProps {
 	currentStep: number;
@@ -45,7 +45,7 @@ export default function InfoBox({
 							</div>
 						</div>
 						<div className="flex items-center space-x-2">
-							<HeightIcon className="h-4 w-4 text-muted-foreground" />
+							<RulerIcon className="h-4 w-4 text-muted-foreground" />
 							<div>
 								<p className="text-xl font-bold">{treeHeight}</p>
 								<p className="text-xs text-muted-foreground">Height</p>

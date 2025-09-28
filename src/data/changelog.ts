@@ -12,6 +12,39 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
 	{
+		version: "1.3.0",
+		date: "2025-09-28",
+		title: "Binary Tree Implementation",
+		description:
+			"Added comprehensive binary tree data structure with complete operations and interactive hierarchical visualization.",
+		changes: [
+			{
+				type: "feature",
+				description: "Binary Tree Data Structure",
+				details:
+					"Complete binary tree implementation with insert, delete, and search operations featuring hierarchical node visualization with proper tree positioning and connections.",
+			},
+			{
+				type: "feature",
+				description: "Interactive Binary Tree Visualizer",
+				details:
+					"Visual representation of binary tree nodes with SVG-based rendering, animated connections, and state-based color coding for operations including root highlighting.",
+			},
+			{
+				type: "feature",
+				description: "Tree Statistics and Analytics",
+				details:
+					"Comprehensive tree metrics including node count, tree height, operation counters, and educational tree properties with real-time updates.",
+			},
+			{
+				type: "improvement",
+				description: "Enhanced Navigation and Structure Gallery",
+				details:
+					"Updated data structures page with binary tree inclusion, corrected statistics (4 total structures, 1 tree structure), and integrated learning path.",
+			},
+		],
+	},
+	{
 		version: "1.2.0",
 		date: "2025-08-26",
 		title: "Linked List Implementation",
