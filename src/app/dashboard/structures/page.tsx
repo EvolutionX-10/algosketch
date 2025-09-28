@@ -59,26 +59,26 @@ export default function Structures() {
 			color: "bg-orange-500",
 			tags: ["Hierarchical", "Recursive", "Tree"],
 		},
-		{
-			name: "Binary Search Tree",
-			description: "Ordered binary tree for efficient searching and sorting",
-			difficulty: "Medium",
-			timeComplexity: "O(log n)",
-			spaceComplexity: "O(n)",
-			href: "/dashboard/structures/bst",
-			color: "bg-red-500",
-			tags: ["Ordered", "Search", "Balanced"],
-		},
-		{
-			name: "Heap",
-			description: "Complete binary tree with heap property for priority operations",
-			difficulty: "Hard",
-			timeComplexity: "O(log n)",
-			spaceComplexity: "O(n)",
-			href: "/dashboard/structures/heap",
-			color: "bg-indigo-500",
-			tags: ["Priority", "Complete", "Heap Property"],
-		},
+		// {
+		// 	name: "Binary Search Tree",
+		// 	description: "Ordered binary tree for efficient searching and sorting",
+		// 	difficulty: "Medium",
+		// 	timeComplexity: "O(log n)",
+		// 	spaceComplexity: "O(n)",
+		// 	href: "/dashboard/structures/bst",
+		// 	color: "bg-red-500",
+		// 	tags: ["Ordered", "Search", "Balanced"],
+		// },
+		// {
+		// 	name: "Heap",
+		// 	description: "Complete binary tree with heap property for priority operations",
+		// 	difficulty: "Hard",
+		// 	timeComplexity: "O(log n)",
+		// 	spaceComplexity: "O(n)",
+		// 	href: "/dashboard/structures/heap",
+		// 	color: "bg-indigo-500",
+		// 	tags: ["Priority", "Complete", "Heap Property"],
+		// },
 	];
 
 	const getDifficultyColor = (difficulty: string) => {
@@ -102,8 +102,8 @@ export default function Structures() {
 	};
 
 	const structureStats = [
-		{ label: "Total Structures", value: "2", icon: ActivityIcon },
-		{ label: "Linear Structures", value: "2", icon: LayersIcon },
+		{ label: "Total Structures", value: "3", icon: ActivityIcon },
+		{ label: "Linear Structures", value: "3", icon: LayersIcon },
 		{ label: "Tree Structures", value: "0", icon: DatabaseIcon },
 		{ label: "Difficulty Levels", value: "2", icon: GraduationCapIcon },
 	];
