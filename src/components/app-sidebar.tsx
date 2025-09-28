@@ -53,7 +53,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 			</SidebarHeader>
 			<SidebarContent className="gap-0">
 				{navData.map((root) => (
-					<Collapsible key={root.title} title={root.title} className="group/collapsible">
+					<Collapsible key={root.title} title={root.title} className="group/collapsible" defaultOpen>
 						<SidebarGroup className="py-0.5">
 							<div className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground relative flex items-center rounded-md text-sm transition-all duration-200 ease-in-out">
 								<Link
@@ -89,7 +89,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 													);
 												} else {
 													return (
-														<Collapsible key={node.title} title={node.title} className="group/sub-collapsible">
+														<Collapsible
+															key={node.title}
+															title={node.title}
+															className="group/sub-collapsible"
+															defaultOpen
+														>
 															<SidebarGroup className="py-0.5">
 																<div className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground relative flex items-center text-sm transition-all duration-200 ease-in-out">
 																	<Link
@@ -117,7 +122,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 																						asChild
 																						onClick={() => isMobile && toggleSidebar()}
 																						isActive={matchActive(active, subNode.title)}
-																						className="sidebar-item-hover"
+																						className="sidebar-item-hover ml-2"
 																					>
 																						<Link href={getLink(subNode.url)}>{subNode.title}</Link>
 																					</SidebarMenuButton>
