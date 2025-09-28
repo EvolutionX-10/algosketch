@@ -102,9 +102,9 @@ export default function Structures() {
 	};
 
 	const structureStats = [
-		{ label: "Total Structures", value: "3", icon: ActivityIcon },
+		{ label: "Total Structures", value: "4", icon: ActivityIcon },
 		{ label: "Linear Structures", value: "3", icon: LayersIcon },
-		{ label: "Tree Structures", value: "0", icon: DatabaseIcon },
+		{ label: "Tree Structures", value: "1", icon: DatabaseIcon },
 		{ label: "Difficulty Levels", value: "2", icon: GraduationCapIcon },
 	];
 
