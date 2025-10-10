@@ -14,6 +14,7 @@ const withSerwist = withSerwistInit({
 const nextConfig: NextConfig = {
 	devIndicators: false,
 	pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+	reactStrictMode: false
 };
 
 const withMDX = createMDX({
