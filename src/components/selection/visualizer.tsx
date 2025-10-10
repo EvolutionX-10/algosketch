@@ -59,11 +59,7 @@ export default function Visualizer() {
 				if (nextStepData.comparingIndex !== -1) {
 					setComparisons((prev) => prev + 1);
 				}
-				if (
-					prevIndex > 0 &&
-					nextStepData.currentIndex !== steps[prevIndex].currentIndex &&
-					nextStepData.minIndex !== nextStepData.currentIndex
-				) {
+				if (prevIndex > 0 && nextStepData.sortedIndices.length !== steps[prevIndex].sortedIndices.length) {
 					setSwaps((prev) => prev + 1);
 				}
 				return prevIndex + 1;
@@ -98,11 +94,7 @@ export default function Visualizer() {
 						if (nextStepData.comparingIndex !== -1) {
 							setComparisons((prev) => prev + 1);
 						}
-						if (
-							prevIndex > 0 &&
-							nextStepData.currentIndex !== steps[prevIndex].currentIndex &&
-							nextStepData.minIndex !== nextStepData.currentIndex
-						) {
+						if (prevIndex > 0 && nextStepData.sortedIndices.length !== steps[prevIndex].sortedIndices.length) {
 							setSwaps((prev) => prev + 1);
 						}
 						return prevIndex + 1;

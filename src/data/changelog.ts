@@ -45,6 +45,25 @@ export const changelog: ChangelogEntry[] = [
 		],
 	},
 	{
+		version: "1.2.1",
+		date: "2025-10-10",
+		title: "Selection Sort Bug Fix",
+		description: "Fixed swap counter accuracy in selection sort visualizer and disabled React strict mode.",
+		changes: [
+			{
+				type: "bugfix",
+				description: "Selection Sort Swap Counter",
+				details:
+					"Fixed swap counter logic to accurately track swaps by detecting when new elements are added to sorted indices, replacing incorrect condition that was miscounting swaps.",
+			},
+			{
+				type: "improvement",
+				description: "Disabled React Strict Mode",
+				details: "Turned off React strict mode to prevent double-rendering issues in development environment.",
+			},
+		],
+	},
+	{
 		version: "1.2.0",
 		date: "2025-08-26",
 		title: "Linked List Implementation",
