@@ -1,21 +1,6 @@
 <div align="center">
   <h1>🎨 AlgoSketch</h1>
   <p><strong>Interactive Algorithm Visualizations That Make Complex Concepts Simple</strong></p>
-  
-  <p>
-    <a href="https://github.com/EvolutionX-10/algosketch/stargazers"><img src="https://img.shields.io/github/stars/EvolutionX-10/algosketch?style=for-the-badge" alt="Stars"></a>
-    <a href="https://github.com/EvolutionX-10/algosketch/network/members"><img src="https://img.shields.io/github/forks/EvolutionX-10/algosketch?style=for-the-badge" alt="Forks"></a>
-    <a href="https://github.com/EvolutionX-10/algosketch/blob/main/LICENSE"><img src="https://img.shields.io/github/license/EvolutionX-10/algosketch?style=for-the-badge" alt="License"></a>
-    <a href="https://github.com/EvolutionX-10/algosketch/issues"><img src="https://img.shields.io/github/issues/EvolutionX-10/algosketch?style=for-the-badge" alt="Issues"></a>
-  </p>
-
-  <p>
-    <a href="#-features">Features</a> •
-    <a href="#-demo">Demo</a> •
-    <a href="#-getting-started">Getting Started</a> •
-    <a href="#-technologies">Technologies</a> •
-    <a href="#-contributing">Contributing</a>
-  </p>
 </div>
 
 ---
@@ -37,16 +22,16 @@
 ## ✨ Features
 
 ### 🔄 Sorting Algorithms
-- **Bubble Sort** - Simple comparison-based algorithm (O(n²))
-- **Insertion Sort** - Efficient for small datasets (O(n²))
-- **Selection Sort** - In-place comparison sort (O(n²))
-- **Merge Sort** - Efficient divide-and-conquer (O(n log n))
-- **Quick Sort** - Fast partitioning algorithm (O(n log n))
-- **Heap Sort** - Heap-based sorting (O(n log n))
+- **Bubble Sort** - Simple comparison-based algorithm
+- **Insertion Sort** - Efficient for small datasets
+- **Selection Sort** - In-place comparison sort
+- **Merge Sort** - Efficient divide-and-conquer
+- **Quick Sort** - Fast partitioning algorithm
+- **Heap Sort** - Heap-based sorting
 
 ### 🔍 Searching Algorithms
-- **Linear Search** - Sequential search (O(n))
-- **Binary Search** - Efficient search on sorted arrays (O(log n))
+- **Linear Search** - Sequential search
+- **Binary Search** - Efficient search on sorted arrays
 
 ### 📊 Data Structures
 - **Stack** - LIFO data structure with push, pop, and peek operations
@@ -71,60 +56,7 @@
 ### Dashboard
 ![AlgoSketch Dashboard](https://github.com/user-attachments/assets/0872329d-d90e-49f1-b8f4-37465f14b5fc)
 
-Experience it live at [your-deployment-url.vercel.app](https://your-deployment-url.vercel.app)
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 18+ or Bun runtime
-- npm, yarn, pnpm, or bun package manager
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/EvolutionX-10/algosketch.git
-   cd algosketch
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   # or
-   yarn install
-   # or
-   pnpm install
-   # or
-   bun install
-   ```
-
-3. **Run the development server**
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   # or
-   pnpm dev
-   # or
-   bun dev
-   ```
-
-4. **Open your browser**
-   
-   Navigate to [http://localhost:3000](http://localhost:3000) to see the application.
-
-### Building for Production
-
-```bash
-npm run build
-npm run start
-```
-
-### Code Formatting
-
-```bash
-npm run format
-```
+Experience it live at [algosketch.vercel.app](https://algosketch.vercel.app)
 
 ## 🛠️ Technologies
 
@@ -185,12 +117,6 @@ Contributions are what make the open-source community such an amazing place to l
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 🙏 Acknowledgments
 
 - Built with [Next.js](https://nextjs.org/) and [React](https://react.dev/)
@@ -198,16 +124,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Animations powered by [Motion](https://motion.dev/)
 - Icons from [Lucide](https://lucide.dev/)
 - Hosted on [Vercel](https://vercel.com/)
-
-## 📧 Contact
-
-**Aakhyan** - [@LinkedIn](https://linkedin.com/in/aakhyan-j)
-
-Project Link: [https://github.com/EvolutionX-10/algosketch](https://github.com/EvolutionX-10/algosketch)
-
 ---
 
 <div align="center">
-  <p>Made with ❤️ by <a href="https://linkedin.com/in/aakhyan-j">Aakhyan</a></p>
+  <p>Made with ❤️ by EvolutionX-10</p>
   <p>⭐ Star this repo if you find it helpful!</p>
 </div>
