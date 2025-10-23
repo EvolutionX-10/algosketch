@@ -51,10 +51,10 @@
 ## 🎬 Demo
 
 ### Homepage
-![AlgoSketch Homepage](https://github.com/user-attachments/assets/02881922-48ae-43e0-af26-283d507f6c63)
+![AlgoSketch Homepage](https://i.ibb.co/TMLbn3Cf/image.png)
 
 ### Dashboard
-![AlgoSketch Dashboard](https://github.com/user-attachments/assets/349cb1c8-c1f5-4f2f-a7a1-a0ebdfdbe458)
+![AlgoSketch Dashboard](https://i.ibb.co/4R5c4N6X/image.png)
 
 Experience it live at [algosketch.vercel.app](https://algosketch.vercel.app)
 
