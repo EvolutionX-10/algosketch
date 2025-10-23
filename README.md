@@ -15,7 +15,7 @@
 - 🚀 **Production Ready**: Built with Next.js 15, React 19, and TypeScript for optimal performance
 - 🎨 **Beautiful UI**: Modern, responsive design with dark/light mode support
 - 📱 **Progressive Web App**: Install on any device and use offline
-- 🔍 **Comprehensive**: 8+ algorithms with detailed explanations in 5+ programming languages
+- 🔍 **Comprehensive**: 8+ algorithms with detailed explanations in 5 programming languages
 - ⚡ **Interactive Controls**: Adjust speed, step through manually, or watch automated visualizations
 - 🎭 **Multiple Views**: Switch between bar chart and node visualizations for different perspectives
 
