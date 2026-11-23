@@ -38,7 +38,7 @@ export function createInitialQueue(): QueueStep {
 }
 
 export function enqueueToQueue(currentQueue: QueueItem[], value: number): QueueStep {
-	const newQueue = [...currentQueue];
+	const newQueue = currentQueue.map((item) => ({ ...item }));
 
 	// Reset all states to default first
 	newQueue.forEach((item) => (item.state = "default"));
@@ -72,7 +72,7 @@ export function dequeueFromQueue(currentQueue: QueueItem[]): QueueStep {
 		};
 	}
 
-	const newQueue = [...currentQueue];
+	const newQueue = currentQueue.map((item) => ({ ...item }));
 	const dequeuedItem = newQueue.shift()!;
 
 	// Reset all states and mark front/rear correctly

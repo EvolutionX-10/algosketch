@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useAlgorithmPlayback } from "@/hooks/use-algorithm-playback";
 import { SortingStep, heapSortSteps, generateRandomArray, stateStyles } from "./heapSort";
 import Bar from "../shared/bar";
 import Node from "../shared/node";
@@ -14,15 +15,21 @@ import Banner from "../banner";
 import { AnimatePresence } from "motion/react";
 
 export default function Visualizer() {
-	const [steps, setSteps] = useState<SortingStep[]>([]);
-	const [currentStepIndex, setCurrentStepIndex] = useState(0);
-	const [isPlaying, setIsPlaying] = useState(false);
-	const [speed, setSpeed] = useState(5);
-	const [comparisons, setComparisons] = useState(0);
-	const [swaps, setSwaps] = useState(0);
+	const {
+		steps,
+		resetSteps,
+		currentStepIndex,
+		isPlaying,
+		speed,
+		setSpeed,
+		nextStep,
+		prevStep,
+		startAnimation,
+		pauseAnimation,
+		metrics: { comparisons, swaps },
+	} = useAlgorithmPlayback<SortingStep>();
 	const [visualizationMode, setVisualizationMode] = useState<"bar" | "node">("bar");
 
-	const intervalRef = useRef<NodeJS.Timeout | null>(null);
 	const containerRef = useRef<HTMLDivElement | null>(null);
 
 	const handleScroll = () => {
@@ -31,130 +38,18 @@ export default function Visualizer() {
 		}
 	};
 
+	const resetArray = useCallback(
+		(size: number) => {
+			const newArray = generateRandomArray(size);
+			const newSteps = heapSortSteps(newArray);
+			resetSteps(newSteps);
+		},
+		[resetSteps],
+	);
+
 	useEffect(() => {
 		resetArray(10);
-	}, []);
-
-	const resetArray = (size: number) => {
-		const newArray = generateRandomArray(size);
-		const newSteps = heapSortSteps(newArray);
-		setSteps(newSteps);
-		setCurrentStepIndex(0);
-		setIsPlaying(false);
-		setComparisons(0);
-		setSwaps(0);
-
-		if (intervalRef.current) {
-			clearInterval(intervalRef.current);
-			intervalRef.current = null;
-		}
-	};
-	const nextStep = () => {
-		setCurrentStepIndex((prevIndex) => {
-			if (prevIndex < steps.length - 1) {
-				const nextStepData = steps[prevIndex + 1];
-				if (nextStepData.comparingIndices.length > 0) {
-					setComparisons((prev) => prev + 1);
-				}
-				if (nextStepData.heapifyingIndex !== -1 || nextStepData.rootIndex !== -1) {
-					setSwaps((prev) => prev + 1);
-				}
-				return prevIndex + 1;
-			} else {
-				pauseAnimation();
-				return prevIndex;
-			}
-		});
-	};
-
-	const prevStep = () => {
-		if (currentStepIndex > 0) {
-			setCurrentStepIndex((prev) => prev - 1);
-		}
-	};
-
-	const startAnimation = () => {
-		if (currentStepIndex < steps.length - 1) {
-			setIsPlaying(true);
-
-			if (intervalRef.current) {
-				clearInterval(intervalRef.current);
-			}
-
-			// Convert speed (1-10) to milliseconds (slower = more milliseconds)
-			const intervalTime = 1100 - speed * 100; // 1000ms to 100ms
-
-			intervalRef.current = setInterval(() => {
-				setCurrentStepIndex((prevIndex) => {
-					if (prevIndex < steps.length - 1) {
-						const nextStepData = steps[prevIndex + 1];
-						if (nextStepData.comparingIndices.length > 0) {
-							setComparisons((prev) => prev + 1);
-						}
-						if (nextStepData.heapifyingIndex !== -1 || nextStepData.rootIndex !== -1) {
-							setSwaps((prev) => prev + 1);
-						}
-						return prevIndex + 1;
-					} else {
-						setIsPlaying(false);
-						if (intervalRef.current) {
-							clearInterval(intervalRef.current);
-							intervalRef.current = null;
-						}
-						return prevIndex;
-					}
-				});
-			}, intervalTime);
-		}
-	};
-
-	const pauseAnimation = () => {
-		setIsPlaying(false);
-		if (intervalRef.current) {
-			clearInterval(intervalRef.current);
-			intervalRef.current = null;
-		}
-	};
-
-	useEffect(() => {
-		return () => {
-			if (intervalRef.current) {
-				clearInterval(intervalRef.current);
-			}
-		};
-	}, []);
-
-	useEffect(() => {
-		if (isPlaying && intervalRef.current) {
-			clearInterval(intervalRef.current);
-			const intervalTime = 1100 - speed * 100;
-			intervalRef.current = setInterval(() => {
-				setCurrentStepIndex((prevIndex) => {
-					if (prevIndex < steps.length - 1) {
-						const nextStepData = steps[prevIndex + 1];
-						if (nextStepData.comparingIndices.length > 0) {
-							setComparisons((prev) => prev + 1);
-						}
-						if (nextStepData.heapifyingIndex !== -1 && prevIndex > 0) {
-							const prevStep = steps[prevIndex];
-							if (prevStep.heapifyingIndex !== nextStepData.heapifyingIndex) {
-								setSwaps((prev) => prev + 1);
-							}
-						}
-						return prevIndex + 1;
-					} else {
-						setIsPlaying(false);
-						if (intervalRef.current) {
-							clearInterval(intervalRef.current);
-							intervalRef.current = null;
-						}
-						return prevIndex;
-					}
-				});
-			}, intervalTime);
-		}
-	}, [speed, isPlaying, steps]);
-
+	}, [resetArray]);
 	if (steps.length === 0) {
 		return <div>Loading...</div>;
 	}

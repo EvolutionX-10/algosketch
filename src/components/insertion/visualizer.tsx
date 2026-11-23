@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useAlgorithmPlayback } from "@/hooks/use-algorithm-playback";
 import Bar from "../shared/bar";
 import Node from "../shared/node";
 import VisualizationSwitcher from "../shared/visualization-switcher";
@@ -14,15 +15,21 @@ import Banner from "@/components/banner";
 
 export default function Visualizer() {
 	const [array, setArray] = useState<BarItem[]>([]);
-	const [steps, setSteps] = useState<SortingStep[]>([]);
-	const [currentStepIndex, setCurrentStepIndex] = useState(0);
-	const [isPlaying, setIsPlaying] = useState(false);
-	const [speed, setSpeed] = useState(5);
-	const [comparisons, setComparisons] = useState(0);
-	const [shifts, setShifts] = useState(0);
+	const {
+		steps,
+		resetSteps,
+		currentStepIndex,
+		isPlaying,
+		speed,
+		setSpeed,
+		nextStep,
+		prevStep,
+		startAnimation,
+		pauseAnimation,
+		metrics: { comparisons, shifts },
+	} = useAlgorithmPlayback<SortingStep>();
 	const [visualizationMode, setVisualizationMode] = useState<"bar" | "node">("bar");
 
-	const intervalRef = useRef<NodeJS.Timeout | null>(null);
 	const containerRef = useRef<HTMLDivElement | null>(null);
 
 	const handleScroll = () => {
@@ -31,107 +38,19 @@ export default function Visualizer() {
 		}
 	};
 
+	const resetArray = useCallback(
+		(size: number) => {
+			const newArray = generateRandomArray(size);
+			setArray(newArray);
+			const newSteps = insertionSortSteps(newArray);
+			resetSteps(newSteps);
+		},
+		[resetSteps],
+	);
+
 	useEffect(() => {
 		resetArray(10);
-	}, []);
-
-	const resetArray = (size: number) => {
-		const newArray = generateRandomArray(size);
-		setArray(newArray);
-		const newSteps = insertionSortSteps(newArray);
-		setSteps(newSteps);
-		setCurrentStepIndex(0);
-		setIsPlaying(false);
-		setComparisons(0);
-		setShifts(0);
-
-		if (intervalRef.current) {
-			clearInterval(intervalRef.current);
-			intervalRef.current = null;
-		}
-	};
-
-	const nextStep = () => {
-		setCurrentStepIndex((prevIndex) => {
-			if (prevIndex < steps.length - 1) {
-				const nextStepData = steps[prevIndex + 1];
-				if (nextStepData.comparingIndex >= 0) {
-					setComparisons((prev) => prev + 1);
-				}
-				if (nextStepData.insertPosition !== nextStepData.currentIndex) {
-					setShifts((prev) => prev + 1);
-				}
-				return prevIndex + 1;
-			} else {
-				pauseAnimation();
-				return prevIndex;
-			}
-		});
-	};
-
-	const prevStep = () => {
-		if (currentStepIndex > 0) {
-			setCurrentStepIndex((prev) => prev - 1);
-		}
-	};
-
-	const startAnimation = () => {
-		if (currentStepIndex < steps.length - 1) {
-			setIsPlaying(true);
-
-			if (intervalRef.current) {
-				clearInterval(intervalRef.current);
-			}
-
-			// Convert speed (1-10) to milliseconds (slower = more milliseconds)
-			const intervalTime = 1100 - speed * 100; // 1000ms to 100ms
-
-			intervalRef.current = setInterval(() => {
-				setCurrentStepIndex((prevIndex) => {
-					if (prevIndex < steps.length - 1) {
-						const nextStepData = steps[prevIndex + 1];
-						if (nextStepData.comparingIndex >= 0) {
-							setComparisons((prev) => prev + 1);
-						}
-						if (nextStepData.insertPosition !== nextStepData.currentIndex) {
-							setShifts((prev) => prev + 1);
-						}
-						return prevIndex + 1;
-					} else {
-						if (intervalRef.current) {
-							clearInterval(intervalRef.current);
-							intervalRef.current = null;
-						}
-						setIsPlaying(false);
-						return prevIndex;
-					}
-				});
-			}, intervalTime);
-		}
-	};
-
-	const pauseAnimation = () => {
-		setIsPlaying(false);
-		if (intervalRef.current) {
-			clearInterval(intervalRef.current);
-			intervalRef.current = null;
-		}
-	};
-
-	useEffect(() => {
-		return () => {
-			if (intervalRef.current) {
-				clearInterval(intervalRef.current);
-			}
-		};
-	}, []);
-
-	useEffect(() => {
-		if (isPlaying && intervalRef.current) {
-			startAnimation();
-		}
-	}, [speed]);
-
+	}, [resetArray]);
 	const currentStep = steps[currentStepIndex] || {
 		array: array,
 		currentIndex: 0,

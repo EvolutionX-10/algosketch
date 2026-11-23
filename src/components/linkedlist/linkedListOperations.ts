@@ -53,16 +53,13 @@ export function createInitialLinkedList(): LinkedListStep {
 }
 
 export function insertAtHead(currentNodes: LinkedListItem[], value: number): LinkedListStep {
-	const newNodes = [...currentNodes];
+	const newNodes = currentNodes.map((item) => ({ ...item }));
 	const newNode = createLinkedListItem(value, "head");
 
-	// Update previous head to default state
-	if (newNodes.length > 0) {
-		const prevHeadIndex = newNodes.findIndex((node) => node.state === "head");
-		if (prevHeadIndex !== -1) {
-			newNodes[prevHeadIndex].state = "default";
-		}
-	}
+	// Structural roles come from position, never from transient search highlights.
+	newNodes.forEach((node) => {
+		node.state = "default";
+	});
 
 	// Connect new node to current head
 	if (newNodes.length > 0) {
@@ -88,7 +85,7 @@ export function insertAtHead(currentNodes: LinkedListItem[], value: number): Lin
 }
 
 export function insertAtTail(currentNodes: LinkedListItem[], value: number): LinkedListStep {
-	const newNodes = [...currentNodes];
+	const newNodes = currentNodes.map((item) => ({ ...item }));
 	const newNode = createLinkedListItem(value, "tail");
 
 	if (newNodes.length === 0) {
@@ -105,12 +102,10 @@ export function insertAtTail(currentNodes: LinkedListItem[], value: number): Lin
 		};
 	}
 
-	// Update previous tail to default state
-	const prevTailIndex = newNodes.findIndex((node) => node.state === "tail");
-	if (prevTailIndex !== -1) {
-		newNodes[prevTailIndex].state = "default";
-		newNodes[prevTailIndex].next = newNode.id;
-	}
+	newNodes.forEach((node, index) => {
+		node.state = index === 0 ? "head" : "default";
+	});
+	newNodes[newNodes.length - 1].next = newNode.id;
 
 	newNodes.push(newNode);
 
@@ -125,7 +120,7 @@ export function insertAtTail(currentNodes: LinkedListItem[], value: number): Lin
 }
 
 export function deleteByValue(currentNodes: LinkedListItem[], value: number): LinkedListStep {
-	const newNodes = [...currentNodes];
+	const newNodes = currentNodes.map((item) => ({ ...item }));
 	const nodeIndex = newNodes.findIndex((node) => node.value === value);
 
 	if (nodeIndex === -1) {

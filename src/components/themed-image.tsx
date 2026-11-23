@@ -11,8 +11,8 @@ type Props = Omit<ImageProps, "src" | "priority" | "loading"> & {
 
 export default function ThemedImage(props: Props) {
 	const { resolvedTheme: theme } = useTheme();
-	const { srcLight, srcDark, ...rest } = props;
+	const { srcLight, srcDark, alt, ...rest } = props;
 	const src = theme === "dark" ? srcDark : srcLight;
 
-	return <Image {...rest} src={src} />;
+	return <Image {...rest} src={src} alt={alt} />;
 }

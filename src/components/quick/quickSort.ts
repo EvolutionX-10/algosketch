@@ -1,5 +1,7 @@
 "use client";
-import { BaseBarItem } from "@/lib/types";
+import type { BaseBarItem } from "@/lib/types";
+
+import type { OperationStep } from "@/lib/algorithm-metrics";
 
 export type SortingState = "default" | "comparing" | "pivot" | "swapping" | "sorted" | "partitioning";
 
@@ -14,7 +16,7 @@ export const stateStyles: Record<SortingState, string> = {
 	sorted: "bg-green-500",
 };
 
-export interface SortingStep {
+export interface SortingStep extends OperationStep {
 	array: BarItem[];
 	pivotIndex: number;
 	comparingIndices: number[];
@@ -89,6 +91,7 @@ function partitionSteps(
 
 		steps.push({
 			array: arrayWithComparing,
+			operation: "compare",
 			pivotIndex,
 			comparingIndices: [j],
 			swappingIndices: [],
@@ -118,6 +121,7 @@ function partitionSteps(
 
 				steps.push({
 					array: arrayWithSwapping,
+					operation: "swap",
 					pivotIndex,
 					comparingIndices: [],
 					swappingIndices: [i, j],
@@ -150,6 +154,7 @@ function partitionSteps(
 
 		steps.push({
 			array: arrayWithFinalSwap,
+			operation: "swap",
 			pivotIndex,
 			comparingIndices: [],
 			swappingIndices: [i + 1, pivotIndex],

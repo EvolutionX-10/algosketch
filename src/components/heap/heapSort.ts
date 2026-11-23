@@ -1,5 +1,7 @@
 "use client";
-import { BaseBarItem } from "@/lib/types";
+import type { BaseBarItem } from "@/lib/types";
+
+import type { OperationStep } from "@/lib/algorithm-metrics";
 
 export type SortingState = "default" | "comparing" | "heapifying" | "sorted" | "root";
 
@@ -13,7 +15,7 @@ export const stateStyles: Record<SortingState, string> = {
 	sorted: "bg-green-500",
 };
 
-export interface SortingStep {
+export interface SortingStep extends OperationStep {
 	array: BarItem[];
 	heapSize: number;
 	comparingIndices: number[];
@@ -70,6 +72,7 @@ function heapifySteps(
 
 		steps.push({
 			array: arrayWithComparing,
+			operation: "compare",
 			heapSize,
 			comparingIndices: [i, left],
 			heapifyingIndex: i,
@@ -98,6 +101,7 @@ function heapifySteps(
 
 		steps.push({
 			array: arrayWithComparing,
+			operation: "compare",
 			heapSize,
 			comparingIndices: [i, right, largest],
 			heapifyingIndex: i,
@@ -126,6 +130,7 @@ function heapifySteps(
 
 		steps.push({
 			array: arrayWithSwapping,
+			operation: "swap",
 			heapSize,
 			comparingIndices: [i, largest],
 			heapifyingIndex: i,
@@ -163,7 +168,7 @@ function buildMaxHeapSteps(array: BarItem[], steps: SortingStep[]): void {
 		heapSize: n,
 		comparingIndices: [],
 		heapifyingIndex: -1,
-		rootIndex: 0,
+		rootIndex: n > 0 ? 0 : -1,
 		sortedIndices: [],
 		isBuilding: false,
 		isExtracting: false,
@@ -232,6 +237,7 @@ export function heapSortSteps(inputArray: BarItem[]): SortingStep[] {
 
 		steps.push({
 			array: arrayWithSwap,
+			operation: "swap",
 			heapSize: i,
 			comparingIndices: [0, i],
 			heapifyingIndex: 0,
@@ -248,7 +254,7 @@ export function heapSortSteps(inputArray: BarItem[]): SortingStep[] {
 		}
 	}
 
-	sortedIndices.push(0);
+	if (n > 0) sortedIndices.push(0);
 	const finalArray = cloneItems(array);
 	for (let item of finalArray) {
 		item.state = "sorted";
