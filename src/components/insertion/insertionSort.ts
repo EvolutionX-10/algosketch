@@ -1,5 +1,7 @@
 "use client";
-import { BaseBarItem } from "@/lib/types";
+import type { BaseBarItem } from "@/lib/types";
+
+import type { OperationStep } from "@/lib/algorithm-metrics";
 
 export type SortingState = "default" | "comparing" | "inserting" | "sorted";
 
@@ -12,7 +14,7 @@ export const stateStyles: Record<SortingState, string> = {
 	sorted: "bg-emerald-400",
 };
 
-export interface SortingStep {
+export interface SortingStep extends OperationStep {
 	array: BarItem[];
 	currentIndex: number;
 	comparingIndex: number;
@@ -35,13 +37,13 @@ export function insertionSortSteps(inputArray: BarItem[]): SortingStep[] {
 	const n = array.length;
 
 	// Initial state - first element is considered sorted
-	array[0].state = "sorted";
+	if (n > 0) array[0].state = "sorted";
 	steps.push({
 		array: array.map((item) => ({ ...item })),
-		currentIndex: 0,
+		currentIndex: n > 0 ? 0 : -1,
 		comparingIndex: -1,
-		insertPosition: 0,
-		sortedIndices: [0],
+		insertPosition: n > 0 ? 0 : -1,
+		sortedIndices: n > 0 ? [0] : [],
 	});
 
 	for (let i = 1; i < n; i++) {
@@ -64,6 +66,7 @@ export function insertionSortSteps(inputArray: BarItem[]): SortingStep[] {
 
 			steps.push({
 				array: arrayBeforeComparison,
+				operation: "compare",
 				currentIndex: i,
 				comparingIndex: j,
 				insertPosition: j + 1,
@@ -78,6 +81,7 @@ export function insertionSortSteps(inputArray: BarItem[]): SortingStep[] {
 
 				steps.push({
 					array: arrayAfterShift,
+					operation: "shift",
 					currentIndex: i,
 					comparingIndex: j,
 					insertPosition: j,

@@ -1,5 +1,7 @@
 "use client";
-import { BaseBarItem } from "@/lib/types";
+import type { BaseBarItem } from "@/lib/types";
+
+import type { OperationStep } from "@/lib/algorithm-metrics";
 
 export type SortingState = "default" | "dividing" | "merging" | "comparing" | "sorted";
 export interface BarItem extends BaseBarItem<SortingState> {}
@@ -12,7 +14,7 @@ export const stateStyles: Record<SortingState, string> = {
 	sorted: "bg-emerald-400",
 };
 
-export interface SortingStep {
+export interface SortingStep extends OperationStep {
 	array: BarItem[];
 	comparing: number[];
 	merged: boolean;
@@ -68,11 +70,13 @@ export function mergeSortSteps(inputArray: BarItem[]): SortingStep[] {
 		sortedIndices: number[] = [],
 		dividing: boolean = false,
 		subArrayBounds: number[] = [],
+		operation?: OperationStep["operation"],
 	) => {
 		const arrayCopy = cloneItems(array);
 
 		steps.push({
 			array: arrayCopy,
+			operation,
 			comparing,
 			merged,
 			sortedIndices: [...sortedIndices],
@@ -91,7 +95,7 @@ export function mergeSortSteps(inputArray: BarItem[]): SortingStep[] {
 		for (let i = start; i <= end; i++) {
 			tempArray[i].state = "dividing";
 		}
-		recordStep(tempArray, [], false, sortedIndices, true, [start, end]);
+		recordStep(tempArray, [], false, sortedIndices, true, [start, end], "divide");
 
 		const mid = Math.floor((start + end) / 2);
 
@@ -139,7 +143,7 @@ export function mergeSortSteps(inputArray: BarItem[]): SortingStep[] {
 			comparingArray[start + i].state = "comparing";
 			comparingArray[mid + 1 + j].state = "comparing";
 
-			recordStep(comparingArray, [start + i, mid + 1 + j], false, sortedIndices, false, [start, end]);
+			recordStep(comparingArray, [start + i, mid + 1 + j], false, sortedIndices, false, [start, end], "compare");
 			if (leftArray[i].value <= rightArray[j].value) {
 				workingArray[k] = {
 					...leftArray[i],
@@ -198,7 +202,7 @@ export function mergeSortSteps(inputArray: BarItem[]): SortingStep[] {
 				sortedIndices.push(i);
 			}
 		}
-		recordStep(sortedArray, [], true, sortedIndices, false, [start, end]);
+		recordStep(sortedArray, [], true, sortedIndices, false, [start, end], "merge");
 	};
 
 	mergeSort(0, n - 1);

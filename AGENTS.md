@@ -38,7 +38,7 @@ AlgoSketch is an educational Next.js App Router application using React, strict 
 
 ## Setup and commands
 
-`bun.lock` is the tracked dependency lockfile. Use Bun for dependency installation and preserve this lockfile. Do not introduce another package manager's lockfile. Existing installed dependencies can also run the scripts through npm.
+`bun.lock` is the tracked dependency lockfile. The supported toolchain is Node.js 22 or newer and Bun 1.3.3 (`packageManager` in `package.json`). Use Bun for dependency installation and preserve this lockfile. Do not introduce another package manager's lockfile. Existing installed dependencies can also run the scripts through npm.
 
 ```sh
 bun install --frozen-lockfile
@@ -50,12 +50,15 @@ bun run start
 - Development: `npm run dev` runs Next.js with Turbopack on port 3000.
 - Production build: `npm run build` uses the configured MDX and Serwist integrations.
 - Production preview: `npm run start -- --hostname 0.0.0.0`; build first.
-- Type check: `./node_modules/.bin/tsc --noEmit --incremental false`.
+- Lint: `bun run lint` (ESLint with the Next.js Core Web Vitals rules; literal punctuation in prose is permitted).
+- Type check: `bun run typecheck`.
+- Unit regressions: `bun run test:unit` (Bun's test runner, restricted to `tests/unit/`).
+- Browser regressions: `bun run build`, `bunx playwright install chromium`, then `bun run test:e2e`. Playwright starts its own production server on port 3100; keep that port free. Desktop and mobile Chromium projects run by default. To use an existing compatible system browser, set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to its executable path.
 - Formatting check for specific changed files: `./node_modules/.bin/prettier --check <files>`.
 - Format specific changed files: `./node_modules/.bin/prettier --write <files>`.
 - `npm run format` rewrites all of `src/`; avoid using it for a narrow change.
 
-Baseline verified on 2026-11-23: production build and standalone type check pass. `npm run lint` invokes `next lint` but currently prompts for ESLint setup and exits unsuccessfully in a noninteractive run. There is no configured test script, committed test suite, or CI workflow. Do not describe linting or automated tests as passing until those tools are configured and executed. See `plan.md` for known defects and proposed checks.
+The baseline audit and implementation progress are recorded separately in `plan.md`. The repository now has noninteractive lint/typecheck commands, unit regressions, production-browser regressions, and `.github/workflows/checks.yml`. Run relevant checks and report their actual results; a configured workflow does not establish that hosted CI has passed. Use `bun install --frozen-lockfile` to verify the checked-in lockfile after dependency changes.
 
 ## Implementation conventions
 
@@ -80,6 +83,6 @@ For behavior changes, exercise the affected user flow in a browser. For visualiz
 
 PWA behavior must be verified against a production build, since Serwist is disabled in development. Check manifest and icon responses, service worker registration, cached-page reload while offline, fallback navigation, and updates without losing active learning work. Avoid running development and production builds against the same `.next` directory simultaneously.
 
-Add focused regression tests when fixing algorithm, snapshot, pointer, or playback defects once the planned test tooling is present. Do not add tests solely to mirror documentation edits. Never claim a manual smoke test is a committed automated suite, or a Chromium check is cross-browser coverage.
+Add focused regression tests when fixing algorithm, snapshot, pointer, or playback defects. `src/lib/algorithm-metrics.ts` defines explicit operation events and their cumulative totals; `src/hooks/use-algorithm-playback.ts` owns playback and timer cleanup for all eight algorithm visualizers. Record actual operations in generators rather than counting highlight frames in UI handlers. Do not add tests solely to mirror documentation edits. Never claim a manual smoke test is a committed automated suite, or a Chromium check is cross-browser coverage.
 
 Keep generated `.next/`, `node_modules/`, service workers (`public/sw*`), TypeScript build caches, browser reports, and credentials out of source control. Update `plan.md` when completing a roadmap item, including relevant evidence and remaining limitations. Finish with a concise description of changed behavior/files, validation, and any actual blockers.

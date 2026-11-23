@@ -1,5 +1,7 @@
 "use client";
-import { BaseBarItem } from "@/lib/types";
+import type { BaseBarItem } from "@/lib/types";
+
+import type { OperationStep } from "@/lib/algorithm-metrics";
 
 export type SortingState = "default" | "comparing" | "swapping" | "sorted";
 
@@ -12,7 +14,7 @@ export const stateStyles: Record<SortingState, string> = {
 	sorted: "bg-green-500",
 };
 
-export interface SortingStep {
+export interface SortingStep extends OperationStep {
 	array: BarItem[];
 	comparing: number[];
 	swapped: boolean;
@@ -33,6 +35,8 @@ export function bubbleSortSteps(inputArray: BarItem[]): SortingStep[] {
 	const n = array.length;
 	const sortedIndices: number[] = [];
 
+	steps.push({ array: array.map((item) => ({ ...item })), comparing: [], swapped: false, sortedIndices: [] });
+
 	for (let i = 0; i < n; i++) {
 		let swapped = false;
 
@@ -43,24 +47,26 @@ export function bubbleSortSteps(inputArray: BarItem[]): SortingStep[] {
 
 			steps.push({
 				array: arrayBeforeComparison,
+				operation: "compare",
 				comparing: [j, j + 1],
 				swapped: false,
 				sortedIndices: [...sortedIndices],
 			});
 
 			if (array[j].value > array[j + 1].value) {
+				[array[j], array[j + 1]] = [array[j + 1], array[j]];
 				const arraySwapping = array.map((item) => ({ ...item }));
 				arraySwapping[j].state = "swapping";
 				arraySwapping[j + 1].state = "swapping";
 
 				steps.push({
 					array: arraySwapping,
+					operation: "swap",
 					comparing: [j, j + 1],
 					swapped: true,
 					sortedIndices: [...sortedIndices],
 				});
 
-				[array[j], array[j + 1]] = [array[j + 1], array[j]];
 				swapped = true;
 			}
 
@@ -74,7 +80,7 @@ export function bubbleSortSteps(inputArray: BarItem[]): SortingStep[] {
 		steps.push({
 			array: array.map((item) => ({ ...item })),
 			comparing: [],
-			swapped: swapped,
+			swapped: false,
 			sortedIndices: [...sortedIndices],
 		});
 

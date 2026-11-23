@@ -1,5 +1,7 @@
 "use client";
-import { BaseBarItem } from "@/lib/types";
+import type { BaseBarItem } from "@/lib/types";
+
+import type { OperationStep } from "@/lib/algorithm-metrics";
 
 export type SearchingState = "default" | "searching" | "found" | "not-found";
 
@@ -12,7 +14,7 @@ export const stateStyles: Record<SearchingState, string> = {
 	"not-found": "bg-red-500",
 };
 
-export interface SearchingStep {
+export interface SearchingStep extends OperationStep {
 	array: BarItem[];
 	currentIndex: number;
 	target: number;
@@ -48,6 +50,7 @@ export function linearSearchSteps(inputArray: BarItem[], target: number): Search
 
 		steps.push({
 			array: searchingArray,
+			operation: "compare",
 			currentIndex: i,
 			target,
 			found: false,

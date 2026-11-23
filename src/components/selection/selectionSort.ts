@@ -1,5 +1,7 @@
 "use client";
-import { BaseBarItem } from "@/lib/types";
+import type { BaseBarItem } from "@/lib/types";
+
+import type { OperationStep } from "@/lib/algorithm-metrics";
 
 export type SortingState = "default" | "comparing" | "selecting" | "sorted";
 
@@ -12,7 +14,7 @@ export const stateStyles: Record<SortingState, string> = {
 	sorted: "bg-green-500",
 };
 
-export interface SortingStep {
+export interface SortingStep extends OperationStep {
 	array: BarItem[];
 	currentIndex: number;
 	comparingIndex: number;
@@ -38,9 +40,9 @@ export function selectionSortSteps(inputArray: BarItem[]): SortingStep[] {
 
 	steps.push({
 		array: array.map((item) => ({ ...item })),
-		currentIndex: 0,
+		currentIndex: n > 0 ? 0 : -1,
 		comparingIndex: -1,
-		minIndex: 0,
+		minIndex: n > 0 ? 0 : -1,
 		sortedIndices: [...sortedIndices],
 	});
 
@@ -62,6 +64,7 @@ export function selectionSortSteps(inputArray: BarItem[]): SortingStep[] {
 
 			steps.push({
 				array: arrayBeforeComparison,
+				operation: "compare",
 				currentIndex: i,
 				comparingIndex: j,
 				minIndex: minIndex,
@@ -95,6 +98,7 @@ export function selectionSortSteps(inputArray: BarItem[]): SortingStep[] {
 
 			steps.push({
 				array: arrayBeforeSwap,
+				operation: "swap",
 				currentIndex: i,
 				comparingIndex: -1,
 				minIndex: minIndex,
@@ -126,8 +130,10 @@ export function selectionSortSteps(inputArray: BarItem[]): SortingStep[] {
 		});
 	}
 
-	array[n - 1].state = "sorted";
-	sortedIndices.push(n - 1);
+	if (n > 0) {
+		array[n - 1].state = "sorted";
+		sortedIndices.push(n - 1);
+	}
 
 	steps.push({
 		array: array.map((item) => ({ ...item, state: "sorted" })),

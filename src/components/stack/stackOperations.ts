@@ -37,7 +37,7 @@ export function createInitialStack(): StackStep {
 }
 
 export function pushToStack(currentStack: StackItem[], value: number): StackStep {
-	const newStack = [...currentStack];
+	const newStack = currentStack.map((item) => ({ ...item }));
 
 	// Mark previous top as default
 	if (newStack.length > 0) {
@@ -65,7 +65,7 @@ export function popFromStack(currentStack: StackItem[]): StackStep {
 		};
 	}
 
-	const newStack = [...currentStack];
+	const newStack = currentStack.map((item) => ({ ...item }));
 	const poppedItem = newStack.pop()!;
 
 	// Mark new top if exists

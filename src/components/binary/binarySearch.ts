@@ -1,5 +1,7 @@
 "use client";
-import { BaseBarItem } from "@/lib/types";
+import type { BaseBarItem } from "@/lib/types";
+
+import type { OperationStep } from "@/lib/algorithm-metrics";
 
 export type SearchingState = "default" | "searching" | "found" | "not-found" | "eliminated";
 
@@ -13,7 +15,7 @@ export const stateStyles: Record<SearchingState, string> = {
 	eliminated: "bg-gray-400",
 };
 
-export interface SearchingStep {
+export interface SearchingStep extends OperationStep {
 	array: BarItem[];
 	left: number;
 	right: number;
@@ -90,6 +92,7 @@ export function binarySearchSteps(inputArray: BarItem[], target: number): Search
 				found: true,
 				finished: true,
 				comparison,
+				operation: "compare",
 			});
 			return steps;
 		} else if (midValue < target) {
@@ -103,6 +106,7 @@ export function binarySearchSteps(inputArray: BarItem[], target: number): Search
 				found: false,
 				finished: false,
 				comparison,
+				operation: "compare",
 			});
 
 			left = mid + 1;
@@ -117,6 +121,7 @@ export function binarySearchSteps(inputArray: BarItem[], target: number): Search
 				found: false,
 				finished: false,
 				comparison,
+				operation: "compare",
 			});
 
 			right = mid - 1;
