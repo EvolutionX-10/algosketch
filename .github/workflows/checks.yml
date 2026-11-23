@@ -10,7 +10,8 @@ permissions:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    # Keep the runner within Playwright 1.58.2's supported Linux images.
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
