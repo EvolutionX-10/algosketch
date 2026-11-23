@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import ElasticSlider from "../ui/elastic-slider";
+import PlaybackControls from "../shared/playback-controls";
 import { Shuffle } from "lucide-react";
 
 interface ControlProps {
@@ -13,6 +14,8 @@ interface ControlProps {
 	onNextAction: () => void;
 	onPrevAction: () => void;
 	onPauseAction: () => void;
+	onRestartAction: () => void;
+	onSeekAction: (index: number) => void;
 	isPlaying: boolean;
 	canGoNext: boolean;
 	canGoPrev: boolean;
@@ -31,6 +34,8 @@ export default function Control({
 	onNextAction,
 	onPrevAction,
 	onPauseAction,
+	onRestartAction,
+	onSeekAction,
 	isPlaying,
 	canGoNext,
 	canGoPrev,
@@ -43,15 +48,22 @@ export default function Control({
 	arrayValues,
 }: ControlProps) {
 	const [arraySize, setArraySize] = useState(10);
-	const [inputTarget, setInputTarget] = useState(target);
-	const handleTargetSubmit = () => {
-		onTargetChangeAction(inputTarget);
+	const [targetError, setTargetError] = useState("");
+	const handleTargetSubmit = (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const text = String(new FormData(event.currentTarget).get("target") ?? "");
+		if (!/^\d+$/.test(text) || Number(text) < 1 || Number(text) > 99) {
+			setTargetError("Enter a whole-number target from 1 to 99.");
+			return;
+		}
+		setTargetError("");
+		onTargetChangeAction(Number(text));
 	};
 
 	const handleRandomTarget = () => {
 		if (arrayValues.length > 0) {
 			const randomValue = arrayValues[Math.floor(Math.random() * arrayValues.length)];
-			setInputTarget(randomValue);
+			setTargetError("");
 			onTargetChangeAction(randomValue);
 		}
 	};
@@ -60,13 +72,15 @@ export default function Control({
 		<div className="flex flex-col gap-4 rounded-lg border p-4 shadow-sm">
 			<div className="grid gap-4">
 				<div className="space-y-2">
-					<Label htmlFor="array-size">Array Size: {arraySize}</Label>
+					<Label htmlFor="array-size">Generated array size: {arraySize}</Label>
 					<ElasticSlider
+						id="array-size"
+						aria-label="Array size"
 						min={5}
 						max={15}
 						step={1}
 						isStepped
-						defaultValue={arraySize}
+						value={arraySize}
 						onValueChange={(value) => setArraySize(value)}
 						disabled={isPlaying}
 					/>
@@ -78,9 +92,11 @@ export default function Control({
 			</div>
 
 			<div className="space-y-2">
-				<Label htmlFor="speed">Animation Speed</Label>
+				<Label htmlFor="speed">Animation Speed: {speed}</Label>
 				<ElasticSlider
-					defaultValue={speed}
+					id="speed"
+					aria-label="Animation speed"
+					value={speed}
 					min={1}
 					max={10}
 					onValueChange={(value) => onSpeedChangeAction(value)}
@@ -89,23 +105,33 @@ export default function Control({
 			</div>
 
 			<div className="space-y-2">
-				<Label htmlFor="target">Search Target</Label>
-				<div className="flex gap-2">
-					<Input
-						id="target"
-						type="number"
-						value={inputTarget}
-						onChange={(e) => setInputTarget(Number(e.target.value))}
-						onKeyDown={(e) => e.key === "Enter" && handleTargetSubmit()}
-						disabled={isPlaying}
-						min={1}
-						max={99}
-						className="flex-1"
-					/>
-					<Button onClick={handleTargetSubmit} disabled={isPlaying} variant="outline" size="sm">
-						Set
-					</Button>
-				</div>
+				<form key={target} onSubmit={handleTargetSubmit} noValidate className="space-y-2">
+					<Label htmlFor="target">Search Target</Label>
+					<div className="flex gap-2">
+						<Input
+							id="target"
+							name="target"
+							type="number"
+							min={1}
+							max={99}
+							step={1}
+							defaultValue={target}
+							onChange={() => setTargetError("")}
+							disabled={isPlaying}
+							aria-invalid={!!targetError}
+							aria-describedby={targetError ? "target-error" : undefined}
+							className="flex-1"
+						/>
+						<Button type="submit" disabled={isPlaying} variant="outline" size="sm">
+							Set
+						</Button>
+					</div>
+					{targetError && (
+						<p id="target-error" role="alert" className="text-sm text-red-600 dark:text-red-400">
+							{targetError}
+						</p>
+					)}
+				</form>
 				<Button
 					onClick={handleRandomTarget}
 					disabled={isPlaying || arrayValues.length === 0}
@@ -117,31 +143,19 @@ export default function Control({
 				</Button>
 			</div>
 
-			<div className="flex flex-wrap items-center justify-between">
-				<div className="flex w-full justify-center gap-2 md:w-auto">
-					<Button variant="outline" onClick={onPrevAction} disabled={!canGoPrev || isPlaying}>
-						Previous
-					</Button>
-
-					{isPlaying ? (
-						<Button variant="outline" onClick={onPauseAction} disabled={!canGoNext}>
-							Pause
-						</Button>
-					) : (
-						<Button variant="default" onClick={onStartAction} disabled={!canGoNext}>
-							{currentStep === 0 ? "Start" : "Resume"}
-						</Button>
-					)}
-
-					<Button variant="outline" onClick={onNextAction} disabled={!canGoNext || isPlaying}>
-						Next
-					</Button>
-				</div>
-
-				<div className="md:text-muted-foreground flex w-full justify-center pt-4 text-sm md:w-fit md:p-0">
-					Step {currentStep} of {totalSteps}
-				</div>
-			</div>
+			<PlaybackControls
+				onStartAction={onStartAction}
+				onNextAction={onNextAction}
+				onPrevAction={onPrevAction}
+				onPauseAction={onPauseAction}
+				onRestartAction={onRestartAction}
+				onSeekAction={onSeekAction}
+				isPlaying={isPlaying}
+				canGoNext={canGoNext}
+				canGoPrev={canGoPrev}
+				currentStep={currentStep}
+				totalSteps={totalSteps}
+			/>
 		</div>
 	);
 }

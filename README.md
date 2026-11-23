@@ -12,7 +12,7 @@
 ### Why AlgoSketch?
 
 - 🎯 **Educational Focus**: Perfect for learning and teaching algorithms with clear, step-by-step breakdowns
-- 🚀 **Production Ready**: Built with Next.js 15, React 19, and TypeScript for optimal performance
+- 🚀 **Production Ready**: Built with Next.js 16, React 19, and TypeScript for optimal performance
 - 🎨 **Beautiful UI**: Modern, responsive design with dark/light mode support
 - 📱 **Progressive Web App**: Install on any device and use offline
 - 🔍 **Comprehensive**: 8+ algorithms with detailed explanations in 5 programming languages
@@ -22,6 +22,7 @@
 ## ✨ Features
 
 ### 🔄 Sorting Algorithms
+
 - **Bubble Sort** - Simple comparison-based algorithm
 - **Insertion Sort** - Efficient for small datasets
 - **Selection Sort** - In-place comparison sort
@@ -30,15 +31,18 @@
 - **Heap Sort** - Heap-based sorting
 
 ### 🔍 Searching Algorithms
+
 - **Linear Search** - Sequential search
 - **Binary Search** - Efficient search on sorted arrays
 
 ### 📊 Data Structures
+
 - **Stack** - LIFO data structure with push, pop, and peek operations
 - **Queue** - FIFO data structure with enqueue, dequeue, and peek operations
 - **Linked List** - Dynamic data structure with insert, delete, and search operations
 
 ### 🎯 Key Capabilities
+
 - **Dual Visualization Modes**: Toggle between bar charts and node-based visualizations
 - **Step-by-Step Execution**: Manually control each step or automate with adjustable speed
 - **Real-time Statistics**: Track comparisons, swaps, and algorithm status
@@ -46,14 +50,19 @@
 - **Syntax Highlighting**: Beautiful code blocks with copy-to-clipboard functionality
 - **Comprehensive Documentation**: Detailed explanations of how each algorithm works
 - **Performance Analysis**: Time and space complexity breakdowns
+- **Custom Datasets**: Enter arrays or repeat seeded presets in Bubble Sort and Linear Search
+- **Playback Timeline**: Scrub, jump to the first/last step, and restart the same input in those two visualizers
+- **Keyboard Controls**: Adjust array size and speed with accessible sliders
 - **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
 
 ## 🎬 Demo
 
 ### Homepage
+
 ![AlgoSketch Homepage](https://i.ibb.co/TMLbn3Cf/image.png)
 
 ### Dashboard
+
 ![AlgoSketch Dashboard](https://i.ibb.co/4R5c4N6X/image.png)
 
 Experience it live at [algosketch.vercel.app](https://algosketch.vercel.app)
@@ -62,7 +71,7 @@ Experience it live at [algosketch.vercel.app](https://algosketch.vercel.app)
 
 AlgoSketch is built with cutting-edge technologies:
 
-- **[Next.js 15](https://nextjs.org/)** - React framework with App Router and Turbopack
+- **[Next.js 16](https://nextjs.org/)** - React framework with App Router and webpack
 - **[React 19](https://react.dev/)** - Modern UI library with latest features
 - **[TypeScript](https://www.typescriptlang.org/)** - Type-safe JavaScript
 - **[Tailwind CSS 4](https://tailwindcss.com/)** - Utility-first CSS framework
@@ -89,12 +98,15 @@ Comprehensive documentation is available in the [`/docs`](/docs) directory:
 ### What Makes AlgoSketch Stand Out?
 
 #### 1. **Interactive Learning Experience**
+
 Unlike static tutorials, AlgoSketch lets you see algorithms in action. Pause, step through, rewind, and understand exactly what's happening at each moment.
 
 #### 2. **Visual Clarity**
+
 Two visualization modes (bars and nodes) help different learning styles. Color-coded elements show you what's being compared, swapped, or already sorted.
 
 #### 3. **Complete Learning Package**
+
 - Algorithm explanation with step-by-step walkthrough
 - Visual representation with real-time statistics
 - Multi-language code implementations
@@ -102,9 +114,11 @@ Two visualization modes (bars and nodes) help different learning styles. Color-c
 - Practical use cases and optimizations
 
 #### 4. **Accessibility First**
+
 Built with Radix UI components ensuring keyboard navigation, screen reader support, and WCAG compliance.
 
 #### 5. **Progressive Web App**
+
 Install AlgoSketch on your device and use it offline. Perfect for studying on the go!
 
 ## 🤝 Contributing
@@ -124,6 +138,7 @@ Contributions are what make the open-source community such an amazing place to l
 - Animations powered by [Motion](https://motion.dev/)
 - Icons from [Lucide](https://lucide.dev/)
 - Hosted on [Vercel](https://vercel.com/)
+
 ---
 
 <div align="center">

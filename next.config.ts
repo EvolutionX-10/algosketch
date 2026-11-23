@@ -14,6 +14,9 @@ const withSerwist = withSerwistInit({
 });
 
 const nextConfig: NextConfig = {
+	// Keep repository-maintained agent guidance and allow the local preview alias.
+	agentRules: false,
+	allowedDevOrigins: ["127.0.0.1"],
 	devIndicators: false,
 	pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
 	reactStrictMode: false,

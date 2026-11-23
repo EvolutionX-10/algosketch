@@ -22,9 +22,10 @@ Check that environment overrides have not changed either identity. Do not create
 
 ## Project map
 
-AlgoSketch is an educational Next.js App Router application using React, strict TypeScript, Tailwind CSS v4, Radix UI, Motion, MDX, and Serwist. The current catalog has six sorting algorithms, two searching algorithms, and stack, queue, and linked-list visualizers.
+AlgoSketch is an educational Next.js 16.4.6 App Router application using React 19.3.1, strict TypeScript, Tailwind CSS v4, Radix UI, Motion, MDX, and Serwist. The current catalog has six sorting algorithms, two searching algorithms, and stack, queue, and linked-list visualizers.
 
 - `src/app/`: routes, layouts, global CSS, metadata, and service worker source.
+- `src/proxy.ts`: Next.js 16 proxy (formerly middleware); development-cookie compatibility behavior.
 - `src/app/dashboard/algorithms/`: category pages and algorithm lessons in `page.mdx`.
 - `src/app/dashboard/structures/`: data-structure pages in TSX.
 - `src/components/<algorithm>/`: step generators, visualizers, controls, statistics, explanations, and code examples.
@@ -47,7 +48,7 @@ bun run build
 bun run start
 ```
 
-- Development: `npm run dev` runs Next.js with Turbopack on port 3000.
+- Development: `npm run dev` runs Next.js with webpack on port 3000. Both development and production builds explicitly use webpack because the Serwist service worker integration needs it. `agentRules: false` preserves this maintained guide; Next migration docs are bundled under `node_modules/next/dist/docs/`. The local preview alias `127.0.0.1` is explicitly allowed for dev resources.
 - Production build: `npm run build` uses the configured MDX and Serwist integrations.
 - Production preview: `npm run start -- --hostname 0.0.0.0`; build first.
 - Lint: `bun run lint` (ESLint with the Next.js Core Web Vitals rules; literal punctuation in prose is permitted).
@@ -64,6 +65,7 @@ The baseline audit and implementation progress are recorded separately in `plan.
 
 - Follow nearby naming and component organization. Use the `@/` alias for `src/` imports and `import type` for type-only dependencies where practical.
 - Use the existing Prettier configuration: tabs, 120-column print width, and the Tailwind class-ordering plugin. Avoid unrelated reformatting.
+- The native Next.js ESLint configuration has scoped `set-state-in-effect` exceptions for legacy client initialization. Keep new UI event-driven; remove exceptions as the R7 hydration refactor lands.
 - Keep algorithm step generation separate from React rendering and animation timers. Prefer pure, deterministic generators given a fixed input.
 - Clone changed items as well as their containers. Never mutate caller-owned inputs or earlier snapshots. Preserve each logical item's ID across steps and view changes.
 - Represent initial, intermediate, and completed states explicitly. Validate empty, singleton, sorted, reversed, duplicate, and boundary-value inputs where supported. For binary search, make the sorted-input requirement explicit.
@@ -73,7 +75,7 @@ The baseline audit and implementation progress are recorded separately in `plan.
 - Keep numeric validation and errors near the relevant input; reject unsupported input without silently truncating it.
 - Preserve server rendering when adding browser-specific behavior. Isolate local storage, random initialization, and browser APIs to the smallest necessary client boundary.
 - For a new visualizer, update its lesson/route, navigation catalog, category/dashboard discoverability, code examples, complexity explanation, and applicable documentation. The sitemap currently derives algorithm paths from `navData` and `getLink`; verify the generated URL as well.
-- Do not label predictable URL paths or the `dev` cookie as authentication. Inspect actual middleware behavior before changing it; `docs/password-system.md` is out of sync with the implementation.
+- Do not label predictable URL paths or the `dev` cookie as authentication. Inspect actual proxy behavior in `src/proxy.ts` before changing it; `docs/password-system.md` is out of sync with the implementation.
 
 ## Verification and handoff
 
@@ -83,6 +85,6 @@ For behavior changes, exercise the affected user flow in a browser. For visualiz
 
 PWA behavior must be verified against a production build, since Serwist is disabled in development. Check manifest and icon responses, service worker registration, cached-page reload while offline, fallback navigation, and updates without losing active learning work. Avoid running development and production builds against the same `.next` directory simultaneously.
 
-Add focused regression tests when fixing algorithm, snapshot, pointer, or playback defects. `src/lib/algorithm-metrics.ts` defines explicit operation events and their cumulative totals; `src/hooks/use-algorithm-playback.ts` owns playback and timer cleanup for all eight algorithm visualizers. Record actual operations in generators rather than counting highlight frames in UI handlers. Do not add tests solely to mirror documentation edits. Never claim a manual smoke test is a committed automated suite, or a Chromium check is cross-browser coverage.
+Add focused regression tests when fixing algorithm, snapshot, pointer, or playback defects. `src/lib/algorithm-metrics.ts` defines explicit operation events and their cumulative totals; `src/hooks/use-algorithm-playback.ts` owns playback and timer cleanup for all eight algorithm visualizers. Record actual operations in generators rather than counting highlight frames in UI handlers. Bubble and linear search share `dataset-editor.tsx` and `playback-controls.tsx`; parsing/presets live in `src/lib/array-input.ts`. Supported custom input is 1–15 integers in 1–99. Preserve that explicit contract, stable logical IDs within a run, and distinct animation boundaries between datasets. Do not add tests solely to mirror documentation edits. Never claim a manual smoke test is a committed automated suite, or a Chromium check is cross-browser coverage.
 
 Keep generated `.next/`, `node_modules/`, service workers (`public/sw*`), TypeScript build caches, browser reports, and credentials out of source control. Update `plan.md` when completing a roadmap item, including relevant evidence and remaining limitations. Finish with a concise description of changed behavior/files, validation, and any actual blockers.

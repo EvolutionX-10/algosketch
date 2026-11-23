@@ -43,11 +43,13 @@ export default function Control({
 				<div className="flex flex-col gap-2">
 					<Label htmlFor="stack-size">Number of Operations: </Label>
 					<ElasticSlider
+						id="stack-size"
+						aria-label="Number of operations"
 						min={5}
 						max={12}
 						isStepped
 						step={1}
-						defaultValue={stackSize}
+						value={stackSize}
 						onValueChange={(value: number) => setStackSize(value)}
 						disabled={isPlaying}
 						className="py-2"
@@ -58,9 +60,11 @@ export default function Control({
 				</div>
 
 				<div className="flex flex-col gap-2">
-					<Label htmlFor="speed">Animation Speed</Label>
+					<Label htmlFor="speed">Animation Speed: {speed}</Label>
 					<ElasticSlider
-						defaultValue={speed}
+						id="speed"
+						aria-label="Animation speed"
+						value={speed}
 						min={1}
 						max={10}
 						onValueChange={(value: number) => onSpeedChangeAction(value)}
