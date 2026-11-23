@@ -53,7 +53,7 @@ bun run start
 - Lint: `bun run lint` (ESLint with the Next.js Core Web Vitals rules; literal punctuation in prose is permitted).
 - Type check: `bun run typecheck`.
 - Unit regressions: `bun run test:unit` (Bun's test runner, restricted to `tests/unit/`).
-- Browser regressions: `bun run build`, `bunx playwright install chromium`, then `bun run test:e2e`. Playwright starts its own production server on port 3100; keep that port free. Desktop and mobile Chromium projects run by default. To use an existing compatible system browser, set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to its executable path.
+- Browser regressions: `bun run build`, `bunx playwright install chromium`, then `bun run test:e2e`. Playwright starts its own production server on port 3100; keep that port free. Desktop and mobile Chromium projects run by default. CI pins Ubuntu 24.04 because the installed Playwright version does not support Ubuntu 26.04; update the runner and browser version together. To use an existing compatible system browser, set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to its executable path.
 - Formatting check for specific changed files: `./node_modules/.bin/prettier --check <files>`.
 - Format specific changed files: `./node_modules/.bin/prettier --write <files>`.
 - `npm run format` rewrites all of `src/`; avoid using it for a narrow change.
