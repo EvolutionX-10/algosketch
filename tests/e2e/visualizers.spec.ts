@@ -137,6 +137,9 @@ test("production manifest and offline cached/fallback navigation work", async ({
 	await context.setOffline(true);
 	await page.reload({ waitUntil: "domcontentloaded" });
 	await expect(page.getByRole("heading", { name: "Bubble Sort Visualizer", exact: true })).toBeVisible();
+	// Older Chromium builds can leave worker fetches online during offline
+	// emulation. Also fail the uncached request at the network boundary.
+	await context.route("**/not-cached-offline-example", (route) => route.abort("internetdisconnected"));
 	await page.goto("/not-cached-offline-example", { waitUntil: "domcontentloaded" });
 	await expect(page.getByRole("heading", { name: "You're Offline", exact: true })).toBeVisible();
 });
