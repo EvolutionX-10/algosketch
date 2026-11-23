@@ -1,6 +1,6 @@
 import { defaultCache } from "@serwist/next/worker";
 import type { PrecacheEntry, SerwistGlobalConfig } from "serwist";
-import { Serwist } from "serwist";
+import { ExpirationPlugin, NetworkFirst, Serwist } from "serwist";
 import pkg from "../../package.json";
 
 // This declares the value of `injectionPoint` to TypeScript.
@@ -21,7 +21,17 @@ const serwist = new Serwist({
 	clientsClaim: true,
 	navigationPreload: true,
 	cacheId: `algosketch-${pkg.version}`,
-	runtimeCaching: defaultCache,
+	runtimeCaching: [
+		{
+			// Match document navigations explicitly, independently of framework asset rules.
+			matcher: ({ request }) => request.mode === "navigate",
+			handler: new NetworkFirst({
+				cacheName: "pages-html",
+				plugins: [new ExpirationPlugin({ maxEntries: 32, maxAgeSeconds: 24 * 60 * 60 })],
+			}),
+		},
+		...defaultCache,
+	],
 	fallbacks: {
 		entries: [
 			{

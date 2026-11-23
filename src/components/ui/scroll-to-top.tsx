@@ -1,21 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, type RefObject } from "react";
 import { Button } from "./button";
 import { ChevronUpIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ScrollToTopProps {
-	scrollContainer?: HTMLElement | null;
+	scrollContainerRef?: RefObject<HTMLElement | null>;
 	threshold?: number;
 	className?: string;
 }
 
-export function ScrollToTop({ scrollContainer, threshold = 200, className }: ScrollToTopProps) {
+export function ScrollToTop({ scrollContainerRef, threshold = 200, className }: ScrollToTopProps) {
 	const [isVisible, setIsVisible] = useState(false);
 
 	useEffect(() => {
-		const targetElement = scrollContainer || (document.querySelector('main[class*="overflow-auto"]') as HTMLElement);
+		const targetElement =
+			scrollContainerRef?.current || (document.querySelector('main[class*="overflow-auto"]') as HTMLElement);
 
 		if (!targetElement) return;
 
@@ -30,10 +31,11 @@ export function ScrollToTop({ scrollContainer, threshold = 200, className }: Scr
 		return () => {
 			targetElement.removeEventListener("scroll", toggleVisibility);
 		};
-	}, [scrollContainer, threshold]);
+	}, [scrollContainerRef, threshold]);
 
 	const scrollToTop = () => {
-		const targetElement = scrollContainer || (document.querySelector('main[class*="overflow-auto"]') as HTMLElement);
+		const targetElement =
+			scrollContainerRef?.current || (document.querySelector('main[class*="overflow-auto"]') as HTMLElement);
 
 		if (targetElement) {
 			targetElement.scrollTo({

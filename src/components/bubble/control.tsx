@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import ElasticSlider from "../ui/elastic-slider";
+import PlaybackControls from "../shared/playback-controls";
 
 interface ControlProps {
 	onResetAction: (arraySize: number) => void;
@@ -11,6 +12,8 @@ interface ControlProps {
 	onNextAction: () => void;
 	onPrevAction: () => void;
 	onPauseAction: () => void;
+	onRestartAction: () => void;
+	onSeekAction: (index: number) => void;
 	isPlaying: boolean;
 	canGoNext: boolean;
 	canGoPrev: boolean;
@@ -26,6 +29,8 @@ export default function Control({
 	onNextAction,
 	onPrevAction,
 	onPauseAction,
+	onRestartAction,
+	onSeekAction,
 	isPlaying,
 	canGoNext,
 	canGoPrev,
@@ -40,13 +45,15 @@ export default function Control({
 		<div className="bg-background flex flex-col flex-wrap gap-4 rounded-lg border p-4">
 			<div className="grid w-full gap-12 gap-y-4 md:grid-cols-2">
 				<div className="flex flex-col gap-2">
-					<Label htmlFor="array-size">Array Size: {arraySize}</Label>
+					<Label htmlFor="array-size">Generated array size: {arraySize}</Label>
 					<ElasticSlider
+						id="array-size"
+						aria-label="Array size"
 						min={5}
 						max={15}
 						isStepped
 						step={1}
-						defaultValue={arraySize}
+						value={arraySize}
 						onValueChange={(value) => setArraySize(value)}
 						disabled={isPlaying}
 						className="py-2"
@@ -57,9 +64,11 @@ export default function Control({
 				</div>
 
 				<div className="flex flex-col gap-2">
-					<Label htmlFor="speed">Animation Speed</Label>
+					<Label htmlFor="speed">Animation Speed: {speed}</Label>
 					<ElasticSlider
-						defaultValue={speed}
+						id="speed"
+						aria-label="Animation speed"
+						value={speed}
 						min={1}
 						max={10}
 						onValueChange={(value) => onSpeedChangeAction(value)}
@@ -68,31 +77,19 @@ export default function Control({
 				</div>
 			</div>
 
-			<div className="flex flex-wrap items-center justify-between">
-				<div className="flex w-full justify-center gap-2 md:w-auto">
-					<Button variant="outline" onClick={onPrevAction} disabled={!canGoPrev || isPlaying}>
-						Previous
-					</Button>
-
-					{isPlaying ? (
-						<Button variant="outline" onClick={onPauseAction} disabled={!canGoNext}>
-							Pause
-						</Button>
-					) : (
-						<Button variant="default" onClick={onStartAction} disabled={!canGoNext}>
-							{currentStep === 0 ? "Start" : "Resume"}
-						</Button>
-					)}
-
-					<Button variant="outline" onClick={onNextAction} disabled={!canGoNext || isPlaying}>
-						Next
-					</Button>
-				</div>
-
-				<div className="md:text-muted-foreground flex w-full justify-center pt-4 text-sm md:w-fit md:p-0">
-					Step {currentStep} of {totalSteps}
-				</div>
-			</div>
+			<PlaybackControls
+				onStartAction={onStartAction}
+				onNextAction={onNextAction}
+				onPrevAction={onPrevAction}
+				onPauseAction={onPauseAction}
+				onRestartAction={onRestartAction}
+				onSeekAction={onSeekAction}
+				isPlaying={isPlaying}
+				canGoNext={canGoNext}
+				canGoPrev={canGoPrev}
+				currentStep={currentStep}
+				totalSteps={totalSteps}
+			/>
 		</div>
 	);
 }

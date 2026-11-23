@@ -7,6 +7,8 @@ import Bar from "../shared/bar";
 import Node from "../shared/node";
 import VisualizationSwitcher from "../shared/visualization-switcher";
 import Control from "./control";
+import DatasetEditor from "../shared/dataset-editor";
+import { createArrayItems } from "@/lib/array-input";
 import Legend from "./legend";
 import InfoBox from "./infoBox";
 import SortStepDescription from "./stepDescription";
@@ -27,6 +29,8 @@ export default function Visualizer() {
 		prevStep,
 		startAnimation,
 		pauseAnimation,
+		restart,
+		seekStep,
 		metrics: { comparisons, swaps },
 	} = useAlgorithmPlayback<SortingStep>();
 	const [visualizationMode, setVisualizationMode] = useState<"bar" | "node">("bar");
@@ -49,6 +53,12 @@ export default function Visualizer() {
 		[resetSteps],
 	);
 
+	const applyArray = (values: number[]) => {
+		const newArray = createArrayItems(values);
+		setArray(newArray);
+		resetSteps(bubbleSortSteps(newArray));
+	};
+
 	useEffect(() => {
 		resetArray(10);
 	}, [resetArray]);
@@ -67,7 +77,7 @@ export default function Visualizer() {
 		<>
 			<Banner onClickAction={handleScroll} />
 			<div className="flex w-full flex-col gap-4" ref={containerRef}>
-				<div className="flex items-center justify-between">
+				<div className="flex flex-wrap items-center justify-between gap-3">
 					<h2 className="text-2xl font-bold">Bubble Sort Visualizer</h2>
 					<VisualizationSwitcher
 						mode={visualizationMode}
@@ -83,7 +93,7 @@ export default function Visualizer() {
 						<div className="bg-card flex h-80 flex-col rounded-lg border p-4">
 							{visualizationMode === "bar" ? (
 								<div className="flex flex-1 items-end justify-center gap-2">
-									<AnimatePresence>
+									<AnimatePresence key={array[0]?.id}>
 										{currentStep.array.map((item, index) => (
 											<Bar key={item.id} item={item} maxValue={maxValue} index={index} stateStyles={stateStyles} />
 										))}
@@ -92,7 +102,7 @@ export default function Visualizer() {
 							) : (
 								<div className="flex flex-1 items-center justify-center">
 									<div className="flex flex-wrap items-center gap-4">
-										<AnimatePresence>
+										<AnimatePresence key={array[0]?.id}>
 											{currentStep.array.map((item, index) => (
 												<Node key={item.id} item={item} index={index} stateStyles={stateStyles} />
 											))}
@@ -108,12 +118,16 @@ export default function Visualizer() {
 					</div>
 				</div>
 
+				<DatasetEditor values={array.map((item) => item.value)} disabled={isPlaying} onApplyAction={applyArray} />
+
 				<Control
 					onResetAction={resetArray}
 					onStartAction={startAnimation}
 					onNextAction={nextStep}
 					onPrevAction={prevStep}
 					onPauseAction={pauseAnimation}
+					onRestartAction={restart}
+					onSeekAction={seekStep}
 					isPlaying={isPlaying}
 					canGoNext={currentStepIndex < steps.length - 1}
 					canGoPrev={currentStepIndex > 0}

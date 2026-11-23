@@ -29,7 +29,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 					</section>
 					<Footer className="mt-auto" />
 				</main>
-				<ScrollToTop scrollContainer={mainRef.current} />
+				<ScrollToTop scrollContainerRef={mainRef} />
 			</SidebarInset>
 		</SidebarProvider>
 	);

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
 	if (request.nextUrl.origin === "http://localhost:3000") {
 		const response = NextResponse.next();
 

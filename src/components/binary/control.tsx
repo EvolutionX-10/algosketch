@@ -62,11 +62,13 @@ export default function Control({
 				<div className="space-y-2">
 					<Label htmlFor="array-size">Array Size: {arraySize}</Label>
 					<ElasticSlider
+						id="array-size"
+						aria-label="Array size"
 						min={5}
 						max={15}
 						step={1}
 						isStepped
-						defaultValue={arraySize}
+						value={arraySize}
 						onValueChange={(value) => setArraySize(value)}
 						disabled={isPlaying}
 					/>
@@ -77,9 +79,11 @@ export default function Control({
 				</Button>
 			</div>
 			<div className="space-y-2">
-				<Label htmlFor="speed">Animation Speed</Label>
+				<Label htmlFor="speed">Animation Speed: {speed}</Label>
 				<ElasticSlider
-					defaultValue={speed}
+					id="speed"
+					aria-label="Animation speed"
+					value={speed}
 					min={1}
 					max={10}
 					onValueChange={(value) => onSpeedChangeAction(value)}

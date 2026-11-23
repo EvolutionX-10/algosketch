@@ -5,6 +5,8 @@ import { useAlgorithmPlayback } from "@/hooks/use-algorithm-playback";
 import { BarItem, SearchingStep, linearSearchSteps, generateRandomArray, stateStyles } from "./linearSearch";
 import SimpleBar from "../shared/simple-bar";
 import Control from "./control";
+import DatasetEditor from "../shared/dataset-editor";
+import { createArrayItems } from "@/lib/array-input";
 import Legend from "./legend";
 import InfoBox from "./infoBox";
 import SearchStepDescription from "./stepDescription";
@@ -25,6 +27,8 @@ export default function Visualizer() {
 		prevStep,
 		startAnimation,
 		pauseAnimation,
+		restart,
+		seekStep,
 		metrics: { comparisons },
 	} = useAlgorithmPlayback<SearchingStep>();
 	const [target, setTarget] = useState(0);
@@ -53,6 +57,12 @@ export default function Visualizer() {
 		},
 		[resetSteps],
 	);
+
+	const applyArray = (values: number[]) => {
+		const newArray = createArrayItems(values);
+		setArray(newArray);
+		resetSteps(linearSearchSteps(newArray, target));
+	};
 
 	useEffect(() => {
 		resetArray(10);
@@ -83,7 +93,7 @@ export default function Visualizer() {
 					<div className="md:col-span-2">
 						<div className="bg-card flex flex-col rounded-lg border p-4">
 							<div className="flex flex-1 items-end justify-center gap-2">
-								<AnimatePresence>
+								<AnimatePresence key={array[0]?.id}>
 									{currentStep?.array.map((item, index) => (
 										<SimpleBar
 											key={item.id}
@@ -115,12 +125,16 @@ export default function Visualizer() {
 					/>
 				</div>
 
+				<DatasetEditor values={array.map((item) => item.value)} disabled={isPlaying} onApplyAction={applyArray} />
+
 				<Control
 					onResetAction={resetArray}
 					onStartAction={startAnimation}
 					onNextAction={nextStep}
 					onPrevAction={prevStep}
 					onPauseAction={pauseAnimation}
+					onRestartAction={restart}
+					onSeekAction={seekStep}
 					isPlaying={isPlaying}
 					canGoNext={currentStepIndex < steps.length - 1}
 					canGoPrev={currentStepIndex > 0}

@@ -72,14 +72,14 @@ for (const { name, category } of algorithms) {
 test("playback completes, rewinds without resuming, and resets without stale timers", async ({ page }) => {
 	await page.goto("/dashboard/algorithms/sorting/bubble");
 	await expect(page.getByRole("button", { name: "Next", exact: true })).toBeEnabled();
-	const sliders = page.locator(".slider-root");
 	// Smallest dataset and fastest supported playback; exercise a live speed change.
-	await sliders.nth(0).click({ position: { x: 1, y: 3 } });
+	await page.getByRole("slider", { name: "Array size", exact: true }).focus();
+	await page.keyboard.press("Home");
 	await page.getByRole("button", { name: "Generate", exact: true }).click();
 	await page.getByRole("button", { name: "Start", exact: true }).click();
-	const box = await sliders.nth(1).boundingBox();
-	await sliders.nth(1).click({ position: { x: box!.width - 1, y: 3 } });
-	await expect(page.getByText("Sorted", { exact: true })).toBeVisible({ timeout: 12000 });
+	await page.getByRole("slider", { name: "Animation speed", exact: true }).focus();
+	await page.keyboard.press("End");
+	await expect(metric(page, "Status")).toHaveText("Sorted", { timeout: 12000 });
 	await expect(page.getByRole("button", { name: "Next", exact: true })).toBeDisabled();
 	await page.getByRole("button", { name: "Previous", exact: true }).click();
 	const step = await metric(page, "Step").innerText();
@@ -139,7 +139,9 @@ test("production manifest and offline cached/fallback navigation work", async ({
 	await expect(page.getByRole("heading", { name: "Bubble Sort Visualizer", exact: true })).toBeVisible();
 	// Older Chromium builds can leave worker fetches online during offline
 	// emulation. Also fail the uncached request at the network boundary.
-	await context.route("**/not-cached-offline-example", (route) => route.abort("internetdisconnected"));
+	await context.route("**/not-cached-offline-example", (route) =>
+		route.request().serviceWorker() ? route.abort("internetdisconnected") : route.continue(),
+	);
 	await page.goto("/not-cached-offline-example", { waitUntil: "domcontentloaded" });
 	await expect(page.getByRole("heading", { name: "You're Offline", exact: true })).toBeVisible();
 });
